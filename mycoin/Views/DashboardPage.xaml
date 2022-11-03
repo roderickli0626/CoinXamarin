@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<base:BasePage
+ xmlns:base="clr-namespace:mycoin.Views" 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="mycoin.Views.DashboardPage">
+    <ContentPage.Content>
+        <Label Text="Welcome to Dashboard Page" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+    </ContentPage.Content>
+</base:BasePage>
