@@ -3,8 +3,9 @@
  xmlns:base="clr-namespace:mycoin.Views" 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mycoin"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-    x:Class="mycoin.Views.RegisterPage">  
+    x:Class="mycoin.Views.RegisterPage">
     <!--<ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="buttonstyle" TargetType="material:MaterialButton">
@@ -27,27 +28,71 @@
             </Grid>
             <ScrollView Grid.Row="1" Padding="20,0">
                 <StackLayout Margin="0,10,0,0">
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding FirstName}" Placeholder="First Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>
+
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="create40.png" Margin="10"/>
+                            </Frame>
+                            <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="First Name" ErrorText="{Binding FirstNameError}" Text="{Binding FirstName}" HasError="{Binding IsValidFirstName}" InputType="Text" Margin="0"/>
+                            <!--<Entry Text="{Binding FamilyName}" Placeholder="Family Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding FamilyName}" Placeholder="Family Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="create40.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Family Name" ErrorText="{Binding FamilyNameError}" Text="{Binding FamilyName}" HasError="{Binding IsValidFamilyName}" InputType="Text" Margin="0"/>
+                            <!--<Entry Text="{Binding FamilyName}" Placeholder="Family Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding Email}" Placeholder="Email Address" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="secured40.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Email Address" ErrorText="{Binding EmailError}" Text="{Binding Email}" HasError="{Binding IsValidEmail}" InputType="Email" Margin="0"/>
+                            <!--<Entry Text="{Binding Email}" Placeholder="Email Address" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="lock64.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Password" ErrorText="{Binding PasswordError}" Text="{Binding Password}" InputType="Password" HasError="{Binding IsValidPassword}" Margin="0"/>
+                            <!--<Entry Text="{Binding Password}" IsPassword="True" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding RepeatPassword}" IsPassword="True" Placeholder="Repeat Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="lock64.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Repeat Password" ErrorText="{Binding RepeatPasswordError}" Text="{Binding RepeatPassword}" HasError="{Binding IsValidRepeatPassword}" InputType="Password" Margin="0"/>
+                            <!--<Entry Text="{Binding Password}" IsPassword="True" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding SerialNumber}" Placeholder="Serial Number" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0" IsReadOnly="True"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="monitor40.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <local:CustomEntry HeightRequest="55" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray" Placeholder="{Binding SerialNumber}" Margin="0" IsReadOnly="True"/>
+                            <!--<Entry Text="{Binding SerialNumber}" Placeholder="Serial Number" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0" IsReadOnly="True"/>-->
+                        </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
-                        <Entry Text="{Binding Language}" Placeholder="Language" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0" IsReadOnly="True"/>
+                    <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
+                                <Image Source="monitor40.png" Aspect="AspectFill" Margin="10"/>
+                            </Frame>
+                            <local:CustomEntry HeightRequest="55" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray" Placeholder="{Binding Language}" Margin="0" IsReadOnly="True"/>
+                            <!--<Entry Text="{Binding Language}" Placeholder="Language" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0" IsReadOnly="True"/>-->
+                        </StackLayout>
                     </Frame>
+                    <Label Text="{Binding PasswordLength}" HorizontalTextAlignment="Center" Margin="10"></Label>
                     <Button Text="Register" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="50,40,50,80" VerticalOptions="EndAndExpand" Command="{Binding RegisterCommand}"/>
 
                     <!--<material:MaterialTextField Placeholder="First Name" ErrorText="{Binding FirstNameError}" Text="{Binding FirstName}" HasError="{Binding IsValidFirstName}" InputType="Text" Margin="0,5"/>
@@ -58,6 +103,6 @@
                     <!--<material:MaterialButton Margin="0,40" Style="{x:StaticResource buttonstyle}" Text="Register" VerticalOptions="EndAndExpand" Command="{Binding RegisterCommand}"/>-->
                 </StackLayout>
             </ScrollView>
-            </Grid>
+        </Grid>
     </ContentPage.Content>
 </base:BasePage>

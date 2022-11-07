@@ -44,7 +44,10 @@ namespace mycoin.ViewModels
                 return;
             }
             else
+            {
                 IsValidEmail = false;
+                EmailError = "";
+            }
 
             if (!Email.ValidateEmail())
             {
@@ -55,6 +58,7 @@ namespace mycoin.ViewModels
             else
             {
                 IsValidEmail = false;
+                EmailError = "";
             }
 
             if (string.IsNullOrEmpty(Password))
@@ -63,8 +67,11 @@ namespace mycoin.ViewModels
                 PasswordError = "Enter password";
                 return;
             }
-            else IsValidPassword = false;
-
+            else
+            {
+                IsValidPassword = false;
+                PasswordError = "";
+            }
             LoginRequest req = new LoginRequest()
             {
                 email = Email,

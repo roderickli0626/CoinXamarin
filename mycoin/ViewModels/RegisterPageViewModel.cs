@@ -20,7 +20,7 @@ namespace mycoin.ViewModels
 
         #region Properties
         bool _isvalidpassword, _isvalidrepeatpassword, _isvalidfirstname, _isvalidfamilyname, _isvalidemail;
-        string _email, _password, _firstname, _familyname, _repeatpassword, _emailerror, _passworderror, _firstnameerror, _familynameerror, _repeatpassworderror;
+        string _email, _password, _firstname, _familyname, _repeatpassword, _passwordlength, _emailerror, _passworderror, _firstnameerror, _familynameerror, _repeatpassworderror;
 
         public string Email { get => _email; set => SetProperty(ref _email, value); }
 
@@ -31,6 +31,8 @@ namespace mycoin.ViewModels
         public string FamilyName { get => _familyname; set => SetProperty(ref _familyname, value); }
 
         public string RepeatPassword { get => _repeatpassword; set => SetProperty(ref _repeatpassword, value); }
+
+        public string PasswordLength { get => _passwordlength; set => SetProperty(ref _passwordlength, value); }
 
 
 
@@ -120,6 +122,15 @@ namespace mycoin.ViewModels
             else
             {
                 IsValidPassword = false;
+            }
+            if (Password.Length < 8)
+            {
+                PasswordLength = "Your password has to contains at least 8 characters";
+                return;
+            }
+            else
+            {
+                PasswordLength = "";
             }
             if (Password != RepeatPassword)
             {

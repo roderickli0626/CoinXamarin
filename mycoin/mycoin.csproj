@@ -21,7 +21,4 @@
     <None Remove="Views\" />
     <None Remove="XF.Material" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
 </Project>

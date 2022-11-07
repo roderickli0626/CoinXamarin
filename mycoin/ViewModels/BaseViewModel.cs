@@ -11,7 +11,8 @@ namespace mycoin.ViewModels
         public BaseViewModel()
         {
         }
-        public void RunIndicator(string loadingtext = "Loading...")
+        //public void RunIndicator(string loadingtext = "Loading...")
+        public void RunIndicator(string loadingtext = "Waiting...")
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading(loadingtext, maskType: Acr.UserDialogs.MaskType.Black);
         }
