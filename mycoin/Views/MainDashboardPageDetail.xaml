@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mycoin.Views.MainDashboardPageDetail"
+             Title="Hello My Friend">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+                <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
+                    </AbsoluteLayout>
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
+                        <Image Source="ic_header_coin_big_center.xml"/>
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
+                    </FlexLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
+                        <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
+                        <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
+                    </AbsoluteLayout>
+                </AbsoluteLayout>
+                <FlexLayout>
+                    <!--<Image Source="ic_header_coin_big_left.xml"/>-->
+                    <!--<Image Source="ic_header_coin_big_center.xml"/>-->
+                    <!--<Image Source="ic_header_coin_big_right.xml"/>-->
+                </FlexLayout>
+                <StackLayout>
+                    <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
+                        <Label Text="First Program" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center"/>
+                        <Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20"/>
+                    </StackLayout>
+                    
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
+                        <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
+                        <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
+                        <Image Source="ic_biapp_icon_favorit_hinzufuegen.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Image Source="ic_menu_btn_applications.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 10"/>
+                        <Image Source="ic_menu_btn_planning.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 10"/>
+                        <Image Source="ic_menu_btn_shop.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 10"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Image Source="ic_card_icon_scan.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 30"/>
+                        <Image Source="ic_menu_btn_br.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 30"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
+                        <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <!--<StackLayout>
+                <Label Text="Welcome to Dashboard Page" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+            </StackLayout>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

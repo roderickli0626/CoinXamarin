@@ -32,7 +32,7 @@ namespace mycoin.Views
                 }
 
                 await Task.Delay(3000);
-                App.Current.MainPage = new NavigationPage(new LoginPage());
+                App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }
             catch (Exception ex)
             {
