@@ -5,6 +5,43 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="mycoin.Views.DashboardPage">
     <ContentPage.Content>
-        <Label Text="Welcome to Dashboard Page" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+        <StackLayout>
+            <Label Text="Synchronisation" FontSize="26" VerticalOptions="Center" Margin="15,0,0,0" TextColor="Black"/>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+                <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
+                    </AbsoluteLayout>
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
+                            <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
+                            <Image Source="ic_header_coin_big_center.xml"/>
+                            <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
+                    </FlexLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
+                        <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
+                        <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
+                    </AbsoluteLayout>
+                </AbsoluteLayout>
+                <FlexLayout>
+                    <!--<Image Source="ic_header_coin_big_left.xml"/>-->  
+                    <!--<Image Source="ic_header_coin_big_center.xml"/>-->
+                    <!--<Image Source="ic_header_coin_big_right.xml"/>-->
+                </FlexLayout>
+                <StackLayout>
+                    <Image x:Name="LoadingImage" Source="ic_biapp_icon_popup_sprachwechsel.xml" HeightRequest="50" WidthRequest="50" Margin="0,50,0,30"/>
+                    <Label Text="Synchronisation" HorizontalOptions="Center" TextColor="#028BD4" FontSize="32" Margin="0,0,0,50"></Label>
+                    <Label Text="Synchronisation from web server tables and Groups and program substances" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="20" Margin="20"></Label>
+                </StackLayout>
+            </StackLayout>
+            
+            
+
+            <!--<StackLayout>
+                <Label Text="Welcome to Dashboard Page" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+            </StackLayout>-->
+        </StackLayout>
     </ContentPage.Content>
 </base:BasePage>

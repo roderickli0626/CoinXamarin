@@ -41,7 +41,7 @@
                     <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
                         <StackLayout Orientation="Horizontal" Spacing="0">
                             <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
-                                <Image Source="create40.png" Aspect="AspectFill" Margin="10"/>
+                                <Image Source="create40.png" Margin="10"/>
                             </Frame>
                             <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Family Name" ErrorText="{Binding FamilyNameError}" Text="{Binding FamilyName}" HasError="{Binding IsValidFamilyName}" InputType="Text" Margin="0"/>
                             <!--<Entry Text="{Binding FamilyName}" Placeholder="Family Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
@@ -50,7 +50,7 @@
                     <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
                         <StackLayout Orientation="Horizontal" Spacing="0">
                             <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
-                                <Image Source="secured40.png" Aspect="AspectFill" Margin="10"/>
+                                <Image Source="secured40.png" Margin="10"/>
                             </Frame>
                             <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Email Address" ErrorText="{Binding EmailError}" Text="{Binding Email}" HasError="{Binding IsValidEmail}" InputType="Email" Margin="0"/>
                             <!--<Entry Text="{Binding Email}" Placeholder="Email Address" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
@@ -59,7 +59,7 @@
                     <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
                         <StackLayout Orientation="Horizontal" Spacing="0">
                             <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
-                                <Image Source="lock64.png" Aspect="AspectFill" Margin="10"/>
+                                <Image Source="lock64.png" Margin="10"/>
                             </Frame>
                             <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Password" ErrorText="{Binding PasswordError}" Text="{Binding Password}" InputType="Password" HasError="{Binding IsValidPassword}" Margin="0"/>
                             <!--<Entry Text="{Binding Password}" IsPassword="True" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
@@ -68,7 +68,7 @@
                     <Frame BackgroundColor="White" Margin="0,15,0,0" Padding="0,-3,0,1" HorizontalOptions="FillAndExpand" BorderColor="Gray">
                         <StackLayout Orientation="Horizontal" Spacing="0">
                             <Frame BackgroundColor="White" HeightRequest="40" WidthRequest="55" Padding="0" Margin="0">
-                                <Image Source="lock64.png" Aspect="AspectFill" Margin="10"/>
+                                <Image Source="lock64.png" Margin="10"/>
                             </Frame>
                             <material:MaterialTextField HorizontalOptions="FillAndExpand" Placeholder="Repeat Password" ErrorText="{Binding RepeatPasswordError}" Text="{Binding RepeatPassword}" HasError="{Binding IsValidRepeatPassword}" InputType="Password" Margin="0"/>
                             <!--<Entry Text="{Binding Password}" IsPassword="True" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"/>-->
