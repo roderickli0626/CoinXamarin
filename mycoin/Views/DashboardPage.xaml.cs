@@ -22,6 +22,7 @@ namespace mycoin.Views
         {
             try
             {
+                await App.Database.DeleteAllNotesAsync();
                 //pull the data from api
                 List<Note> response = await HttpHelper.Instance.PostContentAsync<List<Note>>(ApiURLs.LoadDB, App.Userdata);
 
@@ -29,6 +30,9 @@ namespace mycoin.Views
                 {
                     await App.Database.SaveNoteAsync(item);
                 }
+
+                await Task.Delay(3000);
+                App.Current.MainPage = new NavigationPage(new LoginPage());
             }
             catch (Exception ex)
             {
@@ -37,11 +41,11 @@ namespace mycoin.Views
             }
         }
 
-        async private void Button_Clicked(object sender, EventArgs e)
-        {
-            Note notes = await App.Database.GetNoteAsync(1);
-            Console.WriteLine(notes);
-        }
+        //async private void Button_Clicked(object sender, EventArgs e)
+        //{
+        //    Note notes = await App.Database.GetNoteAsync(1);
+        //    Console.WriteLine(notes);
+        //}
 
         public async Task RotateImageContinously()
         {
