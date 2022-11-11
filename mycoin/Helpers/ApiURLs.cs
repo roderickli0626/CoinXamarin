@@ -5,5 +5,6 @@ namespace mycoin.Helpers
     {
         public static readonly string Login = "Auth/Login";
         public static readonly string Register = "Auth/Register";
+        public static readonly string LoadDB = "Substance/loadDB";
     }
 }

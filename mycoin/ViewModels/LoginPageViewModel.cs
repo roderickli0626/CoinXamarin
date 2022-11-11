@@ -86,6 +86,12 @@ namespace mycoin.ViewModels
                 {
                     if (response.result == true)
                     {
+                        App.Userdata = new Userdata()
+                        {
+                            userid = response.userId,
+                            languageid = response.languageNumber,
+                            devicenum = response.deviceNumber
+                        };
                         App.Current.MainPage = new NavigationPage(new DashboardPage());
                     }
                     else
@@ -96,7 +102,7 @@ namespace mycoin.ViewModels
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             finally
             {
