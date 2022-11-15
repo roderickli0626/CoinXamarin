@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Accordion;assembly=Syncfusion.Expander.XForms"
              x:Class="mycoin.Views.MainDashboardPage1">
     <ContentPage.Content>
         <StackLayout>
@@ -34,10 +36,139 @@
                 </FlexLayout>
                 <Grid>
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
-                    <StackLayout>
+                    <StackLayout Background="ic_background.xml">
                         <StackLayout>
-                            <SearchBar Placeholder="Search" PlaceholderColor="Gray" TextColor="Black" Margin="10" FontSize="Medium" CancelButtonColor="Gray" />
+                            <SearchBar Placeholder="Search" PlaceholderColor="Gray" TextColor="Black" Margin="10,10,10,-10" FontSize="Medium" CancelButtonColor="Gray" />
                         </StackLayout>
+
+                        <StackLayout>
+                            <Grid>
+                                <xct:TabView TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
+                                             TabContentBackgroundColor="Transparent">
+                                    <xct:TabViewItem Text="Favorites" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                        <Grid>
+                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent1" />
+                                        </Grid>
+                                    </xct:TabViewItem>
+                                    <xct:TabViewItem Text="History" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                        <Grid>
+                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent2" />
+                                        </Grid>
+                                    </xct:TabViewItem>
+                                    <xct:TabViewItem Text="All Applications" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                        <!--<Grid>
+                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent1" />
+                                        </Grid>-->
+                                        <syncfusion:SfAccordion>
+                                            <syncfusion:SfAccordion.Items>
+
+                                                <CollectionView ItemsSource="{Binding MyDetailGroups}">
+                                                    <CollectionView.ItemsLayout>
+                                                        <LinearItemsLayout Orientation="Horizontal"/>
+                                                    </CollectionView.ItemsLayout>
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <syncfusion:AccordionItem>
+                                                                <syncfusion:AccordionItem.Header>
+                                                                    <Grid Padding="10,0,0,10">
+                                                                        <Label TextColor="#495F6E" Text="Group01" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                                    </Grid>
+                                                                </syncfusion:AccordionItem.Header>
+
+                                                                <syncfusion:AccordionItem.Content>
+                                                                    <Grid Padding="10,0,0,10" BackgroundColor="#FFFFFF">
+                                                                        <Label TextColor="#303030" Text="11.03 AM, 15 January 2019" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                                    </Grid>
+                                                                </syncfusion:AccordionItem.Content>
+                                                            </syncfusion:AccordionItem>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                                
+                                                <!--<syncfusion:AccordionItem>
+                                                    <syncfusion:AccordionItem.Header>
+                                                        <Grid Padding="10,0,0,10">
+                                                            <Label TextColor="#495F6E" Text="Group01" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Header>
+
+                                                    <syncfusion:AccordionItem.Content>
+                                                        <Grid Padding="10,0,0,10" BackgroundColor="#FFFFFF">
+                                                            <Label TextColor="#303030" Text="11.03 AM, 15 January 2019" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Content>
+                                                </syncfusion:AccordionItem>
+
+
+                                                <syncfusion:AccordionItem>
+                                                    <syncfusion:AccordionItem.Header>
+                                                        <Grid Padding="10,0,10,10">
+                                                            <Label Text="Group02" TextColor="#495F6E" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Header>
+
+                                                    <syncfusion:AccordionItem.Content>
+                                                        <Grid BackgroundColor="#FFFFFF" Padding="10,0,10,10">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label TextColor="#303030" Text="2018 Subaru Outback"/>
+                                                            <Label TextColor="#303030" Text="All-Weather Mats" Grid.Row="1"/>
+                                                            <Label TextColor="#303030" Text="Door Edge Guard Kit" Grid.Row="2"/>
+                                                            <Label TextColor="#303030" Text="Rear Bumper Cover" Grid.Row="3"/>
+                                                            <Label TextColor="#303030" Text="Total Amount Paid" FontAttributes="Bold" Grid.Row="4"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$35,705.00" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$105.00" Grid.Row="1" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$100.00" Grid.Row="2" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$95.00" Grid.Row="3" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$36,000.00" FontAttributes="Bold" Grid.Row="4" Grid.Column="1"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Content>
+                                                </syncfusion:AccordionItem>
+
+                                                <syncfusion:AccordionItem>
+                                                    <syncfusion:AccordionItem.Header>
+                                                        <Grid Padding="10,0,10,10">
+                                                            <Label Text="Group03" TextColor="#495F6E" HeightRequest="50" VerticalTextAlignment="Center"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Header>
+
+                                                    <syncfusion:AccordionItem.Content>
+                                                        <Grid BackgroundColor="#FFFFFF" Padding="10,0,10,10">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label TextColor="#303030" Text="Card Payment"/>
+                                                            <Label TextColor="#303030" Text="Third-Party coupons" Grid.Row="1"/>
+                                                            <Label TextColor="#303030" Text="Total Amount Paid" FontAttributes="Bold" Grid.Row="2"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$31,000.00" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$5,000.00" Grid.Row="1" Grid.Column="1"/>
+                                                            <Label TextColor="#303030" HorizontalTextAlignment="End" Text="$36,000.00" FontAttributes="Bold" Grid.Row="2" Grid.Column="1"/>
+                                                        </Grid>
+                                                    </syncfusion:AccordionItem.Content>
+                                                </syncfusion:AccordionItem>-->
+
+                                            </syncfusion:SfAccordion.Items>
+                                        </syncfusion:SfAccordion>
+                                    </xct:TabViewItem>
+                                </xct:TabView>
+                            </Grid>
+                        </StackLayout>
+                        
                         <!--<StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
                             <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5"/>
@@ -51,16 +182,14 @@
                             <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
                             <Image Source="ic_biapp_icon_favorit_hinzufuegen.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
                         </StackLayout>-->
-
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
-                            <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                        </StackLayout>
                     </StackLayout>
                 </Grid>
-
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="End" BackgroundColor="White">
+                    <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                    <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                    <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                    <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                </StackLayout>
             </StackLayout>
 
 

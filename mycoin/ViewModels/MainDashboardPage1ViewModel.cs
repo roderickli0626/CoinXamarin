@@ -6,5 +6,9 @@ namespace mycoin.ViewModels
 {
     public class MainDashboardPage1ViewModel : BaseViewModel
     {
+        //readonly IList<MyDetailGroup> source;
+        //public ObservableCollection<MyDetailGroup> MyDetailGroups { get; private set; }
+
+
     }
 }
