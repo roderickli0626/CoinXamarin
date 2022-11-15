@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="mycoin.Views.MainDashboardPageDetail"
-             Title="{Binding titleFromUserInfo}">
+             x:Class="mycoin.Views.MainDashboardPage1">
     <ContentPage.Content>
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_menu.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
-                <Label Text="{Binding titleFromUserInfo}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Label Text="My Applications" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
             </FlexLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
                 <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
-                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
-                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,230,230" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="230" WidthRequest="230"/>
+                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="230" WidthRequest="230"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
                     <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
@@ -35,13 +34,16 @@
                 </FlexLayout>
                 <Grid>
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
-                    <StackLayout Background="ic_background.xml">
-                        <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
+                    <StackLayout>
+                        <StackLayout>
+                            <SearchBar Placeholder="Search" PlaceholderColor="Gray" TextColor="Black" Margin="10" FontSize="Medium" CancelButtonColor="Gray" />
+                        </StackLayout>
+                        <!--<StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
                             <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>
-                            <!--<Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20" Margin="-5"/>-->
-                        </StackLayout>
+                            --><!--<Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20" Margin="-5"/>--><!--
+                        </StackLayout>-->
 
                         <!--<StackLayout Orientation="Horizontal">
                             <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
@@ -50,31 +52,6 @@
                             <Image Source="ic_biapp_icon_favorit_hinzufuegen.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
                         </StackLayout>-->
 
-                        <StackLayout>
-                            <CollectionView ItemsSource="{Binding MyGroups}">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Image Source="{Binding ImageUrl}" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" />
-                                            <Label Text="{Binding GroupName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </StackLayout>
-                        
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                            <ImageButton Source="ic_menu_btn_applications.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 40, 10" BackgroundColor="#F0F2F3" Clicked="ImageButton_Clicked"/>
-                            <ImageButton Source="ic_menu_btn_planning.xml" HeightRequest="40" WidthRequest="40" Margin="40, 0, 40, 10" BackgroundColor="#F0F2F3"/>
-                            <ImageButton Source="ic_menu_btn_shop.xml" HeightRequest="40" WidthRequest="40" Margin="40, 0, 30, 10" BackgroundColor="#F0F2F3"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                            <ImageButton Source="ic_card_icon_scan.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3"/>
-                            <ImageButton Source="ic_menu_btn_br.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3"/>
-                        </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
                             <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                             <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
@@ -83,7 +60,7 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                
+
             </StackLayout>
 
 

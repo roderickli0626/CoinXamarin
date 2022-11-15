@@ -34,6 +34,7 @@ namespace mycoin
             XF.Material.Forms.Material.Init(this);
 
             MainPage = new NavigationPage(new LoginPage());
+
         }
 
         protected override void OnStart()

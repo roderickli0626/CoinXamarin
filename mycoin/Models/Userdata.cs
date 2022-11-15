@@ -9,5 +9,6 @@ namespace mycoin.Models
         public int userid { get; set; }
         public int? languageid { get; set; }
         public string devicenum { get; set; }
+        public string? userName { get; set; }
     }
 }

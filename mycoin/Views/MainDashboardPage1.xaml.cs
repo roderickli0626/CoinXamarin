@@ -1,6 +1,4 @@
-﻿using mycoin.Models;
-using mycoin.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace mycoin.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainDashboardPageDetail : ContentPage
+    public partial class MainDashboardPage1 : ContentPage
     {
-        MainDashboardPageViewModel vm;
-        public MainDashboardPageDetail()
+        public MainDashboardPage1()
         {
             InitializeComponent();
-            this.BindingContext = vm = new MainDashboardPageViewModel();
-
-            //On<iOS>().SetUseSafeArea(true);
 
             if (Device.RuntimePlatform == Device.Android) Padding = new Thickness(0, 10, 0, 0);
             BackgroundColor = Color.White;
@@ -31,11 +25,6 @@ namespace mycoin.Views
         void OnImageButtonClicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(EventArgs.Empty, "OpenMenu");
-        }
-
-        private void ImageButton_Clicked(object sender, EventArgs e)
-        {
-            App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
         }
     }
 }

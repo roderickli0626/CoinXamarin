@@ -90,7 +90,8 @@ namespace mycoin.ViewModels
                         {
                             userid = response.userId,
                             languageid = response.languageNumber,
-                            devicenum = response.deviceNumber
+                            devicenum = response.deviceNumber,
+                            userName = response.userName,
                         };
                         App.Current.MainPage = new NavigationPage(new DashboardPage());
                     }
