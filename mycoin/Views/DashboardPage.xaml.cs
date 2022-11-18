@@ -28,10 +28,11 @@ namespace mycoin.Views
 
                 foreach(Note item in response)
                 {
+                    item.Isfavorite = false;
                     await App.Database.SaveNoteAsync(item);
                 }
 
-                await Task.Delay(3000);
+                await Task.Delay(2000);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }
             catch (Exception ex)

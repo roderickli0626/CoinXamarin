@@ -15,6 +15,8 @@ namespace mycoin.ViewModels
         }
 
         public string SubstanceName { get { return _substance.SubstanceName; } }
+        public string SubstanceImageUrl { get { return _substance.SubstanceImageUrl; } }
+        public int ID { get { return _substance.ID; } }
         
     }
 }

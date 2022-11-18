@@ -13,7 +13,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
                 <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="{Binding markImageUrl}" HeightRequest="280" WidthRequest="280"/>
                         <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
@@ -36,7 +36,7 @@
                 <Grid>
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
                     <StackLayout Background="ic_background.xml">
-                        <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
+                        <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0" IsVisible="{Binding visibleFlag}">
                             <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>
@@ -50,16 +50,16 @@
                             <Image Source="ic_biapp_icon_favorit_hinzufuegen.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
                         </StackLayout>-->
 
-                        <StackLayout>
-                            <CollectionView ItemsSource="{Binding MyGroups}">
+                        <StackLayout Orientation="Horizontal">
+                            <CollectionView ItemsSource="{Binding MySubstances}" HorizontalOptions="Center" x:Name="favorCol">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Horizontal"/>
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackLayout>
-                                            <Image Source="{Binding ImageUrl}" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" />
-                                            <Label Text="{Binding GroupName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
+                                        <StackLayout HorizontalOptions="CenterAndExpand">
+                                            <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" Clicked="FavoriteImageButton_Clicked" />
+                                            <Label Text="{Binding SubstanceName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
                                         </StackLayout>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>

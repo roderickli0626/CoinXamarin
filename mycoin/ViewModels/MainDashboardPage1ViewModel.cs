@@ -1,4 +1,5 @@
 ﻿using mycoin.Models;
+using mycoin.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,11 +36,13 @@ namespace mycoin.ViewModels
             {
                 mySubstances = new List<MySubstance>();
 
-                foreach (string substanceName in noteList.Where(s => s.GroupName == groupName).Select(s => s.Substance).ToList())
+                foreach (Note note in noteList.Where(s => s.GroupName == groupName).ToList())
                 {
                     mySubstances.Add(new MySubstance
                     {
-                        SubstanceName = substanceName
+                        ID = note.ID,
+                        SubstanceImageUrl = "dot.png",
+                        SubstanceName = note.Substance ?? "No SubstanceName"
                     });
                 }
 
@@ -55,5 +58,9 @@ namespace mycoin.ViewModels
         {
             item.Expanded = !item.Expanded;
         }
+
+        public ICommand AddCommand => new Command(async () => {
+            
+        });
     }
 }

@@ -20,6 +20,15 @@ namespace mycoin.Views
             InitializeComponent();
             this.BindingContext = vm = new MainDashboardPageViewModel();
 
+            List<Note> notes = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite).ToList();
+            if (notes.Count > 0)
+            {
+                favorCol.ItemsLayout = LinearItemsLayout.Horizontal;
+            } else
+            {
+                favorCol.ItemsLayout = LinearItemsLayout.Vertical;
+            }
+
             //On<iOS>().SetUseSafeArea(true);
 
             if (Device.RuntimePlatform == Device.Android) Padding = new Thickness(0, 10, 0, 0);
@@ -36,6 +45,15 @@ namespace mycoin.Views
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
+        }
+
+        private void FavoriteImageButton_Clicked(object sender, EventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+            MySubstance substance = btn.BindingContext as MySubstance;
+            if (substance == null) return;
+            else if (substance.ID == 0) App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
+            else return;
         }
     }
 }

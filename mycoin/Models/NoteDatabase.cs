@@ -46,5 +46,11 @@ namespace mycoin.Data
             // Delete all notes.
             return database.DeleteAllAsync<Note>();
         }
+
+        public Task<int> UpdateNoteAsync(Note note)
+        {
+            // Update a note.
+            return database.UpdateAsync(note);
+        }
     }
 }

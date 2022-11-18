@@ -25,6 +25,8 @@ namespace mycoin.Models
         public string? GroupName { get; set; }
         public string? Substance { get; set; }
         public string? Language { get; set; }
+        public bool Isfavorite { get; set; }
+        public DateTime DefaultDateTime { get; set; }
 
     }
 }

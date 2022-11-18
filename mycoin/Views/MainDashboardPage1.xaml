@@ -44,8 +44,8 @@
 
                         <StackLayout>
                             <Grid>
-                                <xct:TabView TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
-                                             TabContentBackgroundColor="Transparent">
+                                <xct:TabView x:Name="MyTabs" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
+                                             TabContentBackgroundColor="Transparent" >
                                     <xct:TabViewItem Text="Favorites" TextColor="Black" FontSize="15" FontSizeSelected="15">
                                         <Grid>
                                             <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent1" />
@@ -57,31 +57,18 @@
                                         </Grid>
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="All Applications" TextColor="Black" FontSize="15" FontSizeSelected="15">
-                                        <ListView 
-        ItemsSource="{Binding MyGroups}"
-        IsGroupingEnabled="True">
+                                        <ListView ItemsSource="{Binding MyGroups}" IsGroupingEnabled="True">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <!--<ImageCell Text="{Binding Name}"
-                           Detail="{Binding Code} "
-                           ImageSource="{Binding Flag}"
-                           TextColor="#005569" 
-                           >
-                    </ImageCell>-->
                                                     <ViewCell>
                                                         <StackLayout Orientation="Horizontal">
-                                                            <!--<controls:CircleImage 
-                                Source="{Binding Flag}"
-                                BorderColor="White"
-                                BorderThickness="2"
-                                HeightRequest="75"
-                                WidthRequest="65">
-                                                            </controls:CircleImage>-->
-                                                            <StackLayout HorizontalOptions="FillAndExpand" Spacing="1" Orientation="Horizontal">
-                                                                <Label Text="{Binding SubstanceName}" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="60,5,5,5" />
-                                                                <Image Source="dot.png" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="200,0,0,0"></Image>
+                                                            <RelativeLayout HorizontalOptions="FillAndExpand">
+                                                                <Label Text="{Binding SubstanceName}" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="5" 
+                                                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"/>
+                                                                <ImageButton BackgroundColor="#F0F2F3" Source="{Binding SubstanceImageUrl}" HorizontalOptions="End" HeightRequest="30" WidthRequest="30"
+                                                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}" Clicked="ShowPopup_Clicked"/>
                                                                 <!--<Label Text="{Binding Code}" FontSize="Micro" TextColor="#005569" VerticalOptions="Center" />-->
-                                                            </StackLayout>
+                                                            </RelativeLayout>
                                                         </StackLayout>
                                                     </ViewCell>
                                                 </DataTemplate>
@@ -90,13 +77,9 @@
                                                 <DataTemplate>
                                                     <ViewCell>
                                                         <RelativeLayout Padding="0,8,8,10" HorizontalOptions="FillAndExpand">
-                                                            <Label Text="{Binding GroupName}" TextColor="DeepSkyBlue"
-                               FontSize="Large"
-                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
-                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=6}"  />
-                                                            <Image x:Name="StateImage" PropertyChanged="StateImage_PropertyChanged"
-                               Source="{Binding StateIcon}" 
-                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"/>
+                                                            <Label Text="{Binding GroupName}" TextColor="DeepSkyBlue" FontSize="Large" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.08}"
+                                                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=6}"  />
+                                                            <Image x:Name="StateImage" HeightRequest="20" WidthRequest="20" PropertyChanged="StateImage_PropertyChanged" Source="{Binding StateIcon}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"/>
                                                             <RelativeLayout.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.HeaderClickCommand}"  NumberOfTapsRequired="1" CommandParameter="{Binding .}"/>
                                                             </RelativeLayout.GestureRecognizers>
@@ -109,24 +92,10 @@
                                 </xct:TabView>
                             </Grid>
                         </StackLayout>
-                        
-                        <!--<StackLayout HorizontalOptions="Center" Margin="0,-30,0,0">
-                            <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
-                            <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5"/>
-                            <Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>
-                            --><!--<Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20" Margin="-5"/>--><!--
-                        </StackLayout>-->
-
-                        <!--<StackLayout Orientation="Horizontal">
-                            <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
-                            <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
-                            <Image Source="ic_biapp_icon_favorit.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
-                            <Image Source="ic_biapp_icon_favorit_hinzufuegen.xml" HeightRequest="65" WidthRequest="65" Margin="25" />
-                        </StackLayout>-->
                     </StackLayout>
                 </Grid>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="End" BackgroundColor="White">
-                    <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                    <ImageButton BackgroundColor="White" Clicked="BacktoPrevious" Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                     <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                     <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                     <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>

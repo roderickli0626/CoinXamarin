@@ -6,6 +6,8 @@ namespace mycoin.Models
 {
     public class MySubstance
     {
+        public int ID { get; set; }
+        public string SubstanceImageUrl { get; set; }
         public string SubstanceName { get; set; }
     }
 }
