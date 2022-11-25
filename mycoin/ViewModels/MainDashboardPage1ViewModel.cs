@@ -151,8 +151,8 @@ namespace mycoin.ViewModels
             audio.Pause();
             stopFlag = true;
             closeFlag = false;
-            //markImageUrl.Source = "animation_blue_02.gif";
-            markImageUrl = "animation_green_02.gif";
+            markImageUrl = "animation_blue_02.gif";
+            //markImageUrl = "animation_green_02.gif";
             StopContainer = false;
             ContinueContainer = true;
             timer.Stop();

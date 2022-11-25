@@ -44,9 +44,9 @@ namespace mycoin.ViewModels
             playState = "Start";
             buttonFromPlayState = "icons8_play_48.png";
             //markImageUrl = "animation_blue_02.png";
-            //markImageUrl = "animation_blue_02.gif";
-            markImageUrl = "animation_green_02.png";
-            markImageUrl = "animation_green_02.gif";
+            markImageUrl = "animation_blue_02.gif";
+            //markImageUrl = "animation_green_02.png";
+            //markImageUrl = "animation_green_02.gif";
             therapyTitle = note.Substance ?? "No Title";
             animationState = true;
             unFavorite = !note.Isfavorite;
@@ -93,7 +93,7 @@ namespace mycoin.ViewModels
             buttonFromPlayState = "icons8_play_48.png";
             playState = "Start";
             titleFromPlayState = "Application Start";
-            //markImageUrl = "animation_blue_02.gif;
+            markImageUrl = "animation_blue_02.gif";
         });
 
         public ICommand playCommand => new Command(async () => {
@@ -109,7 +109,7 @@ namespace mycoin.ViewModels
                 buttonFromPlayState = "icons8_square_green_48.png";
                 playState = "Stop";
                 titleFromPlayState = "Application Run";
-                //markImageUrl = "animation_green_02.gif";
+                markImageUrl = "animation_green_02.gif";
                 showClose = false;
                 closeFlag = false;
 
@@ -157,7 +157,7 @@ namespace mycoin.ViewModels
                         buttonFromPlayState = "icons8_play_48.png";
                         playState = "Start";
                         titleFromPlayState = "Application Start";
-                        //markImageUrl = "animation_blue_02.gif";
+                        markImageUrl = "animation_blue_02.gif";
                         return false;
                     }
 
@@ -169,7 +169,7 @@ namespace mycoin.ViewModels
                 playState = "Continue";
                 titleFromPlayState = "Application Start";
                 buttonFromPlayState = "icons8_play_48.png";
-                //markImageUrl = "animation_blue_02.gif";
+                markImageUrl = "animation_blue_02.gif";
 
                 audio.Pause();
             }
@@ -178,7 +178,7 @@ namespace mycoin.ViewModels
                 buttonFromPlayState = "icons8_square_green_48.png";
                 playState = "Stop";
                 titleFromPlayState = "Application Run";
-                //markImageUrl = "animation_green_02.gif";
+                markImageUrl = "animation_green_02.gif";
                 showClose = false;
                 audio.Play();
             }
