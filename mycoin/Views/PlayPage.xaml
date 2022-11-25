@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:material="clr-namespace:Plugin.MaterialDesignControls;assembly=Plugin.MaterialDesignControls"
+             x:Class="mycoin.Views.PlayPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
+                <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
+                <Label Text="{Binding titleFromPlayState}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
+            </FlexLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+                <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="600">
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,350,350" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <!--<Image Source="{Binding markImageUrl}" IsAnimationPlaying="True" HeightRequest="350" WidthRequest="350"/>-->
+                        <ffimageloading:SvgCachedImage HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Source="{Binding markImageUrl}" HeightRequest="350" WidthRequest="350" />
+                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="350" WidthRequest="350"/>
+                        <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml" HeightRequest="350" WidthRequest="350"/>
+                    </AbsoluteLayout>
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
+                        <Image Source="ic_header_coin_big_center.xml"/>
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
+                    </FlexLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
+                        <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
+                        <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Label Text="Your Current Therapy" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.46" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Label Text="{Binding therapyTitle}" TextColor="White" FontAttributes="Bold" FontSize="30" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                    </AbsoluteLayout>
+                </AbsoluteLayout>
+                <FlexLayout>
+                    <!--<Image Source="ic_header_coin_big_left.xml"/>-->
+                    <!--<Image Source="ic_header_coin_big_center.xml"/>-->
+                    <!--<Image Source="ic_header_coin_big_right.xml"/>-->
+                </FlexLayout>
+                <Grid>
+                    <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
+                    <StackLayout Background="ic_background.xml">
+                        <StackLayout Margin="15">
+                            <Label Text="Length of Time" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"/>
+                            <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,10,0,0"/>
+                            <material:MaterialDoublePicker ItemsSource="{Binding HoursList}" SecondaryItemsSource="{Binding MinutesList}" SelectedItem="{Binding hours}" Separator="    " Margin="-20,0,-20,0"
+                                                           HorizontalOptions="Center" BorderColor="#F0F2F3" TextColor="DeepSkyBlue" LabelTextColor="DeepSkyBlue" BackgroundColor="#F0F2F3" HorizontalTextAlignment="Center" FontSize="24" WidthRequest="200" SecondarySelectedItem="{Binding minutes}">
+                            </material:MaterialDoublePicker>
+                            <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,0,0,10"/>
+                            <Label Text="h      min" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"></Label>
+                        </StackLayout>
+
+                        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="600">
+                            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                                <StackLayout>
+                                    <ImageButton Source="{Binding buttonFromPlayState}" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 0" BackgroundColor="#F0F2F3" Command="{Binding playCommand}"/>
+                                    <Label Text="{Binding playState}" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"/>
+                                </StackLayout>
+                            </AbsoluteLayout>
+                            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.3,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding showClose}">
+                                <ImageButton Source="icons8_close_48.png" HeightRequest="30" WidthRequest="30" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3" Command="{Binding closeCommand}"/>
+                            </AbsoluteLayout>
+                            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.8,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding unFavorite}">
+                                <ImageButton Source="icons8_loading_heart_50.png" HeightRequest="30" WidthRequest="30" Margin="0, 0, 30, 30" BackgroundColor="#F0F2F3" Clicked="FavoriteButtonClicked"/>
+                                <ImageButton Source="icons8_info_48.png" HeightRequest="30" WidthRequest="30" Margin="40, 0, 30, 30" BackgroundColor="#F0F2F3" Clicked="InfoButtonClicked"/>
+                            </AbsoluteLayout>
+                        </AbsoluteLayout>
+                        
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
+                            <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

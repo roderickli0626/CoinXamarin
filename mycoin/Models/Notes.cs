@@ -27,6 +27,7 @@ namespace mycoin.Models
         public string? Language { get; set; }
         public bool Isfavorite { get; set; }
         public DateTime DefaultDateTime { get; set; }
+        public int Duration { get; set; }
 
     }
 }

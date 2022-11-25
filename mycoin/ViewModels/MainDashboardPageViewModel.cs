@@ -43,7 +43,8 @@ namespace mycoin.ViewModels
                 {
                     ID = note.ID,
                     SubstanceImageUrl = "ic_biapp_icon_favorit.xml",
-                    SubstanceName = note.Substance ?? "No SubstanceName"
+                    SubstanceName = note.Substance ?? "No SubstanceName",
+                    Duration = note.Duration,
                 });
 
             }

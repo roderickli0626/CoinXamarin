@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
+using FFImageLoading.Forms.Platform;
 
 namespace mycoin.Droid
 {
@@ -16,6 +17,9 @@ namespace mycoin.Droid
             UserDialogs.Init(this);
 
             base.OnCreate(savedInstanceState);
+
+            //For gif file animation
+            CachedImageRenderer.Init(true);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

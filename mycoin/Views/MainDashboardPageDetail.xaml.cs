@@ -39,7 +39,7 @@ namespace mycoin.Views
 
         void OnImageButtonClicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(EventArgs.Empty, "OpenMenu");
+            MessagingCenter.Send(EventArgs.Empty, "OpenMenu", "MainDashboardPageDetail");
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace mycoin.Views
             MySubstance substance = btn.BindingContext as MySubstance;
             if (substance == null) return;
             else if (substance.ID == 0) App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
-            else return;
+            else App.Current.MainPage = new NavigationPage(new PlayPage(substance.ID));
         }
     }
 }

@@ -33,11 +33,10 @@ namespace mycoin.Views
             {
                 MenuItems = new ObservableCollection<MainDashboardPageFlyoutMenuItem>(new[]
                 {
-                    new MainDashboardPageFlyoutMenuItem { Id = 0, Title = "Page 1" },
-                    new MainDashboardPageFlyoutMenuItem { Id = 1, Title = "Page 2", TargetType = new MainDashboardPage1().GetType() },
-                    new MainDashboardPageFlyoutMenuItem { Id = 2, Title = "Page 3" },
-                    new MainDashboardPageFlyoutMenuItem { Id = 3, Title = "Page 4" },
-                    new MainDashboardPageFlyoutMenuItem { Id = 4, Title = "Page 5" },
+                    new MainDashboardPageFlyoutMenuItem { Id = 1, Title = "User Information", IsVisible = true },
+                    new MainDashboardPageFlyoutMenuItem { Id = 2, Title = "Settings", IsVisible = true },
+                    new MainDashboardPageFlyoutMenuItem { Id = 3, Title = "Support",IsVisible = true },
+                    new MainDashboardPageFlyoutMenuItem { Id = 4, Title = "Theme", IsVisible = true },
                 });
             }
 

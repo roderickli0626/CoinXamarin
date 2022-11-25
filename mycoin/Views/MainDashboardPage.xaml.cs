@@ -23,10 +23,10 @@ namespace mycoin.Views
             // Remove the Navigation bar form the top of the page 
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
 
-            MessagingCenter.Subscribe<EventArgs>(this, "OpenMenu", args =>
-            {
-                IsPresented = !IsPresented;
-            });
+            //MessagingCenter.Subscribe<EventArgs>(this, "OpenMenu", args =>
+            //{
+            //    IsPresented = !IsPresented;
+            //});
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

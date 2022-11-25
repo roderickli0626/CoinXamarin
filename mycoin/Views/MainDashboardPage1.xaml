@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Accordion;assembly=Syncfusion.Expander.XForms"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="mycoin.Views.MainDashboardPage1"
              x:Name="currentPage">
     <ContentPage.Content>
@@ -13,9 +13,10 @@
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
             </FlexLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
-                <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
+                <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="1000" >
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,230,230" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="230" WidthRequest="230"/>
+                        <!--<Image Source="ic_coin_large_background_silver.png" HeightRequest="230" WidthRequest="230"/>-->
+                        <ffimageloading:SvgCachedImage HorizontalOptions="Center" VerticalOptions="CenterAndExpand" x:Name="markImageUrl" Source="{Binding markImageUrl}" HeightRequest="230" WidthRequest="230"/>
                         <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="230" WidthRequest="230"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
@@ -28,6 +29,16 @@
                         <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
                         <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
                         <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4" AbsoluteLayout.LayoutFlags="XProportional,YProportional" x:Name="StopContainer" IsVisible="{Binding StopContainer}">
+                        <ImageButton Source="icons8_square_48_white.png" HeightRequest="30" WidthRequest="30" Margin="0" BackgroundColor="transparent" Command="{Binding stopCommand}"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4" AbsoluteLayout.LayoutFlags="XProportional,YProportional" x:Name="ContinueContainer" IsVisible="{Binding ContinueContainer}">
+                        <ImageButton Source="icons8_close_48_white.png" HeightRequest="30" WidthRequest="30" Margin="0" BackgroundColor="transparent" Command="{Binding closeCommand}"/>
+                        <ImageButton Source="icons8_play_48_white.png" HeightRequest="30" WidthRequest="30" Margin="40,0,0,0" BackgroundColor="transparent" Command="{Binding continueCommand}"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.55" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Label Text="{Binding timelabel}" x:Name="timelabel" TextColor="White" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
                     </AbsoluteLayout>
                 </AbsoluteLayout>
                 <FlexLayout>
@@ -44,12 +55,30 @@
 
                         <StackLayout>
                             <Grid>
-                                <xct:TabView x:Name="MyTabs" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
+                                <xct:TabView x:Name="MyTabs" SelectedIndex="{Binding selectedIndex}" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
                                              TabContentBackgroundColor="Transparent" >
                                     <xct:TabViewItem Text="Favorites" TextColor="Black" FontSize="15" FontSizeSelected="15">
-                                        <Grid>
-                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent1" />
-                                        </Grid>
+                                        <CollectionView ItemsSource="{Binding MyFavoriteSubstances}" HorizontalOptions="Center" SelectionMode="Single">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Vertical"/>
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <AbsoluteLayout Margin="0">
+                                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                            <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="30" WidthRequest="30" Margin="30,15,0,15" 
+                                                                         Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.playCommand}" CommandParameter="{Binding .}" />
+                                                            <Label Text="{Binding SubstanceName}" Margin="15,15,0,15" HorizontalTextAlignment="Center" FontSize="18" TextColor="Black"/>
+                                                            <Label Text="{Binding DurationTimeFormat}" TextColor="DeepSkyBlue" Margin="0,15,15,15" HorizontalTextAlignment="Center" FontSize="18"/>
+                                                        </StackLayout>
+                                                        <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,50" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding favoriteExtraIconVisible}"  Margin="5">
+                                                            <ImageButton Source="icons8_trash_can_26.png" HeightRequest="20" WidthRequest="20" Margin="0,15,15,15" Clicked="DeletFromFavorite"/>
+                                                            <ImageButton Source="icons8_info_48.png" HeightRequest="20" WidthRequest="20" Margin="30,15,15,15" Clicked="ShowInfo"/>
+                                                        </AbsoluteLayout>
+                                                    </AbsoluteLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="History" TextColor="Black" FontSize="15" FontSizeSelected="15">
                                         <Grid>

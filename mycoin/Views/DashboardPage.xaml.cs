@@ -10,11 +10,13 @@ namespace mycoin.Views
     public partial class DashboardPage : BasePage
     {
         Task rotate;
+        bool endRotate;
         public DashboardPage()
         {
             InitializeComponent();
             loadDB();
             rotate = RotateImageContinously();
+            endRotate = false;
 
         }
 
@@ -32,7 +34,8 @@ namespace mycoin.Views
                     await App.Database.SaveNoteAsync(item);
                 }
 
-                await Task.Delay(2000);
+                await Task.Delay(1000);
+                endRotate = true;
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }
             catch (Exception ex)
@@ -50,7 +53,7 @@ namespace mycoin.Views
 
         public async Task RotateImageContinously()
         {
-            while (true) // a CancellationToken in real life ;-)
+            while (!endRotate) // a CancellationToken in real life ;-)
             {
                 for (int i = 1; i < 7; i++)
                 {

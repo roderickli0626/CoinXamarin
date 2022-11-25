@@ -35,6 +35,17 @@ namespace mycoin
 
             MainPage = new NavigationPage(new LoginPage());
 
+            MessagingCenter.Subscribe<EventArgs, string>(this, "OpenMenu", (sender, args) =>
+            {
+                Page detailPage = null;
+                if (args == "MainDashboardPageDetail") detailPage = new MainDashboardPageDetail();
+                else detailPage = new MainDashboardPage1("normal");
+                var flyoutPage = new MainDashboardPage();
+                flyoutPage.Detail = new NavigationPage(detailPage);
+                MainPage = flyoutPage;
+                flyoutPage.IsPresented = true;
+            });
+
         }
 
         protected override void OnStart()
