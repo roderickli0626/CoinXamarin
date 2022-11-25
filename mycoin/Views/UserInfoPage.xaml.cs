@@ -35,5 +35,12 @@ namespace mycoin.Views
         {
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
+
+        void BtnDeleteAccountClicked(object sender, EventArgs e)
+        {
+            Userdata savedUserdata = App.Database.GetUserdataAsync().Result;
+            savedUserdata.isActive = false;
+            App.Database.UpdateUserdataAsync(savedUserdata);
+        }
     }
 }

@@ -29,7 +29,7 @@
                         <StackLayout Margin="50,10,50,50">
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                 <Button Text="Update" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
-                                <Button Text="Delete Account" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                                <Button Text="Delete Account" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
                             </StackLayout>
                             <Button Text="Password Change" WidthRequest="100" Margin="10" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
                         </StackLayout>

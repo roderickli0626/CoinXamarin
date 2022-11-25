@@ -11,9 +11,9 @@ namespace mycoin.Data
 
         public NoteDatabase(string dbPath)
         {
+
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<Note>().Wait();
-
             database.CreateTableAsync<Userdata>().Wait();
         }
 
@@ -31,6 +31,11 @@ namespace mycoin.Data
         {
             // Delete all UserInfo.
             return database.DeleteAllAsync<Userdata>();
+        }
+        public Task<int> UpdateUserdataAsync(Userdata data)
+        {
+            // Update a Userdata.
+            return database.UpdateAsync(data);
         }
 
 
