@@ -12,10 +12,59 @@ namespace mycoin.ViewModels
     {
         public LoginPageViewModel()
         {
+            Userdata savedUserInfo = App.Database.GetUserdataAsync().Result;
+            if (savedUserInfo == null || !savedUserInfo.isActive) return;
+            else
+            {
+                autoLogin(savedUserInfo);
+            }
+            isChecked = false;
         }
+
+        public async void autoLogin(Userdata savedUserInfo)
+        {
+            LoginRequest req = new LoginRequest()
+            {
+                email = savedUserInfo.email,
+                password = savedUserInfo.password,
+            };
+
+            RunIndicator();
+            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
+
+            if (response != null)
+            {
+                if (response.result == true)
+                {
+                    App.Userdata = new Userdata()
+                    {
+                        userid = response.userId,
+                        languageid = response.languageNumber,
+                        devicenum = response.deviceNumber,
+                        userName = response.userName,
+                    };
+
+                    ////Save login User into DB
+                    //await App.Database.DeleteAllUserdataAsync();
+
+                    //App.Userdata.email = Email;
+                    //App.Userdata.password = Password;
+                    //App.Userdata.isActive = true;
+                    //await App.Database.SaveUserdataAsync(App.Userdata);
+
+                    App.Current.MainPage = new NavigationPage(new DashboardPage());
+                }
+                else
+                {
+                    ShowSomethingWrongMsg();
+                }
+            }
+            StopIndicator();
+        }
+
         #region Properties
 
-        bool _isvalidemail, _isvalidpassword;
+        bool _isvalidemail, _isvalidpassword, _isChecked;
         string _email, _password, _emailerror, _passworderror;
 
         public string Email { get => _email; set => SetProperty(ref _email, value); }
@@ -30,6 +79,8 @@ namespace mycoin.ViewModels
         public bool IsValidEmail { get => _isvalidemail; set => SetProperty(ref _isvalidemail, value); }
 
         public bool IsValidPassword { get => _isvalidpassword; set => SetProperty(ref _isvalidpassword, value); }
+
+        public bool isChecked { get => _isChecked; set => SetProperty(ref _isChecked, value); }
 
         #endregion
 
@@ -93,6 +144,22 @@ namespace mycoin.ViewModels
                             devicenum = response.deviceNumber,
                             userName = response.userName,
                         };
+
+                        //Save User into DB if 'Remember User' checked
+                        if (isChecked)
+                        {
+                            await App.Database.DeleteAllUserdataAsync();
+
+                            App.Userdata.email = Email;
+                            App.Userdata.password = Password;
+                            App.Userdata.isActive = true;
+                            await App.Database.SaveUserdataAsync(App.Userdata);
+                        }
+                        else
+                        {
+                            await App.Database.DeleteAllUserdataAsync();
+                        }
+
                         App.Current.MainPage = new NavigationPage(new DashboardPage());
                     }
                     else

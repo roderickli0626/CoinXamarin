@@ -13,7 +13,26 @@ namespace mycoin.Data
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<Note>().Wait();
+
+            database.CreateTableAsync<Userdata>().Wait();
         }
+
+        public Task<Userdata> GetUserdataAsync()
+        {
+            //Get Saved UserInfo
+            return database.Table<Userdata>().FirstOrDefaultAsync();
+        }
+        public Task<int> SaveUserdataAsync(Userdata data)
+        {
+            //Save a new UserInfo
+            return database.InsertAsync(data);
+        }
+        public Task<int> DeleteAllUserdataAsync()
+        {
+            // Delete all UserInfo.
+            return database.DeleteAllAsync<Userdata>();
+        }
+
 
         public Task<List<Note>> GetNotesAsync()
         {
