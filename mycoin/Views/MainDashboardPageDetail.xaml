@@ -38,7 +38,12 @@
                     <StackLayout Background="ic_background.xml">
                         <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0" IsVisible="{Binding visibleFlag}">
                             <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
-                            <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5"/>
+                            <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="titleLabelDoubleClicked" NumberOfTapsRequired="2"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <!--<Button Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" BackgroundColor="Transparent" Margin="-5"/>-->
                             <Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>
                             <!--<Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20" Margin="-5"/>-->
                         </StackLayout>
@@ -58,7 +63,13 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout HorizontalOptions="CenterAndExpand">
-                                            <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" Clicked="FavoriteImageButton_Clicked" />
+                                            <!--<ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" Clicked="FavoriteImageButton_Clicked" />-->
+                                            <Image Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="FavoriteImageButton_DoubleClicked"/>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="FavoriteImageButton_SingleClicked"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
                                             <Label Text="{Binding SubstanceName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
                                         </StackLayout>
                                     </DataTemplate>

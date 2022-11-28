@@ -11,7 +11,7 @@ namespace mycoin.ViewModels
     {
         public MainDashboardPageViewModel()
         {
-            Note note = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite).FirstOrDefault();
+            Note note = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite && n.PlayDateTime == null).FirstOrDefault();
             markImageUrl = note == null ? "ic_coin_large_background_wood.png" : "ic_coin_large_background_silver.png";
             visibleFlag = note == null ? false : true;
             Align = note == null ? "Vertical" : "Horizontal";

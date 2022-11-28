@@ -28,6 +28,6 @@ namespace mycoin.Models
         public bool Isfavorite { get; set; }
         public DateTime DefaultDateTime { get; set; }
         public int Duration { get; set; }
-
+        public DateTime? PlayDateTime { get; set; }
     }
 }

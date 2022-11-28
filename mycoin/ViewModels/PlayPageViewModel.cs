@@ -117,6 +117,7 @@ namespace mycoin.ViewModels
                 int mm = int.Parse(minutes);
                 int duration = hh * 60 + mm;
                 note.Duration = duration;
+                note.PlayDateTime = DateTime.Now;
                 await App.Database.UpdateNoteAsync(note);
 
                 audio.Play();

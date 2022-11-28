@@ -55,5 +55,30 @@ namespace mycoin.Views
             else if (substance.ID == 0) App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
             else App.Current.MainPage = new NavigationPage(new PlayPage(substance.ID));
         }
+
+        private void FavoriteImageButton_DoubleClicked(object sender, EventArgs e)
+        {
+            Image image = sender as Image;
+            MySubstance substance = image.BindingContext as MySubstance;
+            if (substance == null) return;
+            else if (substance.ID == 0) return;
+            else App.Current.MainPage = new NavigationPage(new PlayPage(substance.ID));
+        }
+
+        private void FavoriteImageButton_SingleClicked(object sender, EventArgs e)
+        {
+            Image btn = sender as Image;
+            MySubstance substance = btn.BindingContext as MySubstance;
+            if (substance == null) return;
+            else if (substance.ID == 0) App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
+            else return;
+        }
+
+        private void titleLabelDoubleClicked(object sender, EventArgs e)
+        {
+            Note note = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite && n.PlayDateTime == null).FirstOrDefault();
+            if (note == null) return;
+            App.Current.MainPage = new NavigationPage(new PlayPage(note.ID));
+        }
     }
 }
