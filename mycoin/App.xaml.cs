@@ -39,6 +39,7 @@ namespace mycoin
             {
                 Page detailPage = null;
                 if (args == "MainDashboardPageDetail") detailPage = new MainDashboardPageDetail();
+                else if (args == "CalendarPage") detailPage = new CalendarPage();
                 else detailPage = new MainDashboardPage1("normal");
                 var flyoutPage = new MainDashboardPage();
                 flyoutPage.Detail = new NavigationPage(detailPage);

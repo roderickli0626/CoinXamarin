@@ -20,11 +20,15 @@
     <PackageReference Include="Xam.Plugin.PopupMenu" Version="1.1.0" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.6.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.CustomControls.AccordionView" Version="1.1.7" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="3.0.0" />
+    <PackageReference Include="Xamarin.Plugin.Calendar" Version="2.0.9699" />
+    <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +36,12 @@
     <None Remove="XF.Material" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Views\CalendarPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CalendarSettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\MainDashboardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -47,6 +47,11 @@ namespace mycoin.Views
             App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
         }
 
+        private void CalendarButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new CalendarPage());
+        }
+
         private void FavoriteImageButton_Clicked(object sender, EventArgs e)
         {
             ImageButton btn = sender as ImageButton;

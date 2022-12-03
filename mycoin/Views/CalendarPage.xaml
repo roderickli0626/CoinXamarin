@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar" 
+             xmlns:plugin="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             x:Class="mycoin.Views.CalendarPage"
+             x:Name="calendarPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
+                <ImageButton Source="ic_menu.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
+                <Label Text="My Plans" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
+            </FlexLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+
+                <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween" HeightRequest="65" IsVisible="true" IsEnabled="True">
+                    <ProgressBar ProgressColor="LightGreen" Margin="30,10,10,10" WidthRequest="120" HeightRequest="30" Progress="0.5" ScaleY="2"/>
+                    <ImageButton BackgroundColor="Transparent" Source="icons8_square_green_48.png" HeightRequest="30" WidthRequest="30" Margin="10"/>
+                    <!--<Label Text="{Binding timelabel}" x:Name="timelabel" TextColor="White" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>-->
+                    <Label Text="00:00:00" x:Name="timelabel" Margin="10" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Image Source="ic_bluetooth.png" HeightRequest="30" WidthRequest="30" Margin="10"/>
+                    <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="30" WidthRequest="30" Margin="10,10,30,10"/>
+                </FlexLayout>
+
+                <Grid>
+                    <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
+                    <StackLayout Background="ic_background.xml">
+                        <StackLayout HorizontalOptions="Center" HeightRequest="700">
+                            <plugin:Calendar Events="{Binding Events}" OtherMonthDayIsVisible="False" DaysTitleMaximumLength="TwoChars"
+                                             MaximumDate="{Binding MaximumDate}" MinimumDate="{Binding MinimumDate}" Month="{Binding Month}"
+                                             SelectedDate="{Binding SelectedDate}" Year="{Binding Year}" Padding="10,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <plugin:Calendar.EventTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Padding="15,0,10,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <StackLayout BackgroundColor="White" HeightRequest="50" WidthRequest="120" Margin="0,0,0,10" Padding="10">
+                                                <FlexLayout JustifyContent="SpaceBetween">
+                                                    <Label FontAttributes="Bold" FontSize="Medium" Text="{Binding Name}" />
+                                                    <ImageButton Source="icons8_close_48.png" HeightRequest="15" WidthRequest="15" Clicked="DeleteCalendarClicked" />
+                                                </FlexLayout>
+                                                <Label FontSize="Small" LineBreakMode="WordWrap" Text="{Binding TimePeriod}" TextColor="DeepSkyBlue" />
+                                            </StackLayout>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding BindingContext.CalendarSelectedCommand, Source={x:Reference calendarPage}}" CommandParameter="{Binding .}" />
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </plugin:Calendar.EventTemplate>
+                            </plugin:Calendar>
+                        </StackLayout>
+
+                        <FlexLayout JustifyContent="SpaceAround">
+                            <Button Text="+ Add" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding AddCalendarCommand}"/>
+                            <Button Text="Delete" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding DeleteAllCalendarCommand}"/>
+                        </FlexLayout>
+
+                        <!--<StackLayout Orientation="Horizontal">
+                            <CollectionView ItemsSource="{Binding MySubstances}" HorizontalOptions="Center" x:Name="favorCol">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout HorizontalOptions="CenterAndExpand">
+                                            -->
+                        <!--<ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" Clicked="FavoriteImageButton_Clicked" />-->
+                        <!--
+                                            <Image Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="FavoriteImageButton_DoubleClicked"/>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="FavoriteImageButton_SingleClicked"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Label Text="{Binding SubstanceName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>-->
+
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
+                            <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+
+            </StackLayout>
+            <!--<StackLayout>
+                <Label Text="Welcome to Dashboard Page" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+            </StackLayout>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
