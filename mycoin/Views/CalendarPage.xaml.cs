@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.DependencyServices;
+using mycoin.Models;
 using mycoin.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,9 @@ namespace mycoin.Views
             if (result)
             {
                 await App.Database.DeleteCalendarAsync(App.Database.GetCalendarAsync(eventModel.ID).Result);
+                //Remove from notifications
+                DependencyService.Get<ILocalNotificationService>().Cancel(eventModel.ID);
+
                 App.Current.MainPage = new NavigationPage(new CalendarPage());
             }
             else return;

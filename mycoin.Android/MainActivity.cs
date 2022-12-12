@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
 using FFImageLoading.Forms.Platform;
+using Android.Content;
+using Xamarin.Forms;
+using mycoin.Views;
 
 namespace mycoin.Droid
 {
@@ -25,13 +28,45 @@ namespace mycoin.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             XF.Material.Droid.Material.Init(this, savedInstanceState);
 
-            LoadApplication(new App());
+            //
+            var myApp = new App();
+            var mBundle = Intent.Extras;
+            if (mBundle != null)
+            {
+                var pageName = mBundle.GetString("pageName");
+                if (!string.IsNullOrEmpty(pageName))
+                {
+                    //get the assemblyQualifiedName of page
+                    var pageAssemblyName = typeof(CalendarPage).AssemblyQualifiedName + "." + pageName + "," + typeof(CalendarPage).AssemblyQualifiedName;
+                    Type type = Type.GetType(pageAssemblyName);
+                    if (type != null)
+                    {
+                        var currentPage = Activator.CreateInstance(type);
+                        //set the main page
+                        myApp.MainPage = new NavigationPage((Page)currentPage);
+                    }
+                    else myApp.MainPage = new NavigationPage(new LoginPage());
+
+                }
+                else myApp.MainPage = new NavigationPage(new LoginPage());
+            }
+            else myApp.MainPage = new NavigationPage(new LoginPage());
+            //
+
+            //LoadApplication(new App());
+            LoadApplication(myApp);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        //
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
         }
     }
 }

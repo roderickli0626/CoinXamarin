@@ -58,6 +58,7 @@ namespace mycoin.Data
         public Task<int> DeleteAllCalendarsAsync(DateTime startDate)
         {
             // Delete all calendars on startDate.
+
             return database.Table<Calendar>().Where(c => c.startDate == startDate).DeleteAsync();
         }
 

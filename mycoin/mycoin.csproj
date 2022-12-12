@@ -17,6 +17,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Plugin.MaterialDesignControls" Version="1.12.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="20.3.0.60" />
     <PackageReference Include="Xam.Plugin.PopupMenu" Version="1.1.0" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.6.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
@@ -29,6 +30,7 @@
     <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="3.0.0" />
     <PackageReference Include="Xamarin.Plugin.Calendar" Version="2.0.9699" />
     <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1" />
+    <PackageReference Include="XCalendar.Forms" Version="4.2.1" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
   <ItemGroup>

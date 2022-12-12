@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.DependencyServices;
+using mycoin.Models;
 using mycoin.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,16 @@ namespace mycoin.Views
         {
             InitializeComponent();
             this.BindingContext = vm = new CalendarSettingPageViewModel(id, selectedDate);
+
+            repeatDatePicker.DateSelected += (sender, e) =>
+            {
+                selectedDates.Text += repeatDatePicker.Date.ToString("MM/dd/yyyy") + " ";
+            };
+
+            MessagingCenter.Subscribe<CalendarSettingPageViewModel>(this, "Save Repeats", (sender) =>
+            {
+                MessagingCenter.Send(EventArgs.Empty, "repeatDates", selectedDates.Text);
+            });
 
             //Popup = new PopupMenu()
             //{
@@ -68,6 +79,50 @@ namespace mycoin.Views
                 image.FadeTo(1, 1000);
             }
         }
+
+        void repeatAddClicked(object sender, EventArgs e)
+        {
+            repeatDatePicker.Focus();
+        }
+        void repeatDelClicked(object sender, EventArgs e)
+        {
+            if (selectedDates.Text.Length == 0) return;
+            string originRepeatDates = selectedDates.Text;
+            string resultRepeatDates = originRepeatDates.Substring(0, originRepeatDates.Length - 11);
+            selectedDates.Text = resultRepeatDates;
+        }
+
+        //private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        //{
+        //    RadioButton rb = sender as RadioButton;
+        //    if (!rb.IsChecked) return;
+        //    var selectedR = rb.Value;
+        //    switch (selectedR)
+        //    {
+        //        case "0": repeatDates.IsVisible = false; break;
+        //        case "1": {
+        //                repeatDates.IsVisible = true;
+        //                repeatDatePicker1.IsVisible = true;
+        //                repeatDatePicker2.IsVisible = false;
+        //                repeatDatePicker3.IsVisible = false;
+        //            } break;
+        //        case "2":
+        //            {
+        //                repeatDates.IsVisible = true;
+        //                repeatDatePicker1.IsVisible = true;
+        //                repeatDatePicker2.IsVisible = true;
+        //                repeatDatePicker3.IsVisible = false;
+        //            } break;
+        //        default:
+        //            {
+        //                repeatDates.IsVisible = true;
+        //                repeatDatePicker1.IsVisible = true;
+        //                repeatDatePicker2.IsVisible = true;
+        //                repeatDatePicker3.IsVisible = true;
+        //            } break;
+        //    }
+
+        //}
 
         //void ShowPopup_Clicked(object sender, EventArgs e)
         //{

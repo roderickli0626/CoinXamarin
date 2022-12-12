@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.AccordionView"
              xmlns:material="clr-namespace:Plugin.MaterialDesignControls;assembly=Plugin.MaterialDesignControls"
              xmlns:behaviors="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             xmlns:plugin="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.SfCalendar.XForms"
+             xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
              x:Class="mycoin.Views.CalendarSettingPage"
              x:Name="currentPage">
     <ContentPage.Content>
@@ -16,10 +19,10 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
 
                 <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween" HeightRequest="65" IsVisible="true" IsEnabled="True">
-                    <ProgressBar ProgressColor="LightGreen" Margin="30,10,10,10" WidthRequest="120" HeightRequest="30" Progress="0.5" ScaleY="2"/>
-                    <ImageButton BackgroundColor="Transparent" Source="icons8_square_green_48.png" HeightRequest="30" WidthRequest="30" Margin="10"/>
+                    <ProgressBar ProgressColor="LightGreen" Margin="30,10,10,10" WidthRequest="120" HeightRequest="30" Progress="{Binding progressState}" ScaleY="2"/>
+                    <ImageButton BackgroundColor="Transparent" Source="{Binding imgUrl}" HeightRequest="30" WidthRequest="30" Margin="10" Command="{Binding StopCommand}"/>
                     <!--<Label Text="{Binding timelabel}" x:Name="timelabel" TextColor="White" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>-->
-                    <Label Text="00:00:00" x:Name="timelabel" Margin="10" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding timelabel}" x:Name="timelabel" Margin="10" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
                     <Image Source="ic_bluetooth.png" HeightRequest="30" WidthRequest="30" Margin="10"/>
                     <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="30" WidthRequest="30" Margin="10,10,30,10"/>
                 </FlexLayout>
@@ -116,11 +119,30 @@
                                                          TextColor="Gray" ButtonBackgroundColor="White" ButtonActiveBackgroundColor="White" TextPosition="Center" RightImage="down.png" 
                                                          LeftImage="icons8_repeat.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_repeat.png">
                                             <local:AccordionItemView.ItemContent>
-                                                <StackLayout Padding="0.5,0,0.5,0.5">
-                                                    <FlexLayout Padding="5,15" BackgroundColor="White" JustifyContent="Center">
-                                                        <CheckBox HorizontalOptions="Center" Color="DeepSkyBlue"/>
-                                                        <Label Text="Repeat" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="24"/>
+                                                <StackLayout Padding="0.5,0,0.5,0.5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                    <FlexLayout Padding="10" BackgroundColor="White" JustifyContent="SpaceEvenly">
+                                                        <!--<StackLayout RadioButtonGroup.GroupName="RepeatRadio" RadioButtonGroup.SelectedValue="{Binding Selection}">
+                                                            <RadioButton Content="No Repeat" Value="0" IsChecked="True" CheckedChanged="RadioButton_CheckedChanged"/>
+                                                            <RadioButton Content="Repeat 1" Value="1" CheckedChanged="RadioButton_CheckedChanged"/>
+                                                            <RadioButton Content="Repeat 2" Value="2" CheckedChanged="RadioButton_CheckedChanged"/>
+                                                            <RadioButton Content="Repeat 3" Value="3" CheckedChanged="RadioButton_CheckedChanged"/>
+                                                        </StackLayout>
+                                                        <StackLayout x:Name="repeatDates" IsVisible="false">
+                                                            <DatePicker x:Name="repeatDatePicker1" WidthRequest="110" Date="{Binding repeatDate1}" />
+                                                            <DatePicker x:Name="repeatDatePicker2" WidthRequest="110" Date="{Binding repeatDate2}" />
+                                                            <DatePicker x:Name="repeatDatePicker3" WidthRequest="110" Date="{Binding repeatDate3}" />
+                                                        </StackLayout>-->
+                                                        <!--<syncfusion:SfCalendar x:Name="calendar" SelectionMode="MultiSelection" />-->
+                                                        <!--<plugin:Calendar />-->
                                                     </FlexLayout>
+                                                    <StackLayout>
+                                                        <FlexLayout JustifyContent="SpaceAround">
+                                                            <ImageButton Source="icons8_plus.png" HeightRequest="40" WidthRequest="40" BackgroundColor="Transparent" Clicked="repeatAddClicked"/>
+                                                            <ImageButton Source="icons8_minus.png" HeightRequest="40" WidthRequest="40" BackgroundColor="Transparent" Clicked="repeatDelClicked"/>
+                                                        </FlexLayout>
+                                                        <Label x:Name="selectedDates" Text="" Margin="30" HorizontalTextAlignment="Center" WidthRequest="100" FontSize="20"/>
+                                                        <DatePicker x:Name="repeatDatePicker" IsVisible="false"/>
+                                                    </StackLayout>
                                                 </StackLayout>
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>

@@ -33,7 +33,7 @@ namespace mycoin
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
 
-            MainPage = new NavigationPage(new LoginPage());
+            //MainPage = new NavigationPage(new LoginPage());
 
             MessagingCenter.Subscribe<EventArgs, string>(this, "OpenMenu", (sender, args) =>
             {
