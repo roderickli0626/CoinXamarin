@@ -19,6 +19,7 @@ namespace mycoin.Views
         CalendarSettingPageViewModel vm;
         public PopupMenu Popup;
         private int id;
+        public string repeatDates = "";
 
 
         public CalendarSettingPage(int id, DateTime? selectedDate)
@@ -28,19 +29,42 @@ namespace mycoin.Views
 
             repeatDatePicker.DateSelected += (sender, e) =>
             {
-                selectedDates.Text += repeatDatePicker.Date.ToString("MM/dd/yyyy") + " ";
-            };
+                repeatTimePicker.Focus();
 
+                //ImageButton imgbtn = new ImageButton { Source = "icons8_minus.png", HeightRequest = 20, WidthRequest = 20, Margin = new Thickness(10,4,0,0) };
+                //imgbtn.Clicked += repeatDelClicked;
+                //Repeat.Children.Add(new FlexLayout()
+                //{
+                //    JustifyContent = FlexJustify.Center,
+                //    Children =
+                //    {
+                //        new Label() {Text = repeatDatePicker.Date.ToString("MM/dd/yyyy"), FontSize = 20},
+                //        imgbtn
+                //    }
+                //});
+
+                //repeatDates += repeatDatePicker.Date.ToString("MM/dd/yyyy") + " ";
+            };
+            repeatTimePicker.Unfocused += (sender, e) =>
+            {
+                ImageButton imgbtn = new ImageButton { Source = "icons8_minus.png", HeightRequest = 20, WidthRequest = 20, Margin = new Thickness(10, 4, 0, 0) };
+                imgbtn.Clicked += repeatDelClicked;
+                Repeat.Children.Add(new FlexLayout()
+                {
+                    JustifyContent = FlexJustify.Center,
+                    Children =
+                    {
+                        new Label() {Text = repeatDatePicker.Date.ToString("MM/dd/yyyy") + " " + repeatTimePicker.Time, FontSize = 20},
+                        imgbtn
+                    }
+                });
+
+                repeatDates += repeatDatePicker.Date.ToString("MM/dd/yyyy") + " " + repeatTimePicker.Time + ",";
+            };
             MessagingCenter.Subscribe<CalendarSettingPageViewModel>(this, "Save Repeats", (sender) =>
             {
-                MessagingCenter.Send(EventArgs.Empty, "repeatDates", selectedDates.Text);
+                MessagingCenter.Send(EventArgs.Empty, "repeatDates", repeatDates);
             });
-
-            //Popup = new PopupMenu()
-            //{
-            //    ItemsSource = new List<string>() { "Add to Calendar" },
-            //};
-            //Popup.OnItemSelected += ItemSelectedDelegate;
 
             if (Device.RuntimePlatform == Device.Android) Padding = new Thickness(0, 10, 0, 0);
             BackgroundColor = Color.White;
@@ -86,10 +110,18 @@ namespace mycoin.Views
         }
         void repeatDelClicked(object sender, EventArgs e)
         {
-            if (selectedDates.Text.Length == 0) return;
-            string originRepeatDates = selectedDates.Text;
-            string resultRepeatDates = originRepeatDates.Substring(0, originRepeatDates.Length - 11);
-            selectedDates.Text = resultRepeatDates;
+            ImageButton imageButton = sender as ImageButton;
+            FlexLayout fl = (FlexLayout)imageButton.Parent;
+            string delSDate = ((Label)fl.Children.ElementAt(0)).Text;
+            fl.IsVisible = false;
+
+            repeatDates = repeatDates.Replace(delSDate + ",", "");
+        }
+
+        void repeatAllDelClicked (object sender, EventArgs e)
+        {
+            Repeat.Children.Clear();
+            repeatDates = "";
         }
 
         //private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)

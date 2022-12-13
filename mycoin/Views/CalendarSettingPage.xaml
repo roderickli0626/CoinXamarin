@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:mycoin"
              xmlns:local="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.AccordionView"
              xmlns:material="clr-namespace:Plugin.MaterialDesignControls;assembly=Plugin.MaterialDesignControls"
              xmlns:behaviors="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
@@ -92,6 +93,7 @@
                                                            HorizontalOptions="Center" TextColor="DeepSkyBlue" LabelTextColor="DeepSkyBlue" BackgroundColor="White" HorizontalTextAlignment="Center" FontSize="24" WidthRequest="200" 
                                                                                        SecondarySelectedItem="{Binding Sminutes}" SelectedIndexesChanged="StartTimeChanged" x:Name="stv">
                                                         </material:MaterialDoublePicker>
+                                                        <!--<TimePicker FontSize="24" Format="HH  :  mm" Margin="152,0,152,0" />-->
                                                         <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,0,0,10"/>
                                                     </StackLayout>
                                                 </StackLayout>
@@ -138,10 +140,13 @@
                                                     <StackLayout>
                                                         <FlexLayout JustifyContent="SpaceAround">
                                                             <ImageButton Source="icons8_plus.png" HeightRequest="40" WidthRequest="40" BackgroundColor="Transparent" Clicked="repeatAddClicked"/>
-                                                            <ImageButton Source="icons8_minus.png" HeightRequest="40" WidthRequest="40" BackgroundColor="Transparent" Clicked="repeatDelClicked"/>
+                                                            <ImageButton Source="icons8_minus.png" HeightRequest="40" WidthRequest="40" BackgroundColor="Transparent" Clicked="repeatAllDelClicked"/>
                                                         </FlexLayout>
-                                                        <Label x:Name="selectedDates" Text="" Margin="30" HorizontalTextAlignment="Center" WidthRequest="100" FontSize="20"/>
+                                                        <StackLayout x:Name="Repeat">
+                                                        </StackLayout>
+                                                        <!--<Label x:Name="selectedDates" Text="" Margin="30" HorizontalTextAlignment="Center" WidthRequest="100" FontSize="20"/>-->
                                                         <DatePicker x:Name="repeatDatePicker" IsVisible="false"/>
+                                                        <TimePicker x:Name="repeatTimePicker" IsVisible="false"/>
                                                     </StackLayout>
                                                 </StackLayout>
                                             </local:AccordionItemView.ItemContent>

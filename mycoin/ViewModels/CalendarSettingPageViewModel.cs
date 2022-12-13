@@ -240,12 +240,12 @@ namespace mycoin.ViewModels
 
             //Add Repeat Calendars
             MessagingCenter.Send<CalendarSettingPageViewModel>(this, "Save Repeats");
-            List<string> repeatDatesSList = SelectDates.Split(" ").ToList();
+            List<string> repeatDatesSList = SelectDates.Split(",").ToList();
             foreach (string repeatSDate in repeatDatesSList)
             {
                 if (repeatSDate != "")
                 {
-                    DateTime repeatDate = DateTime.ParseExact(repeatSDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    DateTime repeatDate = DateTime.Parse(repeatSDate, CultureInfo.InvariantCulture);
                     SaveRepeatCalendar(repeatDate);
                 }
             }
@@ -260,13 +260,15 @@ namespace mycoin.ViewModels
         void SaveRepeatCalendar(DateTime repeatDate)
         {
             Calendar repeatCalendar = new Calendar();
-            repeatCalendar.startTime = calendar.startTime;
+            //repeatCalendar.startTime = calendar.startTime;
             repeatCalendar.WavFile = calendar.WavFile;
             repeatCalendar.Duration = calendar.Duration;
             repeatCalendar.substanceName = calendar.substanceName;
 
             if (repeatDate == calendar.startDate) return;
-            repeatCalendar.startDate = repeatDate;
+            //repeatCalendar.startDate = DateTime.ParseExact(repeatDate.Date.ToString(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            repeatCalendar.startDate = repeatDate.Date;
+            repeatCalendar.startTime = repeatDate;
             App.Database.SaveCalendarAsync(repeatCalendar);
         }
 
