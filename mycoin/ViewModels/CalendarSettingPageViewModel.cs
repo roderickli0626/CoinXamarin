@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -20,13 +21,13 @@ namespace mycoin.ViewModels
 {
     public class CalendarSettingPageViewModel : BaseViewModel
     {
-        string _musicName, _totalDuration, _repeat, _startTime, _saveIcon, _hours, _minutes, _shours, _sminutes, _selection;
+        string _musicName, _totalDuration, _repeat, _startTime, _saveIcon, _hours, _minutes, _shours, _sminutes, _selection, _calendarSettingTitle, _subTitle;
         bool _musicEnabled;
 
         //ProgressBar State
         public System.Timers.Timer timer;
 
-        string _imgUrl, _timelabel;
+        string _imgUrl, _timelabel, _searchPlaceHolder, _saveButton;
         double _progressState;
         int totalMinutes;
         public string imgUrl { get => _imgUrl; set => SetProperty(ref _imgUrl, value); }
@@ -44,6 +45,10 @@ namespace mycoin.ViewModels
         public string Shours { get => _shours; set => SetProperty(ref _shours, value); }
         public string Sminutes { get => _sminutes; set => SetProperty(ref _sminutes, value); }
         public string Selection { get => _selection; set => SetProperty(ref _selection, value); }
+        public string CalendarSettingTitle { get => _calendarSettingTitle; set => SetProperty(ref _calendarSettingTitle, value); }
+        public string SubTitle { get => _subTitle; set => SetProperty(ref _subTitle, value); }
+        public string SearchPlaceHolder { get => _searchPlaceHolder; set => SetProperty(ref _searchPlaceHolder, value); }
+        public string SaveButton { get => _saveButton; set => SetProperty(ref _saveButton, value); }
         public bool musicEnabled { get => _musicEnabled; set => SetProperty(ref _musicEnabled, value); }
 
         public List<MySubstance> mySubstances { get; private set; }
@@ -180,10 +185,14 @@ namespace mycoin.ViewModels
 
         void InitTitle()
         {
-            MusicName = "MUSIC NAME";
-            StartTime = "START TIME";
-            TotalDuration = "TOTAL DURATION";
-            Repeat = "REPEAT";
+            CalendarSettingTitle = GlobalConstants.LangGUI.GetValueOrDefault("My Plans", "My Plans");
+            SubTitle = GlobalConstants.LangGUI.GetValueOrDefault("Create Appointment", "Create Appointment");
+            SearchPlaceHolder = GlobalConstants.LangGUI.GetValueOrDefault("Search", "Search");
+            SaveButton = GlobalConstants.LangGUI.GetValueOrDefault("Save", "Save");
+            MusicName = GlobalConstants.LangGUI.GetValueOrDefault("MUSIC NAME", "MUSIC NAME");
+            StartTime = GlobalConstants.LangGUI.GetValueOrDefault("START TIME", "START TIME");
+            TotalDuration = GlobalConstants.LangGUI.GetValueOrDefault("TOTAL DURATION", "TOTAL DURATION");
+            Repeat = GlobalConstants.LangGUI.GetValueOrDefault("REPEAT", "REPEAT");
             
         }
 
@@ -192,6 +201,7 @@ namespace mycoin.ViewModels
             List<Note> noteList = App.Database.GetNotesAsync().Result;
             foreach (string groupName in noteList.Select(n => n.GroupName ?? "No GroupName").Distinct().ToList())
             {
+                int groupNumber = noteList.Where(n => n.GroupName == groupName).FirstOrDefault().GroupNumber;
                 mySubstances = new List<MySubstance>();
 
                 foreach (Note note in noteList.Where(s => s.GroupName == groupName).ToList())
@@ -200,7 +210,7 @@ namespace mycoin.ViewModels
                     {
                         ID = note.ID,
                         SubstanceImageUrl = "dot.png",
-                        SubstanceName = note.Substance ?? "No SubstanceName",
+                        SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
                         Duration = note.Duration,
                     });
                 }
@@ -208,7 +218,7 @@ namespace mycoin.ViewModels
                 MyGroups.Add(new MyGroupViewModel(new MyGroup
                 {
                     ImageUrl = "ic_biapp_icon_favorit.xml",
-                    GroupName = groupName,
+                    GroupName = GlobalConstants.GroupTexts.GetValueOrDefault(groupNumber, groupName),
                     MySubstances = mySubstances
                 }));
             }
@@ -280,7 +290,7 @@ namespace mycoin.ViewModels
                 Note note = App.Database.GetNoteAsync(noteId).Result;
                 calendar.substanceName = note.Substance;
                 calendar.WavFile = note.WavFile;
-                MusicName = note.Substance ?? "No Name Music";
+                MusicName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No Name Music");
                 musicEnabled = true;
                 saveIcon = "icons8_save_blue.png";
             }

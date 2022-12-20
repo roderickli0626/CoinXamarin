@@ -8,6 +8,7 @@ namespace mycoin.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public int SubstanceID { get; set; }
+        public int GroupNumber { get; set; }
         public bool? Hidde { get; set; }
         public byte[]? WavFile { get; set; }
         public bool? StandardYesNo { get; set; }

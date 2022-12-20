@@ -6,7 +6,7 @@
         <StackLayout BackgroundColor="#F0F2F3">
             <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="20,10,0,10" Clicked="OnImageButtonClicked"/>
-                <Label Text="User Information" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="28" FontAttributes="Bold" TextColor="Black" Margin="0,10,10,10"/>
+                <Label Text="User Information" x:Name="UserInfoTitle" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="28" FontAttributes="Bold" TextColor="Black" Margin="0,10,10,10"/>
                 <Label Text=""/>
             </FlexLayout>
             <StackLayout Margin="10,50,10,10">
@@ -28,10 +28,10 @@
                         
                         <StackLayout Margin="50,10,50,50">
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                <Button Text="Update" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
-                                <Button Text="Delete Account" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
+                                <Button Text="Update" x:Name="UpdateButton" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                                <Button Text="Delete Account" x:Name="DeleteButton" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
                             </StackLayout>
-                            <Button Text="Password Change" WidthRequest="100" Margin="10" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                            <Button Text="Password Change" x:Name="PasswordButton" WidthRequest="100" Margin="10" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
                         </StackLayout>
 
                         <AbsoluteLayout HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">

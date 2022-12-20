@@ -9,7 +9,7 @@
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_menu.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
-                <Label Text="My Plans" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Label Text="{Binding CalendarTitle}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
             </FlexLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
@@ -53,8 +53,8 @@
                         </StackLayout>
 
                         <FlexLayout JustifyContent="SpaceAround">
-                            <Button Text="+ Add" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding AddCalendarCommand}"/>
-                            <Button Text="Delete" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding DeleteAllCalendarCommand}"/>
+                            <Button Text="{Binding AddButton}" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding AddCalendarCommand}"/>
+                            <Button Text="{Binding DeleteButton}" HeightRequest="40" FontAttributes="Bold" BackgroundColor="Transparent" CornerRadius="30" BorderColor="DeepSkyBlue" BorderWidth="2" Command="{Binding DeleteAllCalendarCommand}"/>
                         </FlexLayout>
 
                         <!--<StackLayout Orientation="Horizontal">

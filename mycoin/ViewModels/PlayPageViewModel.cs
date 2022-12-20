@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace mycoin.ViewModels
         public bool endFlag = false;
         public bool closeFlag = false;
 
-        string _titleFromPlayState, _playState, _markImageUrl, _therapyTitle, _buttonFromPlayState, _hours, _minutes;
+        string _titleFromPlayState, _playState, _markImageUrl, _therapyTitle, _buttonFromPlayState, _hours, _minutes, _currentTitle, _lengthLbl;
         bool _animationState, _unFavorite, _showClose;
 
         public string titleFromPlayState { get => _titleFromPlayState; set => SetProperty(ref _titleFromPlayState, value); }
@@ -27,6 +28,8 @@ namespace mycoin.ViewModels
         public string buttonFromPlayState { get => _buttonFromPlayState; set => SetProperty(ref _buttonFromPlayState, value); }
         public string hours { get => _hours; set => SetProperty(ref _hours, value); }
         public string minutes { get => _minutes; set => SetProperty(ref _minutes, value); }
+        public string CurrentTitle { get => _currentTitle; set => SetProperty(ref _currentTitle, value); }
+        public string LengthLbl { get => _lengthLbl; set => SetProperty(ref _lengthLbl, value); }
         public bool animationState { get => _animationState; set => SetProperty(ref _animationState, value); }
         public bool unFavorite { get => _unFavorite; set => SetProperty(ref _unFavorite, value); }
         public bool showClose { get => _showClose; set => SetProperty(ref _showClose, value); }
@@ -40,14 +43,16 @@ namespace mycoin.ViewModels
             note = App.Database.GetNoteAsync(noteID).Result;
             if (note == null) return;
 
-            titleFromPlayState = "Application Start";
-            playState = "Start";
+            titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
+            playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
             buttonFromPlayState = "icons8_play_48.png";
             //markImageUrl = "animation_blue_02.png";
             markImageUrl = "animation_blue_02.gif";
             //markImageUrl = "animation_green_02.png";
             //markImageUrl = "animation_green_02.gif";
-            therapyTitle = note.Substance ?? "No Title";
+            therapyTitle = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No Title");
+            CurrentTitle = GlobalConstants.LangGUI.GetValueOrDefault("Your Current Therapy", "Your Current Therapy");
+            LengthLbl = GlobalConstants.LangGUI.GetValueOrDefault("Length of Time", "Length of Time");
             animationState = true;
             unFavorite = !note.Isfavorite;
             showClose = false;
@@ -91,8 +96,8 @@ namespace mycoin.ViewModels
             audio.Play();
             audio.Stop();
             buttonFromPlayState = "icons8_play_48.png";
-            playState = "Start";
-            titleFromPlayState = "Application Start";
+            playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
+            titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
             markImageUrl = "animation_blue_02.gif";
         });
 
@@ -104,11 +109,11 @@ namespace mycoin.ViewModels
 
             if (audio == null || note.WavFile == null) return;
 
-            if (playState == "Start")
+            if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start"))
             {
                 buttonFromPlayState = "icons8_square_green_48.png";
-                playState = "Stop";
-                titleFromPlayState = "Application Run";
+                playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
                 markImageUrl = "animation_green_02.gif";
                 showClose = false;
                 closeFlag = false;
@@ -128,7 +133,7 @@ namespace mycoin.ViewModels
                 {
                     if (closeFlag) return false;
 
-                    if (playState == "Continue")
+                    if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
                     {
                         return true;
                     }
@@ -142,8 +147,8 @@ namespace mycoin.ViewModels
                         if (endFlag)
                         {
                             buttonFromPlayState = "icons8_square_green_48.png";
-                            playState = "Stop";
-                            titleFromPlayState = "Application Run";
+                            playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                            titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
                             showClose = false;
 
                             audio.Play();
@@ -156,29 +161,29 @@ namespace mycoin.ViewModels
                     {
                         audio.Stop();
                         buttonFromPlayState = "icons8_play_48.png";
-                        playState = "Start";
-                        titleFromPlayState = "Application Start";
+                        playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
+                        titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
                         markImageUrl = "animation_blue_02.gif";
                         return false;
                     }
 
                 });
             }
-            else if (playState == "Stop")
+            else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop"))
             {
                 showClose = true;
-                playState = "Continue";
-                titleFromPlayState = "Application Start";
+                playState = GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue");
+                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
                 buttonFromPlayState = "icons8_play_48.png";
                 markImageUrl = "animation_blue_02.gif";
 
                 audio.Pause();
             }
-            else if (playState == "Continue")
+            else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
             {
                 buttonFromPlayState = "icons8_square_green_48.png";
-                playState = "Stop";
-                titleFromPlayState = "Application Run";
+                playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
                 markImageUrl = "animation_green_02.gif";
                 showClose = false;
                 audio.Play();

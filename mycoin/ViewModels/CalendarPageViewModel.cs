@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -26,11 +27,14 @@ namespace mycoin.ViewModels
         //ProgressBar State
         public System.Timers.Timer timer;
 
-        string _imgUrl, _timelabel;
+        string _imgUrl, _timelabel, _calendarTitle, _addButton, _deleteButton;
         double _progressState;
         int totalMinutes;
         public string imgUrl { get => _imgUrl; set => SetProperty(ref _imgUrl, value); }
         public string timelabel { get => _timelabel; set => SetProperty(ref _timelabel, value); }
+        public string CalendarTitle { get => _calendarTitle; set => SetProperty(ref _calendarTitle, value); }
+        public string AddButton { get => _addButton; set => SetProperty(ref _addButton, value); }
+        public string DeleteButton { get => _deleteButton; set => SetProperty(ref _deleteButton, value); }
         public double progressState { get => _progressState; set => SetProperty(ref _progressState, value); }
 
         public ICommand CalendarSelectedCommand => new Command(async (item) => await ExecuteCalendarSelectedCommand(item));
@@ -40,6 +44,9 @@ namespace mycoin.ViewModels
 
         public CalendarPageViewModel()
         {
+            CalendarTitle = GlobalConstants.LangGUI.GetValueOrDefault("My Plans", "My Plans");
+            AddButton = "+ " + GlobalConstants.LangGUI.GetValueOrDefault("Add", "Add");
+            DeleteButton = GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete");
             Events = new EventCollection();
             CreateCalendarCollection();
 
@@ -116,12 +123,14 @@ namespace mycoin.ViewModels
                 List<EventModel> events = new List<EventModel>();
                 foreach (Calendar calendar in calendars)
                 {
+                    var substance = App.Database.GetNotesAsync().Result.Where(n => n.Substance == calendar.substanceName).FirstOrDefault();
+                    int substanceID = substance == null ? 0 : substance.SubstanceID;
                     events.Add(new EventModel
                     {
                         ID = calendar.ID,
-                        Name = calendar.substanceName,
+                        Name = GlobalConstants.SubTexts.GetValueOrDefault(substanceID, calendar.substanceName ?? ""),
                         TimePeriod = calendar.startTime.ToString("HH:mm:ss tt") + " ~ " + calendar.startTime.AddMinutes(calendar.Duration).ToString("HH:mm:ss tt"),
-                        Duration = "Duration:" + ((calendar.Duration > 59) ? calendar.Duration / 60 + "h " + calendar.Duration % 60 + "min" : calendar.Duration + "min")
+                        Duration = GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") + ":" + ((calendar.Duration > 59) ? calendar.Duration / 60 + "h " + calendar.Duration % 60 + "min" : calendar.Duration + "min")
                     });
                 }
                 Events.Add(startDate, events);
@@ -186,7 +195,8 @@ namespace mycoin.ViewModels
 
         private async Task ExecuteDeleteAllCalendarCommand()
         {
-            var result = await App.Current.MainPage.DisplayAlert("Delete", "Really Delete All Appointment?", "OK", "Cancel");
+            var result = await App.Current.MainPage.DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), 
+                GlobalConstants.LangGUI.GetValueOrDefault("Really Delete All Appointment?", "Really Delete All Appointment?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
             if (result)
             {
                 await App.Database.DeleteAllCalendarsAsync(SelectedDate);

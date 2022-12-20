@@ -14,7 +14,7 @@
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
-                <Label Text="My Plans" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Label Text="{Binding CalendarSettingTitle}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
             </FlexLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
@@ -31,7 +31,7 @@
                 <Grid>
                     <StackLayout>
                         <StackLayout HorizontalOptions="Center" HeightRequest="550" BackgroundColor="White" WidthRequest="500" Margin="0,10,0,10">
-                            <Label Text="Create Appointment" HorizontalTextAlignment="Center" Margin="10,30,10,30" TextColor="DeepSkyBlue" FontSize="28"/>
+                            <Label Text="{Binding SubTitle}" HorizontalTextAlignment="Center" Margin="10,30,10,30" TextColor="DeepSkyBlue" FontSize="28"/>
 
                             <ScrollView VerticalOptions="FillAndExpand">
                                 <StackLayout>
@@ -43,7 +43,7 @@
                                             <local:AccordionItemView.ItemContent>
                                                 <StackLayout Padding="0.5,0,0.5,0.5" HeightRequest="300">
                                                     <StackLayout Padding="5,15" BackgroundColor="White">
-                                                        <SearchBar Placeholder="Search" PlaceholderColor="Gray" TextColor="Black" Margin="0,0,0,-10" FontSize="Medium" CancelButtonColor="Gray" />
+                                                        <SearchBar Placeholder="{Binding SearchPlaceHolder}" PlaceholderColor="Gray" TextColor="Black" Margin="0,0,0,-10" FontSize="Medium" CancelButtonColor="Gray" />
 
                                                         <ListView ItemsSource="{Binding MyGroups}" IsGroupingEnabled="True">
                                                             <ListView.ItemTemplate>
@@ -158,7 +158,7 @@
 
                             <StackLayout Margin="0,0,0,30">
                                 <ImageButton Source="{Binding saveIcon}" HeightRequest="50" WidthRequest="50" BackgroundColor="Transparent" IsEnabled="{Binding musicEnabled}" Command="{Binding SaveCommand}" />
-                                <Label Text="Save" FontSize="20" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding SaveButton}" FontSize="20" HorizontalTextAlignment="Center"/>
                             </StackLayout>
                         </StackLayout>
 

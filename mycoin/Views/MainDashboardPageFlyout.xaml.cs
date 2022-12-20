@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mycoin.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -27,16 +28,18 @@ namespace mycoin.Views
 
         private class MainDashboardPageFlyoutViewModel : INotifyPropertyChanged
         {
+            public string MenuTitle { get; set; }
             public ObservableCollection<MainDashboardPageFlyoutMenuItem> MenuItems { get; set; }
 
             public MainDashboardPageFlyoutViewModel()
             {
+                MenuTitle = GlobalConstants.LangGUI.GetValueOrDefault("Menu", "Menu");
                 MenuItems = new ObservableCollection<MainDashboardPageFlyoutMenuItem>(new[]
                 {
-                    new MainDashboardPageFlyoutMenuItem { Id = 1, Title = "User Information", IsVisible = true, TargetType = new UserInfoPage().GetType() },
-                    new MainDashboardPageFlyoutMenuItem { Id = 2, Title = "Settings", IsVisible = true },
-                    new MainDashboardPageFlyoutMenuItem { Id = 3, Title = "Support",IsVisible = true },
-                    new MainDashboardPageFlyoutMenuItem { Id = 4, Title = "Theme", IsVisible = true },
+                    new MainDashboardPageFlyoutMenuItem { Id = 1, Title = GlobalConstants.LangGUI.GetValueOrDefault("User Information", "User Information"), IsVisible = true, TargetType = new UserInfoPage().GetType() },
+                    new MainDashboardPageFlyoutMenuItem { Id = 2, Title = GlobalConstants.LangGUI.GetValueOrDefault("Settings", "Settings"), IsVisible = true, TargetType = new SettingPage().GetType() },
+                    new MainDashboardPageFlyoutMenuItem { Id = 3, Title = GlobalConstants.LangGUI.GetValueOrDefault("Support", "Support"),IsVisible = true },
+                    new MainDashboardPageFlyoutMenuItem { Id = 4, Title = GlobalConstants.LangGUI.GetValueOrDefault("Theme", "Theme"), IsVisible = true },
                 });
             }
 

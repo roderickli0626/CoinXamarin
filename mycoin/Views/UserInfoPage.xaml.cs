@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ namespace mycoin.Views
 
         void InitUserInfo()
         {
+            UserInfoTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("User Information", "User Information");
+            UpdateButton.Text = GlobalConstants.LangGUI.GetValueOrDefault("Update", "Update");
+            DeleteButton.Text = GlobalConstants.LangGUI.GetValueOrDefault("Delete Account", "Delete Account");
+            PasswordButton.Text = GlobalConstants.LangGUI.GetValueOrDefault("Password Change", "Password Change");
             userName.Text = App.Userdata.userName;
             Name.Text = Name.Text + App.Userdata.userName;
             DeviceNumber.Text = DeviceNumber.Text + App.Userdata.devicenum;

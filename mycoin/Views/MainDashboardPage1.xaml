@@ -9,7 +9,7 @@
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_menu.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
-                <Label Text="My Applications" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Label Text="{Binding Title}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
             </FlexLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
@@ -50,14 +50,14 @@
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
                     <StackLayout Background="ic_background.xml">
                         <StackLayout>
-                            <SearchBar Placeholder="Search" PlaceholderColor="Gray" TextColor="Black" Margin="10,10,10,-10" FontSize="Medium" CancelButtonColor="Gray" />
+                            <SearchBar Placeholder="{Binding SearchHolder}" PlaceholderColor="Gray" TextColor="Black" Margin="10,10,10,-10" FontSize="Medium" CancelButtonColor="Gray" />
                         </StackLayout>
 
                         <StackLayout>
                             <Grid>
                                 <xct:TabView x:Name="MyTabs" SelectedIndex="{Binding selectedIndex}" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
                                              TabContentBackgroundColor="Transparent" >
-                                    <xct:TabViewItem Text="Favorites" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding FavouriteTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
                                         <CollectionView ItemsSource="{Binding MyFavoriteSubstances}" HorizontalOptions="Center" SelectionMode="Single">
                                             <CollectionView.ItemsLayout>
                                                 <LinearItemsLayout Orientation="Vertical"/>
@@ -80,12 +80,12 @@
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
                                     </xct:TabViewItem>
-                                    <xct:TabViewItem Text="History" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding HistoryTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
                                         <Grid>
                                             <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent2" />
                                         </Grid>
                                     </xct:TabViewItem>
-                                    <xct:TabViewItem Text="All Applications" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding AllTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
                                         <ListView ItemsSource="{Binding MyGroups}" IsGroupingEnabled="True">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>

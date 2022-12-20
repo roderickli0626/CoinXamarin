@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using mycoin.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace mycoin.Views
 
             Popup = new PopupMenu()
             {
-                ItemsSource = new List<string>() { "Add to Favorite", "Test PLAY"},
+                ItemsSource = new List<string>() { GlobalConstants.LangGUI.GetValueOrDefault("Add to Favorite", "Add to Favorite"), GlobalConstants.LangGUI.GetValueOrDefault("Test PLAY", "Test PLAY") },
             };
 
             Popup.OnItemSelected += ItemSelectedDelegate;
@@ -174,14 +175,14 @@ namespace mycoin.Views
 
         protected void ItemSelectedDelegate(string item)
         {
-            if (item == "Add to Favorite") {
+            if (item == GlobalConstants.LangGUI.GetValueOrDefault("Add to Favorite", "Add to Favorite")) {
                 if (id == 0) return;
                 Note note = App.Database.GetNoteAsync(id).Result;
                 note.Isfavorite = true;
                 App.Database.UpdateNoteAsync(note);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage1("allTab"));
             }
-            else if (item == "Test PLAY")
+            else if (item == GlobalConstants.LangGUI.GetValueOrDefault("Test PLAY", "Test PLAY"))
             {
                 App.Current.MainPage = new NavigationPage(new PlayPage(id));
             }
@@ -208,12 +209,15 @@ namespace mycoin.Views
         public async void ShowInfo(object sender, EventArgs e)
         {
             ImageButton btn = sender as ImageButton;
-            MySubstance substance = btn.BindingContext as MySubstance; 
+            MySubstance substance = btn.BindingContext as MySubstance;
             if (substance == null) return;
             var InfoId = substance.ID;
             if (InfoId == 0) return;
             Note infoSubstance = App.Database.GetNoteAsync(InfoId).Result;
-            await DisplayAlert(infoSubstance.Substance + " Information", "Group:" + infoSubstance.GroupName + "\nDuration:" + infoSubstance.Duration + "min", "OK");
+            await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(infoSubstance.SubstanceID, infoSubstance.Substance ?? "") + " " + 
+                GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"), GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + 
+                ":" + GlobalConstants.GroupTexts.GetValueOrDefault(infoSubstance.GroupNumber, infoSubstance.GroupName ?? "") + "\n" + 
+                GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") + ":" + infoSubstance.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
         }
 
         //Close, Stop, Continue Music

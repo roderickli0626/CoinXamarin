@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using mycoin.Views;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Timers;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using Xamarin.Forms.BehaviorsPack;
 
 namespace mycoin.ViewModels
 {
@@ -24,7 +26,7 @@ namespace mycoin.ViewModels
         public bool closeFlag = false;
         public bool stopFlag = false;
 
-        string _markImageUrl, _timelabel;
+        string _markImageUrl, _timelabel, _title, _favouriteTab, _historyTab, _allTab, _searchHolder;
         bool _stopContainer, _continueContainer;
         int _selectedIndex;
 
@@ -33,6 +35,11 @@ namespace mycoin.ViewModels
         public bool StopContainer { get => _stopContainer; set => SetProperty(ref _stopContainer, value); }
         public bool ContinueContainer { get => _continueContainer; set => SetProperty(ref _continueContainer, value); }
         public int selectedIndex { get => _selectedIndex; set => SetProperty(ref _selectedIndex, value); }
+        public string Title { get => _title; set => SetProperty(ref _title, value); }
+        public string FavouriteTab { get => _favouriteTab; set => SetProperty(ref _favouriteTab, value); }
+        public string HistoryTab { get => _historyTab; set => SetProperty(ref _historyTab, value); }
+        public string AllTab { get => _allTab; set => SetProperty(ref _allTab, value); }
+        public string SearchHolder { get => _searchHolder; set => SetProperty(ref _searchHolder, value); }
 
         public ObservableRangeCollection<MyGroupViewModel> MyGroups { get; private set; }
             = new ObservableRangeCollection<MyGroupViewModel>();
@@ -58,6 +65,11 @@ namespace mycoin.ViewModels
             timelabel = "";
             StopContainer = false;
             ContinueContainer = false;
+            Title = GlobalConstants.LangGUI.GetValueOrDefault("My Applications", "My Applications");
+            FavouriteTab = GlobalConstants.LangGUI.GetValueOrDefault("Favorites", "Favorites");
+            HistoryTab = GlobalConstants.LangGUI.GetValueOrDefault("History", "History");
+            AllTab = GlobalConstants.LangGUI.GetValueOrDefault("All Applications", "All Applications");
+            SearchHolder = GlobalConstants.LangGUI.GetValueOrDefault("Search", "Search");
 
             if (from == "default")
                 selectedIndex = 2;
@@ -185,6 +197,7 @@ namespace mycoin.ViewModels
             List<Note> noteList = App.Database.GetNotesAsync().Result;
             foreach (string groupName in noteList.Select(n => n.GroupName ?? "No GroupName").Distinct().ToList())
             {
+                int groupNumber = noteList.Where(n => n.GroupName == groupName).FirstOrDefault().GroupNumber;
                 mySubstances = new List<MySubstance>();
 
                 foreach (Note note in noteList.Where(s => s.GroupName == groupName).ToList())
@@ -193,7 +206,7 @@ namespace mycoin.ViewModels
                     {
                         ID = note.ID,
                         SubstanceImageUrl = "dot.png",
-                        SubstanceName = note.Substance ?? "No SubstanceName",
+                        SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
                         Duration = note.Duration,
                     });
                 }
@@ -201,7 +214,7 @@ namespace mycoin.ViewModels
                 MyGroups.Add(new MyGroupViewModel(new MyGroup
                 {
                     ImageUrl = "ic_biapp_icon_favorit.xml",
-                    GroupName = groupName,
+                    GroupName = GlobalConstants.GroupTexts.GetValueOrDefault(groupNumber, groupName),
                     MySubstances = mySubstances
                 }));
             }
@@ -222,7 +235,7 @@ namespace mycoin.ViewModels
                 {
                     ID = note.ID,
                     SubstanceImageUrl = "icons8_play_button_circled_50.png",
-                    SubstanceName = note.Substance ?? "No SubstanceName",
+                    SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
                     Duration = note.Duration,
                     DurationTimeFormat = note.Duration > 59 ? (note.Duration / 60) + "h " + (note.Duration % 60) + "min" : (note.Duration % 60) + "min",
                     favoriteExtraIconVisible = true

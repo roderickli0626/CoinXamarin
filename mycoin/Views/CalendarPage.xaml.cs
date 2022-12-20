@@ -1,4 +1,5 @@
 ﻿using mycoin.DependencyServices;
+using mycoin.Extensions;
 using mycoin.Models;
 using mycoin.ViewModels;
 using System;
@@ -39,7 +40,8 @@ namespace mycoin.Views
             EventModel eventModel = btn.BindingContext as EventModel;
             if (eventModel == null) return;
 
-            var result = await DisplayAlert("Delete", "Really Delete " + eventModel.Name + "?", "OK", "Cancel");
+            var result = await DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), GlobalConstants.LangGUI.GetValueOrDefault("Really Delete", "Really Delete") + 
+                " " + eventModel.Name + "?", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
             if (result)
             {
                 await App.Database.DeleteCalendarAsync(App.Database.GetCalendarAsync(eventModel.ID).Result);

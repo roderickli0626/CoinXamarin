@@ -17,8 +17,100 @@ namespace mycoin.Data
             database.CreateTableAsync<Note>().Wait();
             database.CreateTableAsync<Userdata>().Wait();
             database.CreateTableAsync<Calendar>().Wait();
+            database.CreateTableAsync<AppSettings>().Wait();
+            database.CreateTableAsync<Language>().Wait();
+            database.CreateTableAsync<LanguageGUI>().Wait();
+            database.CreateTableAsync<SubstanceText>().Wait();
+            database.CreateTableAsync<GroupText>().Wait();
         }
 
+        //GroupText
+        public Task<int> DeleteAllGroupTextAsync()
+        {
+            // Delete all GroupText.
+            return database.DeleteAllAsync<GroupText>();
+        }
+        public Task<List<GroupText>> GetGroupTextByLanguageAsync(int languageNumber)
+        {
+            //Get GroupTexts by Language.
+            return database.Table<GroupText>().Where(g => g.Language == languageNumber).ToListAsync();
+        }
+        public Task<int> SaveGroupTextAsync(GroupText data)
+        {
+            //Save a new GroupText
+            return database.InsertAsync(data);
+        }
+
+        //SubstanceText
+        public Task<int> DeleteAllSubstanceTextAsync()
+        {
+            // Delete all SubstanceText.
+            return database.DeleteAllAsync<SubstanceText>();
+        }
+        public Task<List<SubstanceText>> GetSubstanceTextByLangAsync(int languageNumber)
+        {
+            //Get SubstanceTexts By Language.
+            return database.Table<SubstanceText>().Where(s => s.Language == languageNumber).ToListAsync();
+        }
+        public Task<int> SaveSubstanceTextAsync(SubstanceText data)
+        {
+            //Save a new SubstanceText
+            return database.InsertAsync(data);
+        }
+
+
+        //LanguageGUI
+        public Task<int> DeleteAllLanguageGUIAsync()
+        {
+            // Delete all LanguageGUI.
+            return database.DeleteAllAsync<LanguageGUI>();
+        }
+        public Task<List<LanguageGUI>> GetLanguageGUIByLanguageAsync(int languageNumber)
+        {
+            //Get LanguageGUI by Language.
+            return database.Table<LanguageGUI>().Where(l => l.LanguageNumber == languageNumber).ToListAsync();
+        }
+        public Task<int> SaveLanguageGUIAsync(LanguageGUI data)
+        {
+            //Save a new LanguageGUI
+            return database.InsertAsync(data);
+        }
+
+        //Language
+        public Task<int> DeleteAllLanguagesAsync()
+        {
+            // Delete all Languages.
+            return database.DeleteAllAsync<Language>();
+        }
+        public Task<List<Language>> GetAllLanguagesAsync()
+        {
+            //Get all Languages.
+            return database.Table<Language>().ToListAsync();
+        }
+        public Task<int> SaveLanguageAsync(Language data)
+        {
+            //Save a new Languages
+            return database.InsertAsync(data);
+        }
+
+        // Settings
+        public Task<int> DeleteAllAppSettingAsync()
+        {
+            // Delete all AppSettings.
+            return database.DeleteAllAsync<AppSettings>();
+        }
+        public Task<AppSettings> GetSettingsAsync()
+        {
+            //Get Saved Settings
+            return database.Table<AppSettings>().FirstOrDefaultAsync();
+        }
+        public Task<int> SaveSettingsAsync(AppSettings data)
+        {
+            //Save a new Settings
+            return database.InsertAsync(data);
+        }
+
+        //Calendar
         public Task<int> SaveCalendarAsync(Calendar calendar)
         {
             // Save a new calendar.
@@ -62,6 +154,7 @@ namespace mycoin.Data
             return database.Table<Calendar>().Where(c => c.startDate == startDate).DeleteAsync();
         }
 
+        //UserData
         public Task<Userdata> GetUserdataAsync()
         {
             //Get Saved UserInfo
@@ -83,7 +176,7 @@ namespace mycoin.Data
             return database.UpdateAsync(data);
         }
 
-
+        //Note (Substances)
         public Task<List<Note>> GetNotesAsync()
         {
             //Get all notes.

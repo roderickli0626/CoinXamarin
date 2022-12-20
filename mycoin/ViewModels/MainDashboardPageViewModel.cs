@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,16 +13,17 @@ namespace mycoin.ViewModels
         public MainDashboardPageViewModel()
         {
             Note note = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite && n.PlayDateTime == null).FirstOrDefault();
-            markImageUrl = note == null ? "ic_coin_large_background_wood.png" : "ic_coin_large_background_silver.png";
+            markImageUrl = note == null ? GetMarkDefaultURL() : "ic_coin_large_background_silver.png";
             visibleFlag = note == null ? false : true;
             Align = note == null ? "Vertical" : "Horizontal";
-            firstProgram = note == null ? "No Program" : note.Substance ?? "No Program";
+            nextTherapy = GlobalConstants.LangGUI.GetValueOrDefault("Your Next Therapy", "Your Next Therapy");
+            firstProgram = note == null ? "No Program" : GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No Program");
             currentDate = note == null ? "No DefaultTime" : note.DefaultDateTime.ToString();
-            titleFromUserInfo = "Hello " + App.Userdata.userName;
+            titleFromUserInfo = GlobalConstants.LangGUI.GetValueOrDefault("Hello", "Hello") + " " + App.Userdata.userName;
             source = new List<MySubstance>();
             CreateGroupCollection();
         }
-        string _currentDate, _firstProgram, _titleFromUserInfo, _markImageUrl, _align;
+        string _currentDate, _firstProgram, _titleFromUserInfo, _markImageUrl, _align, _nextTherapy;
         bool _visibleFlag;
         public string currentDate { get => _currentDate; set => SetProperty(ref _currentDate, value); }
 
@@ -30,6 +32,7 @@ namespace mycoin.ViewModels
         public string markImageUrl { get => _markImageUrl; set => SetProperty(ref _markImageUrl, value); }
         public bool visibleFlag { get => _visibleFlag; set => SetProperty(ref _visibleFlag, value); }
         public string Align { get => _align; set => SetProperty(ref _align, value); }
+        public string nextTherapy { get => _nextTherapy; set => SetProperty(ref _nextTherapy, value); }
 
         readonly IList<MySubstance> source;
         public ObservableCollection<MySubstance> MySubstances { get; private set; }
@@ -43,7 +46,7 @@ namespace mycoin.ViewModels
                 {
                     ID = note.ID,
                     SubstanceImageUrl = "ic_biapp_icon_favorit.xml",
-                    SubstanceName = note.Substance ?? "No SubstanceName",
+                    SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
                     Duration = note.Duration,
                 });
 
@@ -52,9 +55,16 @@ namespace mycoin.ViewModels
             {
                 ID = 0,
                 SubstanceImageUrl = "ic_biapp_icon_favorit_hinzufuegen.xml",
-                SubstanceName = "Favorites Add"
+                SubstanceName = GlobalConstants.LangGUI.GetValueOrDefault("Favorites Add", "Favorites Add")
             });
             MySubstances = new ObservableCollection<MySubstance>(source);
+        }
+
+        string GetMarkDefaultURL()
+        {
+            AppSettings setting = App.Database.GetSettingsAsync().Result;
+            if (setting == null || setting.coverSkinDefault == "") return "ic_coin_large_background_wood.png";
+            else return setting.coverSkinDefault ?? "ic_coin_large_background_wood.png";
         }
     }
 }

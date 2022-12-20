@@ -9,6 +9,7 @@ using FFImageLoading.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using mycoin.Models;
+using mycoin.Extensions;
 
 namespace mycoin.Views
 {
@@ -48,7 +49,9 @@ namespace mycoin.Views
 
         public async void InfoButtonClicked(object sender, EventArgs e)
         {
-            await DisplayAlert(note.Substance + " Information", "Group:" + note.GroupName + "\nDuration:" + note.Duration + "min", "OK");
+            await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "") + " " + GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + ":" + GlobalConstants.GroupTexts.GetValueOrDefault(note.GroupNumber, note.GroupName ?? "") + "\n" + GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") +
+                ":" + note.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
         }
     }
 }

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.AccordionView"
+             x:Class="mycoin.Views.SettingPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
+                <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" HeightRequest="30" WidthRequest="30" Margin="20,10,10,10" BackgroundColor="White" Clicked="OnImageButtonClicked"/>
+                <Label Text="{Binding SettingTitle}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" Margin="10"/>
+                <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Margin="10,10,20,10"/>
+            </FlexLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+                <Grid>
+                    <Image Source="ic_background.xml" Aspect="AspectFit" Opacity="0.05" Margin="0,0,0,-250"/>
+                    <StackLayout>
+                        <StackLayout HorizontalOptions="Center" HeightRequest="550" WidthRequest="500" Margin="0,30,0,0">
+                            <ScrollView VerticalOptions="FillAndExpand">
+                                <StackLayout>
+                                    <local:AccordionView>
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" Text="{Binding BlueToothTitle}" FontSize="22" ActiveTextColor="Black" 
+                                                         TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
+                                                         LeftImage="icons8_online.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_online.png">
+                                            <local:AccordionItemView.ItemContent>
+                                                <StackLayout Padding="0.5,0,0.5,0.5" >
+                                                    
+                                                </StackLayout>
+                                            </local:AccordionItemView.ItemContent>
+                                        </local:AccordionItemView>
+                                        <BoxView HeightRequest="3" HorizontalOptions="Center" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" x:Name="st" Text="{Binding StatusTitle}" FontSize="22" ActiveTextColor="Black" 
+                                                         TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
+                                                         LeftImage="icons8_status.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_status.png" IsEnabled="{Binding musicEnabled}">
+                                            <local:AccordionItemView.ItemContent>
+                                                <StackLayout Padding="0.5,0,0.5,0.5">
+                                                   
+                                                </StackLayout>
+                                            </local:AccordionItemView.ItemContent>
+                                        </local:AccordionItemView>
+                                        <BoxView HeightRequest="3" HorizontalOptions="Center" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" x:Name="dt" Text="{Binding SpaceTitle}" FontSize="22" ActiveTextColor="Black" 
+                                                         TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
+                                                         LeftImage="icons8_save_setting.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_save_setting.png" IsEnabled="{Binding musicEnabled}">
+                                            <local:AccordionItemView.ItemContent>
+                                                <StackLayout Padding="0.5,0,0.5,0.5">
+                                                    
+                                                </StackLayout>
+                                            </local:AccordionItemView.ItemContent>
+                                        </local:AccordionItemView>
+                                        <BoxView HeightRequest="3" HorizontalOptions="Center" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" Text="{Binding LanguageTitle}" FontSize="22" ActiveTextColor="Black" 
+                                                         TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
+                                                         LeftImage="icons8_global.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_global.png">
+                                            <local:AccordionItemView.ItemContent>
+                                                <StackLayout Padding="0.5,0,0.5,0.5" HeightRequest="150" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                    <ListView ItemsSource="{Binding Languages}" ItemSelected="ListView_ItemSelected">
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ViewCell>
+                                                                    <Label Text="{Binding description}" TextColor="Black" FontSize="20" Margin="30,5,5,5"></Label>
+                                                                </ViewCell>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                </StackLayout>
+                                            </local:AccordionItemView.ItemContent>
+                                        </local:AccordionItemView>
+                                        <BoxView HorizontalOptions="Center" HeightRequest="3" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" Text="{Binding CoverSkin}" FontSize="22" ActiveTextColor="Black" 
+                                                         TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
+                                                         LeftImage="icons8_skin.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_skin.png">
+                                            <local:AccordionItemView.ItemContent>
+                                                <StackLayout Padding="0.5,0,0.5,0.5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="CoverSkin">
+                                                    <FlexLayout JustifyContent="SpaceEvenly">
+                                                        <ImageButton Source="ic_coin_large_background_silver.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                        <ImageButton Source="ic_coin_large_background_wood.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent"  Clicked="Image_Focused"/>
+                                                        <ImageButton Source="ic_coin_large_background_silver.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                    </FlexLayout>
+                                                    <FlexLayout JustifyContent="SpaceEvenly">
+                                                        <ImageButton Source="ic_coin_large_background_silver.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                        <ImageButton Source="ic_coin_large_background_wood.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent"  Clicked="Image_Focused"/>
+                                                        <ImageButton Source="animation_green_02.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                    </FlexLayout>
+                                                    <FlexLayout JustifyContent="SpaceEvenly">
+                                                        <ImageButton Source="ic_coin_large_background_silver.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                        <ImageButton Source="ic_coin_large_background_wood.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent"  Clicked="Image_Focused"/>
+                                                        <ImageButton Source="animation_green_02.png" HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent" Clicked="Image_Focused"/>
+                                                    </FlexLayout>
+                                                </StackLayout>
+                                            </local:AccordionItemView.ItemContent>
+                                        </local:AccordionItemView>
+                                        <BoxView HeightRequest="3" HorizontalOptions="Center" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
+                                    </local:AccordionView>
+                                </StackLayout>
+                            </ScrollView>
+
+                            <StackLayout Margin="0,0,0,30">
+                                <ImageButton Source="icons8_save.png" HeightRequest="50" WidthRequest="50" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
+                                <Label Text="{Binding SaveButton}" FontSize="20" HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
+                            <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

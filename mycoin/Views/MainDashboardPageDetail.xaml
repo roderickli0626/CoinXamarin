@@ -37,7 +37,7 @@
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
                     <StackLayout Background="ic_background.xml">
                         <StackLayout HorizontalOptions="Center" Margin="0,-30,0,0" IsVisible="{Binding visibleFlag}">
-                            <Label Text="Your Next Therapy" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
+                            <Label Text="{Binding nextTherapy}" TextColor="Gray" FontSize="14" HorizontalTextAlignment="Center" Margin="-5"/>
                             <Label Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" HorizontalTextAlignment="Center" Margin="-5">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="titleLabelDoubleClicked" NumberOfTapsRequired="2"/>

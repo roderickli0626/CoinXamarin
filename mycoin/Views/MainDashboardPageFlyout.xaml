@@ -24,7 +24,7 @@
           <Label
               Grid.Column="1"
               Grid.Row="2"
-              Text="Menu" FontSize="28"
+              Text="{Binding MenuTitle}" FontSize="28"
               Style="{DynamicResource SubtitleStyle}"/>
         </Grid>
       </ListView.Header>

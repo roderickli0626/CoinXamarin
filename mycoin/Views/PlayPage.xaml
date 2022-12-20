@@ -30,7 +30,7 @@
                         <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
                     </AbsoluteLayout>
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Label Text="Your Current Therapy" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding CurrentTitle}" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
                     </AbsoluteLayout>
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.46" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
                         <Label Text="{Binding therapyTitle}" TextColor="White" FontAttributes="Bold" FontSize="30" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
@@ -45,7 +45,7 @@
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
                     <StackLayout Background="ic_background.xml">
                         <StackLayout Margin="15">
-                            <Label Text="Length of Time" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"/>
+                            <Label Text="{Binding LengthLbl}" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"/>
                             <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,10,0,0"/>
                             <material:MaterialDoublePicker ItemsSource="{Binding HoursList}" SecondaryItemsSource="{Binding MinutesList}" SelectedItem="{Binding hours}" Separator="    " Margin="-20,0,-20,0"
                                                            HorizontalOptions="Center" BorderColor="#F0F2F3" TextColor="DeepSkyBlue" LabelTextColor="DeepSkyBlue" BackgroundColor="#F0F2F3" HorizontalTextAlignment="Center" FontSize="24" WidthRequest="200" SecondarySelectedItem="{Binding minutes}">
