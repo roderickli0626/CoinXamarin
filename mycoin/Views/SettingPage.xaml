@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.AccordionView"
-             x:Class="mycoin.Views.SettingPage">
+             x:Class="mycoin.Views.SettingPage"
+             x:Name="settingPage">
     <ContentPage.Content>
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
@@ -22,8 +23,48 @@
                                                          TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
                                                          LeftImage="icons8_online.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_online.png">
                                             <local:AccordionItemView.ItemContent>
-                                                <StackLayout Padding="0.5,0,0.5,0.5" >
-                                                    
+                                                <StackLayout Padding="0.5,0,0.5,0.5" HeightRequest="350" >
+                                                    <Button Text="{Binding SearchButtonTitle}" BackgroundColor="LightGray" BorderColor="LightGray" CornerRadius="20" HeightRequest="40" WidthRequest="80" Margin="50,10,50,0" Command="{Binding ScanDeviceCommand}"/>
+                                                    <Label Text="No Devices" FontSize="18" HorizontalOptions="Center" Margin="0, 100, 0,0" TextColor="Gray" IsVisible="{Binding NoDeviceVisible}"/>
+                                                    <ListView ItemsSource="{Binding DeviceList}" IsVisible="{Binding DeviceListVisible}">
+                                                        <ListView.Header>
+                                                            <Label Text="{Binding AddedDevices}" Margin="15,5,5,5"/>
+                                                        </ListView.Header>
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ViewCell>
+                                                                    <FlexLayout JustifyContent="SpaceBetween">
+                                                                        <Label Text="{Binding Name}" TextColor="Black" FontSize="18" Margin="40,5,5,0"/>
+                                                                        <StackLayout Orientation="Horizontal" HeightRequest="30">
+                                                                            <Button Text="{Binding BindingContext.Pair, Source={x:Reference settingPage}}" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="80" FontSize="10" Margin="0, 10, 20, 0" Padding="-10" 
+                                                                                    Command="{Binding BindingContext.PairCommand, Source={x:Reference settingPage}}" CommandParameter="{Binding .}"/>
+                                                                            <!--<Button Text="DISCONNECT" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="100" FontSize="10" Margin="0, 10, 20, 0" Padding="-10"/>-->
+                                                                        </StackLayout>
+                                                                    </FlexLayout>
+                                                                </ViewCell>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                    <ListView ItemsSource="{Binding ConnectedDeviceList}" IsVisible="{Binding ConDeviceVisible}">
+                                                        <ListView.Header>
+                                                            <Label Text="{Binding ConnectedDevices}" Margin="15,5,5,5"/>
+                                                        </ListView.Header>
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ViewCell>
+                                                                    <FlexLayout JustifyContent="SpaceBetween">
+                                                                        <Label Text="{Binding Name}" TextColor="Black" FontSize="18" Margin="40,5,5,0"/>
+                                                                        <StackLayout Orientation="Horizontal" HeightRequest="30">
+                                                                            <Button Text="DETAIL" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="80" FontSize="10" Margin="0, 10, 0, 0" Padding="-10"
+                                                                                    Command="{Binding BindingContext.DetailCommand, Source={x:Reference settingPage}}" CommandParameter="{Binding .}"/>
+                                                                            <Button Text="DISCONNECT" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="100" FontSize="10" Margin="0, 10, 20, 0" Padding="-10"
+                                                                                    Command="{Binding BindingContext.UnPairCommand, Source={x:Reference settingPage}}" CommandParameter="{Binding .}"/>
+                                                                        </StackLayout>
+                                                                    </FlexLayout>
+                                                                </ViewCell>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
                                                 </StackLayout>
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>
@@ -33,7 +74,18 @@
                                                          LeftImage="icons8_status.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_status.png" IsEnabled="{Binding musicEnabled}">
                                             <local:AccordionItemView.ItemContent>
                                                 <StackLayout Padding="0.5,0,0.5,0.5">
-                                                   
+                                                    <AbsoluteLayout HorizontalOptions="Center" WidthRequest="400">
+                                                        <Button BorderColor="LightGray" WidthRequest="330" CornerRadius="15" BorderWidth="2" IsEnabled="False" BackgroundColor="Transparent" HeightRequest="30" Margin="35,10,35,0"></Button>
+                                                        <Slider Maximum="100" Minimum="0" ValueChanged="Slider_ValueChanged" MinimumTrackColor="Transparent" MaximumTrackColor="Transparent" Margin="35,10,35,-5" 
+                                                            WidthRequest="330" HeightRequest="30" Value="30" ThumbImageSource="icons8_circle_32.png">
+                                                        </Slider>
+                                                    </AbsoluteLayout>
+                                                    
+                                                    <FlexLayout JustifyContent="SpaceAround" Margin="10,0,10,30">
+                                                        <Label Text="0%"/>
+                                                        <Label Text="{Binding Brightness}"/>
+                                                        <Label Text="100%"/>
+                                                    </FlexLayout>
                                                 </StackLayout>
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>
@@ -43,7 +95,12 @@
                                                          LeftImage="icons8_save_setting.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_save_setting.png" IsEnabled="{Binding musicEnabled}">
                                             <local:AccordionItemView.ItemContent>
                                                 <StackLayout Padding="0.5,0,0.5,0.5">
-                                                    
+                                                    <ProgressBar ProgressColor="Gray" Margin="50,10,50,-5" WidthRequest="150" HeightRequest="30" Progress="{Binding DiskSpace}" ScaleY="2"/>
+                                                    <FlexLayout JustifyContent="SpaceEvenly" Margin="10,0,10,30">
+                                                        <Label Text="1.4 GB"/>
+                                                        <Label Text="{Binding SpaceContent}"/>
+                                                        <Label Text="2 GB"/>
+                                                    </FlexLayout>
                                                 </StackLayout>
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>

@@ -1,6 +1,7 @@
 ﻿using mycoin.Extensions;
 using mycoin.Models;
 using mycoin.ViewModels;
+using Plugin.BLE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace mycoin.Views
             if (Device.RuntimePlatform == Device.Android) Padding = new Thickness(0, 10, 0, 0);
             BackgroundColor = Color.White;
             // Remove the Navigation bar form the top of the page 
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);           
         }
 
         void OnImageButtonClicked(object sender, EventArgs e)
@@ -53,10 +54,16 @@ namespace mycoin.Views
             coverSkinUrl = image.Source.ToString().Substring(6);
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            languageNumber = ((Language)e.SelectedItem).languageNumber;
-            language = ((Language)e.SelectedItem).description;
+            var result = await App.Current.MainPage.DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Language Change", "Language Change"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to change the language?", "Do you really want to change the language?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
+            if (result)
+            {
+                languageNumber = ((Language)e.SelectedItem).languageNumber;
+                language = ((Language)e.SelectedItem).description;
+            }
+            else return;
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
@@ -90,6 +97,12 @@ namespace mycoin.Views
                 }
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }
+        }
+
+        private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            string value = (e.NewValue / 100).ToString();
+            MessagingCenter.Send(EventArgs.Empty, "Brightness", value);
         }
     }
 }

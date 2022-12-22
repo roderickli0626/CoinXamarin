@@ -9,12 +9,20 @@ using FFImageLoading.Forms.Platform;
 using Android.Content;
 using Xamarin.Forms;
 using mycoin.Views;
+using Android;
 
 namespace mycoin.Droid
 {
     [Activity(Label = "mycoin", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        private readonly string[] Permissions =
+        {
+            Manifest.Permission.Bluetooth,
+            Manifest.Permission.BluetoothAdmin,
+            Manifest.Permission.AccessCoarseLocation,
+            Manifest.Permission.AccessFineLocation
+        };
         protected override void OnCreate(Bundle savedInstanceState)
         {
             UserDialogs.Init(this);
@@ -53,8 +61,33 @@ namespace mycoin.Droid
             else myApp.MainPage = new NavigationPage(new LoginPage());
             //
 
-            //LoadApplication(new App());
+            CheckPermissions();
+            //LoadApplication(new App()); 
             LoadApplication(myApp);
+
+            MessagingCenter.Subscribe<EventArgs, string>(this, "Brightness", (sender, args) =>
+            {
+                Window.Attributes.ScreenBrightness = (float)Convert.ToDouble(args);
+            });
+        }
+
+        private void CheckPermissions()
+        {
+            bool minimumPermissionsGranted = true;
+
+            foreach (string permission in Permissions)
+            {
+                //if (CheckSelfPermission(permission) != Permission.Granted)
+                //{
+                //    minimumPermissionsGranted = false;
+                //}
+            }
+
+            // If any of the minimum permissions aren't granted, we request them from the user
+            if (!minimumPermissionsGranted)
+            {
+                RequestPermissions(Permissions, 0);
+            }
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
