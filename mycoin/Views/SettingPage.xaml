@@ -25,7 +25,7 @@
                                             <local:AccordionItemView.ItemContent>
                                                 <StackLayout Padding="0.5,0,0.5,0.5" HeightRequest="350" >
                                                     <Button Text="{Binding SearchButtonTitle}" BackgroundColor="LightGray" BorderColor="LightGray" CornerRadius="20" HeightRequest="40" WidthRequest="80" Margin="50,10,50,0" Command="{Binding ScanDeviceCommand}"/>
-                                                    <Label Text="No Devices" FontSize="18" HorizontalOptions="Center" Margin="0, 100, 0,0" TextColor="Gray" IsVisible="{Binding NoDeviceVisible}"/>
+                                                    <Label Text="{Binding NoDevices}" FontSize="18" HorizontalOptions="Center" Margin="0, 100, 0,0" TextColor="Gray" IsVisible="{Binding NoDeviceVisible}"/>
                                                     <ListView ItemsSource="{Binding DeviceList}" IsVisible="{Binding DeviceListVisible}">
                                                         <ListView.Header>
                                                             <Label Text="{Binding AddedDevices}" Margin="15,5,5,5"/>
@@ -55,9 +55,9 @@
                                                                     <FlexLayout JustifyContent="SpaceBetween">
                                                                         <Label Text="{Binding Name}" TextColor="Black" FontSize="18" Margin="40,5,5,0"/>
                                                                         <StackLayout Orientation="Horizontal" HeightRequest="30">
-                                                                            <Button Text="DETAIL" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="80" FontSize="10" Margin="0, 10, 0, 0" Padding="-10"
+                                                                            <Button Text="{Binding Details}" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="80" FontSize="10" Margin="0, 10, 0, 0" Padding="-10"
                                                                                     Command="{Binding BindingContext.DetailCommand, Source={x:Reference settingPage}}" CommandParameter="{Binding .}"/>
-                                                                            <Button Text="DISCONNECT" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="100" FontSize="10" Margin="0, 10, 20, 0" Padding="-10"
+                                                                            <Button Text="{Binding Disconnect}" BackgroundColor="LightGray" CornerRadius="15" WidthRequest="100" FontSize="10" Margin="0, 10, 20, 0" Padding="-10"
                                                                                     Command="{Binding BindingContext.UnPairCommand, Source={x:Reference settingPage}}" CommandParameter="{Binding .}"/>
                                                                         </StackLayout>
                                                                     </FlexLayout>

@@ -2,6 +2,7 @@
 using mycoin.Models;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ namespace mycoin.ViewModels
     public class SettingPageViewModel : BaseViewModel
     {
         string _settingTitle, _blueToothTitle, _statusTitle, _spaceTitle, _languageTitle, _coverSkin, _saveButton, _spaceContent, _brightness;
-        string _addedDevices, _connectedDevices, _searchButtonTitle, _pair;
+        string _addedDevices, _connectedDevices, _searchButtonTitle, _pair, _noDevices, _details, _disconnect;
         double _diskSpace;
         bool _noDeviceVisible, _deviceListVisible, _conDeviceVisible;
         public string SettingTitle { get => _settingTitle; set => SetProperty(ref _settingTitle, value); }
@@ -33,6 +34,9 @@ namespace mycoin.ViewModels
         public string ConnectedDevices { get => _connectedDevices; set => SetProperty(ref _connectedDevices, value); }
         public string SearchButtonTitle { get => _searchButtonTitle; set => SetProperty(ref _searchButtonTitle, value); }
         public string Pair { get => _pair; set => SetProperty(ref _pair, value); }
+        public string NoDevices { get => _noDevices; set => SetProperty(ref _noDevices, value); }
+        public string Details { get => _details; set => SetProperty(ref _details, value); }
+        public string Disconnect { get => _disconnect; set => SetProperty(ref _disconnect, value); }
         public double DiskSpace { get => _diskSpace; set => SetProperty(ref _diskSpace, value); }
         public bool NoDeviceVisible { get => _noDeviceVisible; set => SetProperty(ref _noDeviceVisible, value); }
         public bool DeviceListVisible { get => _deviceListVisible; set => SetProperty(ref _deviceListVisible, value); }
@@ -47,6 +51,7 @@ namespace mycoin.ViewModels
         public ObservableCollection<IDevice> ConnectedDeviceList { get; private set; } = new ObservableCollection<IDevice>();
         IBluetoothLE ble;
         IAdapter adapter;
+        List<byte> buffer = new List<byte>();
         public SettingPageViewModel()
         {
             CreateLanguageCollection();
@@ -64,6 +69,9 @@ namespace mycoin.ViewModels
             ConnectedDevices = GlobalConstants.LangGUI.GetValueOrDefault("---Connected Devices---", "---Connected Devices---");
             SearchButtonTitle = GlobalConstants.LangGUI.GetValueOrDefault("SEARCH DEVICES", "SEARCH DEVICES");
             Pair = GlobalConstants.LangGUI.GetValueOrDefault("PAIR", "PAIR");
+            NoDevices = GlobalConstants.LangGUI.GetValueOrDefault("No Devices", "No Devices");
+            Details = GlobalConstants.LangGUI.GetValueOrDefault("DETAIL", "DETAIL");
+            Disconnect = GlobalConstants.LangGUI.GetValueOrDefault("DISCONNECT", "DISCONNECT");
             NoDeviceVisible = true;
             DeviceListVisible = false;
             ConDeviceVisible = false;
@@ -103,8 +111,8 @@ namespace mycoin.ViewModels
             ConnectedDeviceList.Clear();
 
             //Test Devices
-            DeviceList.Add(new CustomDevice() { Name = "Device1" });
-            DeviceList.Add(new CustomDevice() { Name = "Device2" });
+            //DeviceList.Add(new CustomDevice() { Name = "Device1" });
+            //DeviceList.Add(new CustomDevice() { Name = "Device2" });
             //
 
             foreach (var connectedDevice in adapter.ConnectedDevices)
@@ -125,7 +133,7 @@ namespace mycoin.ViewModels
         {
             if (sender is IDevice device)
             {
-                //await adapter.ConnectToDeviceAsync(device);
+                await adapter.ConnectToDeviceAsync(device);
                 DeviceList.Remove(device);
                 ConnectedDeviceList.Add(device);
             }
@@ -134,7 +142,7 @@ namespace mycoin.ViewModels
         {
             if (sender is IDevice device)
             {
-                //await adapter.DisconnectDeviceAsync(device);
+                await adapter.DisconnectDeviceAsync(device);
                 DeviceList.Add(device);
                 ConnectedDeviceList.Remove(device);
             }
@@ -143,23 +151,43 @@ namespace mycoin.ViewModels
         {
             if (sender is IDevice device)
             {
-                var services = await device.GetServicesAsync();
-                foreach (IService service in services)
+                await App.Current.MainPage.DisplayAlert("Device Information", device.Name, "Cancel");
+
+                try
                 {
-                    var characteristics = await service.GetCharacteristicsAsync();
-                    foreach (ICharacteristic characteristic in characteristics)
+                    if (adapter.IsScanning)
                     {
-                        var bytes = await characteristic.ReadAsync();
-                        string info = bytes.ToString();
-
-                        await App.Current.MainPage.DisplayAlert("Device Information", info, "Cancel");
-
-                        //await characteristic.WriteAsync(bytes);
-                        //var descriptors = await characteristic.GetDescriptorsAsync();
+                        await adapter.StopScanningForDevicesAsync();
                     }
+                    // now get the service and characteristics of connected device
+                    IService service = device.GetServiceAsync(Guid.Parse("0000ffe0-1000-8000-00805f9b34fb")).Result;
+
+                    ICharacteristic characteristic = service.GetCharacteristicAsync(Guid.Parse("0000ffe1-1000-8000-00805f9b34fb")).Result;
+                    // we attach the UpdateVale event to the characteristic
+                    // and we start the service
+                    characteristic.ValueUpdated += Characteristic_ValueUpdated;
+                    await characteristic.StartUpdatesAsync();
+
+                    // now we can write and hopefully read values
+                    //byte[] data = { Coderequest.InitRequest, Coderequest.Info }; // My message to sendo to the machine to trigger his functions and his response
+
+                    //await characteristic.WriteAsync(data); // Send the data
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
                 }
             }
         }
+
+        private void Characteristic_ValueUpdated(object sender, CharacteristicUpdatedEventArgs e)
+        {
+            //read value here
+            buffer.AddRange(e.Characteristic.Value);
+        }
+
+        
 
     }
 }
