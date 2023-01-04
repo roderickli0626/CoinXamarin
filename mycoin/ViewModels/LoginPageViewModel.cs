@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mycoin.Extensions;
 using mycoin.Helpers;
 using mycoin.Models;
 using mycoin.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace mycoin.ViewModels
 {
@@ -12,6 +14,12 @@ namespace mycoin.ViewModels
     {
         public LoginPageViewModel()
         {
+            checkConnection();
+            //if (!checkConnection().Result)
+            //{
+            //    return;
+            //}
+
             Userdata savedUserInfo = App.Database.GetUserdataAsync().Result;
             if (savedUserInfo == null || !savedUserInfo.isActive) return;
             else
@@ -19,6 +27,21 @@ namespace mycoin.ViewModels
                 autoLogin(savedUserInfo);
             }
             isChecked = false;
+        }
+
+        public async void checkConnection()
+        {
+            LoginRequest req = new LoginRequest()
+            {
+                email = "test@testconnection.com",
+                password = "testconnection",
+            };
+            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
+            if (response == null)
+            {
+                await App.Current.MainPage.DisplayAlert("Warning", "Connection Error!. Please try again later", "OK");
+                System.Threading.Thread.CurrentThread.Abort();
+            }
         }
 
         public async void autoLogin(Userdata savedUserInfo)
