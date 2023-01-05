@@ -77,10 +77,10 @@ namespace mycoin.Droid
 
             foreach (string permission in Permissions)
             {
-                //if (CheckSelfPermission(permission) != Permission.Granted)
-                //{
-                //    minimumPermissionsGranted = false;
-                //}
+                if (CheckSelfPermission(permission) != Permission.Granted)
+                {
+                    minimumPermissionsGranted = false;
+                }
             }
 
             // If any of the minimum permissions aren't granted, we request them from the user
