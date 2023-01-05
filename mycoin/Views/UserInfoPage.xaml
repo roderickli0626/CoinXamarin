@@ -39,7 +39,7 @@
                                 <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                             </AbsoluteLayout>
                             <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                                <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                                <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                             </AbsoluteLayout>
                         </AbsoluteLayout>
                     </StackLayout>

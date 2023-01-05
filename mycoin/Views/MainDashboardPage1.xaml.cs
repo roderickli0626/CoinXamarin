@@ -255,5 +255,10 @@ namespace mycoin.Views
         //    StopContainer.IsVisible = true;
         //    ContinueContainer.IsVisible = false;
         //}
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }

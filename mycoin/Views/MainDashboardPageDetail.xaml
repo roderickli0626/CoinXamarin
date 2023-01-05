@@ -88,7 +88,7 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
                             <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <Image Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                            <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton1_Clicked"/>
                             <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                             <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                         </StackLayout>

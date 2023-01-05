@@ -85,5 +85,10 @@ namespace mycoin.Views
             if (note == null) return;
             App.Current.MainPage = new NavigationPage(new PlayPage(note.ID));
         }
+
+        private void ImageButton1_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }

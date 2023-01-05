@@ -48,5 +48,10 @@ namespace mycoin.Views
             savedUserdata.isActive = false;
             App.Database.UpdateUserdataAsync(savedUserdata);
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }

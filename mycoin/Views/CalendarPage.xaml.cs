@@ -53,5 +53,9 @@ namespace mycoin.Views
             else return;
         }
 
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }

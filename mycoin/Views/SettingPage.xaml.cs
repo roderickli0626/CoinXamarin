@@ -104,5 +104,10 @@ namespace mycoin.Views
             string value = (e.NewValue / 100).ToString();
             MessagingCenter.Send(EventArgs.Empty, "Brightness", value);
         }
+
+        private void ImageButton1_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }

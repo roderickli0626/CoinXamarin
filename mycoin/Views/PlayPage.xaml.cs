@@ -53,5 +53,10 @@ namespace mycoin.Views
                 GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + ":" + GlobalConstants.GroupTexts.GetValueOrDefault(note.GroupNumber, note.GroupName ?? "") + "\n" + GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") +
                 ":" + note.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
     }
 }
