@@ -40,7 +40,8 @@ namespace mycoin.ViewModels
             if (response == null)
             {
                 await App.Current.MainPage.DisplayAlert("Warning", "Connection Error!. Please try again later", "OK");
-                System.Threading.Thread.CurrentThread.Abort();
+                //Close Application
+                //System.Threading.Thread.CurrentThread.Abort();
             }
         }
 
