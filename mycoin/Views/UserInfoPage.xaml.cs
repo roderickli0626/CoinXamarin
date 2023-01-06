@@ -41,17 +41,24 @@ namespace mycoin.Views
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 
-        void BtnDeleteAccountClicked(object sender, EventArgs e)
+        async void BtnDeleteAccountClicked(object sender, EventArgs e)
         {
-            Userdata savedUserdata = App.Database.GetUserdataAsync().Result;
-            if (savedUserdata == null) return;
-            savedUserdata.isActive = false;
-            App.Database.UpdateUserdataAsync(savedUserdata);
+            var result = await App.Current.MainPage.DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Delete Account", "Delete Account"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to delete account?", "Do you really want to delete account?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
+            if (result)
+            {
+                Userdata savedUserdata = App.Database.GetUserdataAsync().Result;
+                if (savedUserdata == null) return;
+                savedUserdata.isActive = false;
+                await App.Database.UpdateUserdataAsync(savedUserdata);
+            }
+            else return;
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
+
     }
 }

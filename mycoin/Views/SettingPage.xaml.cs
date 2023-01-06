@@ -52,6 +52,8 @@ namespace mycoin.Views
             image.BorderColor = Color.DeepSkyBlue;
             image.BorderWidth = 3;
             coverSkinUrl = image.Source.ToString().Substring(6);
+
+            Gallery.ActiveLeftImage = coverSkinUrl;
         }
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -103,6 +105,7 @@ namespace mycoin.Views
         {
             string value = (e.NewValue / 100).ToString();
             MessagingCenter.Send(EventArgs.Empty, "Brightness", value);
+            BrightnessValue.Text = e.NewValue.ToString() + "%";
         }
 
         private void ImageButton1_Clicked(object sender, EventArgs e)

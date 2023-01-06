@@ -14,7 +14,7 @@
                         <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
-                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-18,0,0">
                             <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
                             <Image Source="ic_header_coin_big_center.xml"/>
                             <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>

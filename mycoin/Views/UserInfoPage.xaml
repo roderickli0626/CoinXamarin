@@ -4,10 +4,9 @@
              x:Class="mycoin.Views.UserInfoPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#F0F2F3">
-            <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
-                <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="20,10,0,10" Clicked="OnImageButtonClicked"/>
+            <FlexLayout Direction="Row" JustifyContent="Center">
+                <!--<ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="20,10,0,10" Clicked="OnImageButtonClicked"/>-->
                 <Label Text="User Information" x:Name="UserInfoTitle" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="28" FontAttributes="Bold" TextColor="Black" Margin="0,10,10,10"/>
-                <Label Text=""/>
             </FlexLayout>
             <StackLayout Margin="10,50,10,10">
                 <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="Center" HeightRequest="80" WidthRequest="80" Margin="0"/>
@@ -26,21 +25,19 @@
                             <Label Text="Date of Birth:" x:Name="DateofBirth" FontSize="18" TextColor="Black"/>
                         </StackLayout>
                         
-                        <StackLayout Margin="50,10,50,50">
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                <Button Text="Update" x:Name="UpdateButton" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
-                                <Button Text="Delete Account" x:Name="DeleteButton" Margin="10" WidthRequest="150" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
-                            </StackLayout>
-                            <Button Text="Password Change" x:Name="PasswordButton" WidthRequest="100" Margin="10" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                        <StackLayout Margin="60,10,60,70">
+                            <Button Text="Update" x:Name="UpdateButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                            <Button Text="Delete Account" x:Name="DeleteButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
+                            <Button Text="Password Change" x:Name="PasswordButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
                         </StackLayout>
 
                         <AbsoluteLayout HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
                             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                                <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
+                                <ImageButton Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                             </AbsoluteLayout>
-                            <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                            <!--<AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
                                 <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
-                            </AbsoluteLayout>
+                            </AbsoluteLayout>-->
                         </AbsoluteLayout>
                     </StackLayout>
                 </Grid>

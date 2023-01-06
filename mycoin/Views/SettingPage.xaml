@@ -74,15 +74,15 @@
                                                          LeftImage="icons8_status.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_status.png" IsEnabled="{Binding musicEnabled}">
                                             <local:AccordionItemView.ItemContent>
                                                 <StackLayout Padding="0.5,0,0.5,0.5">
-                                                    <AbsoluteLayout HorizontalOptions="Center" WidthRequest="400">
-                                                        <Button BorderColor="LightGray" WidthRequest="330" CornerRadius="15" BorderWidth="2" IsEnabled="False" BackgroundColor="Transparent" HeightRequest="30" Margin="35,10,35,0"></Button>
-                                                        <Slider Maximum="100" Minimum="0" ValueChanged="Slider_ValueChanged" MinimumTrackColor="Transparent" MaximumTrackColor="Transparent" Margin="35,10,35,-5" 
-                                                            WidthRequest="330" HeightRequest="30" Value="30" ThumbImageSource="icons8_circle_32.png">
+                                                    <RelativeLayout HorizontalOptions="Center">
+                                                        <Button BorderColor="LightGray" CornerRadius="15" BorderWidth="2" IsEnabled="False" BackgroundColor="Transparent" Margin="0,10,0,-5" WidthRequest="300" HeightRequest="30" ></Button>
+                                                        <Slider Maximum="100" Minimum="0" ValueChanged="Slider_ValueChanged" MinimumTrackColor="Transparent" MaximumTrackColor="Transparent"
+                                                            Margin="0,10,0,-5" WidthRequest="300" HeightRequest="30" Value="30" ThumbImageSource="icons8_circle_32.png">
                                                         </Slider>
-                                                    </AbsoluteLayout>
+                                                    </RelativeLayout>
                                                     
-                                                    <FlexLayout JustifyContent="SpaceAround" Margin="10,0,10,30">
-                                                        <Label Text="0%"/>
+                                                    <FlexLayout JustifyContent="SpaceAround" Margin="0,0,0,30">
+                                                        <Label x:Name="BrightnessValue" Text="0%"/>
                                                         <Label Text="{Binding Brightness}"/>
                                                         <Label Text="100%"/>
                                                     </FlexLayout>
@@ -123,7 +123,7 @@
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>
                                         <BoxView HorizontalOptions="Center" HeightRequest="3" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
-                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" ActiveBorderColor="#F0F2F3" Text="{Binding CoverSkin}" FontSize="22" ActiveTextColor="Black" 
+                                        <local:AccordionItemView Margin="20,0,20,0" BorderColor="#F0F2F3" x:Name="Gallery" ActiveBorderColor="#F0F2F3" Text="{Binding CoverSkin}" FontSize="22" ActiveTextColor="Black" 
                                                          TextColor="Gray" ButtonBackgroundColor="Transparent" ButtonActiveBackgroundColor="Transparent" TextPosition="Center" RightImage="down.png" 
                                                          LeftImage="icons8_skin.png" ActiveRightImage="up.png" ActiveLeftImage="icons8_skin.png">
                                             <local:AccordionItemView.ItemContent>
@@ -157,12 +157,18 @@
                             </StackLayout>
                         </StackLayout>
 
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
+                        <FlexLayout JustifyContent="SpaceAround" HorizontalOptions="Center" HeightRequest="80" WidthRequest="600" VerticalOptions="Center" BackgroundColor="White">
+                            <!--<Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>-->
+                            <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="50, 20, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton1_Clicked"/>
+                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                        </FlexLayout>
+                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
                             <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                             <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton1_Clicked"/>
                             <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                             <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                        </StackLayout>
+                        </StackLayout>-->
                     </StackLayout>
                 </Grid>
 

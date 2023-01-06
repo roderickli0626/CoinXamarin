@@ -20,7 +20,7 @@
                         <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="230" WidthRequest="230"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
-                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-8,0,0">
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-18,0,0">
                         <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
                         <Image Source="ic_header_coin_big_center.xml"/>
                         <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
@@ -54,10 +54,10 @@
                         </StackLayout>
 
                         <StackLayout>
-                            <Grid>
+                            <Grid>  
                                 <xct:TabView x:Name="MyTabs" SelectedIndex="{Binding selectedIndex}" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
                                              TabContentBackgroundColor="Transparent" >
-                                    <xct:TabViewItem Text="{Binding FavouriteTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding FavouriteTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
                                         <CollectionView ItemsSource="{Binding MyFavoriteSubstances}" HorizontalOptions="Center" SelectionMode="Single">
                                             <CollectionView.ItemsLayout>
                                                 <LinearItemsLayout Orientation="Vertical"/>
@@ -80,12 +80,12 @@
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
                                     </xct:TabViewItem>
-                                    <xct:TabViewItem Text="{Binding HistoryTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding HistoryTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
                                         <Grid>
                                             <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent2" />
                                         </Grid>
                                     </xct:TabViewItem>
-                                    <xct:TabViewItem Text="{Binding AllTab}" TextColor="Black" FontSize="15" FontSizeSelected="15">
+                                    <xct:TabViewItem Text="{Binding AllTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
                                         <ListView ItemsSource="{Binding MyGroups}" IsGroupingEnabled="True">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -123,12 +123,18 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="End" BackgroundColor="White">
+                <FlexLayout JustifyContent="SpaceAround" HorizontalOptions="Center" HeightRequest="80" WidthRequest="600" VerticalOptions="Center" BackgroundColor="White">
+                    <!--<Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>-->
+                    <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="50, 20, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                    <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                    <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                </FlexLayout>
+                <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="End" BackgroundColor="White">
                     <ImageButton BackgroundColor="White" Clicked="BacktoPrevious" Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                     <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                     <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
                     <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                </StackLayout>
+                </StackLayout>-->
             </StackLayout>
 
 

@@ -207,8 +207,8 @@ namespace mycoin.ViewModels
             await NavigateToPage(new RegisterPage());
         });
 
-        public ICommand ForgotPasswordCommand => new Command(() => {
-
+        public ICommand ForgotPasswordCommand => new Command(async() => {
+            await NavigateToPage(new RegisterPage());
         });
 
         #endregion

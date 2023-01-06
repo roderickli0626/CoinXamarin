@@ -15,12 +15,12 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
 
                 <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween" HeightRequest="65" IsVisible="true" IsEnabled="True">
-                    <ProgressBar ProgressColor="LightGreen" Margin="30,10,10,10" WidthRequest="120" HeightRequest="30" Progress="{Binding progressState}" ScaleY="2"/>
-                    <ImageButton BackgroundColor="Transparent" Source="{Binding imgUrl}" HeightRequest="30" WidthRequest="30" Margin="10" Command="{Binding StopCommand}"/>
+                    <ProgressBar ProgressColor="LightGreen" Margin="20,10,10,10" HeightRequest="30" WidthRequest="100" Progress="{Binding progressState}" ScaleY="2"/>
+                    <ImageButton BackgroundColor="Transparent" Source="{Binding imgUrl}" HeightRequest="30" WidthRequest="30" Margin="0,10,0,10" Command="{Binding StopCommand}"/>
                     <!--<Label Text="{Binding timelabel}" x:Name="timelabel" TextColor="White" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>-->
-                    <Label Text="{Binding timelabel}" x:Name="timelabel" Margin="10" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
-                    <Image Source="ic_bluetooth.png" HeightRequest="30" WidthRequest="30" Margin="10"/>
-                    <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="30" WidthRequest="30" Margin="10,10,30,10"/>
+                    <Label Text="{Binding timelabel}" x:Name="timelabel" Margin="0,10,0,10" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Image Source="ic_bluetooth.png" HeightRequest="30" WidthRequest="30" Margin="0,10,0,10"/>
+                    <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="30" WidthRequest="30" Margin="0,10,20,10"/>
                 </FlexLayout>
 
                 <Grid>
@@ -82,12 +82,12 @@
                         </StackLayout>-->
 
 
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">
-                            <Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
-                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>
-                        </StackLayout>
+                        <FlexLayout JustifyContent="SpaceAround" HorizontalOptions="Center" HeightRequest="80" WidthRequest="600" VerticalOptions="Center" BackgroundColor="White">
+                            <!--<Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>-->
+                            <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="50, 20, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                            <Image Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
+                        </FlexLayout>
                     </StackLayout>
                 </Grid>
 

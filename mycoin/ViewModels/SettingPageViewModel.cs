@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
+using XamarinEssentials = Xamarin.Essentials;
 
 namespace mycoin.ViewModels
 {
@@ -89,7 +90,11 @@ namespace mycoin.ViewModels
             ble.StateChanged += (s, e) =>
             {
             };
-            adapter.DeviceDiscovered += (s, e) => DeviceList.Add(e.Device);
+            adapter.DeviceDiscovered += (s, e) =>
+            {
+                if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
+                    DeviceList.Add(e.Device);
+            };
         }
         void CreateLanguageCollection()
         {
@@ -107,6 +112,11 @@ namespace mycoin.ViewModels
             DeviceListVisible = true;
             ConDeviceVisible = true;
 
+            if (!await PermissionsGrantedAsync())
+            {
+                return;
+            }
+
             DeviceList.Clear();
             ConnectedDeviceList.Clear();
 
@@ -120,6 +130,7 @@ namespace mycoin.ViewModels
                 try
                 {
                     await connectedDevice.UpdateRssiAsync();
+                    ConnectedDeviceList.Add(connectedDevice);
                 }
                 catch (Exception ex)
                 {
@@ -127,6 +138,18 @@ namespace mycoin.ViewModels
                 }
             }
             await adapter.StartScanningForDevicesAsync();
+        }
+
+        private async Task<bool> PermissionsGrantedAsync()
+        {
+            var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationAlways>();
+
+            if (locationPermissionStatus != XamarinEssentials.PermissionStatus.Granted)
+            {
+                var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
+                return status == XamarinEssentials.PermissionStatus.Granted;
+            }
+            return true;
         }
 
         private async Task ConnectDevice(object sender)
