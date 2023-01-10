@@ -11,5 +11,6 @@ namespace mycoin.Models
         public int ID { get; set; }
         public string? coverSkinDefault { get; set; }
         public string? language { get; set; }
+        public int languageNumber { get; set; }
     }
 }

@@ -33,7 +33,12 @@ namespace mycoin.Views
 
         void OnImageButtonClicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+            var flyoutPage = new MainDashboardPage();
+            flyoutPage.Detail = new NavigationPage(new SettingPage());
+            App.Current.MainPage = flyoutPage;
+            flyoutPage.IsPresented = true;
+
+            //App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 
         private void Image_Focused(object sender, EventArgs e)
@@ -73,6 +78,7 @@ namespace mycoin.Views
             AppSettings appSettings = new AppSettings();
             appSettings.coverSkinDefault = coverSkinUrl;
             appSettings.language = language;
+            appSettings.languageNumber = languageNumber;
             App.Database.DeleteAllAppSettingAsync();
             App.Database.SaveSettingsAsync(appSettings);
 

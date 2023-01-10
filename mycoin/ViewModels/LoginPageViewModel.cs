@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using mycoin.Extensions;
@@ -19,6 +20,26 @@ namespace mycoin.ViewModels
             //{
             //    return;
             //}
+
+            AppSettings settings = App.Database.GetSettingsAsync().Result;
+            if (settings != null && settings.languageNumber != 0)
+            {
+                GlobalConstants.LangGUI.Clear();
+                List<LanguageGUI> langGUIList = App.Database.GetLanguageGUIByLanguageAsync(settings.languageNumber).Result;
+                foreach (LanguageGUI langGUI in langGUIList)
+                {
+                    GlobalConstants.LangGUI.Add(langGUI.key ?? "", langGUI.content ?? "");
+                }
+            }
+            Title = GlobalConstants.LangGUI.GetValueOrDefault("Welcome!", "Welcome!");
+            SubTitle = GlobalConstants.LangGUI.GetValueOrDefault("Sign in to continue", "Sign in to continue");
+            EmailPlaceholder = GlobalConstants.LangGUI.GetValueOrDefault("Email Address", "Email Address");
+            PasswordPlaceholder = GlobalConstants.LangGUI.GetValueOrDefault("Password", "Password");
+            RememberMe = GlobalConstants.LangGUI.GetValueOrDefault("Remember Me", "Remember Me");
+            ForgotPassword = GlobalConstants.LangGUI.GetValueOrDefault("Forgot Password", "Forgot Password");
+            SignIn = GlobalConstants.LangGUI.GetValueOrDefault("SIGN IN", "SIGN IN");
+            NewUser = GlobalConstants.LangGUI.GetValueOrDefault("New User?", "New User?");
+            SignUp = GlobalConstants.LangGUI.GetValueOrDefault(" Sign Up", " Sign Up");
 
             Userdata savedUserInfo = App.Database.GetUserdataAsync().Result;
             if (savedUserInfo == null || !savedUserInfo.isActive) return;
@@ -89,7 +110,18 @@ namespace mycoin.ViewModels
         #region Properties
 
         bool _isvalidemail, _isvalidpassword, _isChecked;
-        string _email, _password, _emailerror, _passworderror;
+        string _email, _password, _emailerror, _passworderror, _title, _subTitle, _emailPlaceholder, _passwordPlaceholder, _rememberMe, _forgotPassword;
+        string _signIn, _newUser, _signUp;
+
+        public string Title { get => _title; set => SetProperty(ref _title, value); }
+        public string SubTitle { get => _subTitle; set => SetProperty(ref _subTitle, value); }
+        public string EmailPlaceholder { get => _emailPlaceholder; set => SetProperty(ref _emailPlaceholder, value); }
+        public string PasswordPlaceholder { get => _passwordPlaceholder; set => SetProperty(ref _passwordPlaceholder, value); }
+        public string RememberMe { get => _rememberMe; set => SetProperty(ref _rememberMe, value); }
+        public string ForgotPassword { get => _forgotPassword; set => SetProperty(ref _forgotPassword, value); }
+        public string SignIn { get => _signIn; set => SetProperty(ref _signIn, value); }
+        public string SignUp { get => _signUp; set => SetProperty(ref _signUp, value); }
+        public string NewUser { get => _newUser; set => SetProperty(ref _newUser, value); }
 
         public string Email { get => _email; set => SetProperty(ref _email, value); }
 
@@ -208,7 +240,7 @@ namespace mycoin.ViewModels
         });
 
         public ICommand ForgotPasswordCommand => new Command(async() => {
-            await NavigateToPage(new RegisterPage());
+            await NavigateToPage(new ForgotPasswordPage());
         });
 
         #endregion

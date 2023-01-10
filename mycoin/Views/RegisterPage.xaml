@@ -93,7 +93,7 @@
                         </StackLayout>
                     </Frame>
                     <Label Text="{Binding PasswordLength}" HorizontalTextAlignment="Center" Margin="10"></Label>
-                    <Button Text="Register" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="50,40,50,80" VerticalOptions="EndAndExpand" Command="{Binding RegisterCommand}"/>
+                    <Button Text="Register" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="50,40,50,80" VerticalOptions="EndAndExpand" Command="{Binding RegisterCommand}"/>
 
                     <!--<material:MaterialTextField Placeholder="First Name" ErrorText="{Binding FirstNameError}" Text="{Binding FirstName}" HasError="{Binding IsValidFirstName}" InputType="Text" Margin="0,5"/>
                     <material:MaterialTextField Placeholder="Family Name" ErrorText="{Binding FamilyNameError}" Text="{Binding FamilyName}" HasError="{Binding IsValidFamilyName}" InputType="Text" Margin="0,5"/>

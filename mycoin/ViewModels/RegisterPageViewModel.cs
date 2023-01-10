@@ -14,7 +14,7 @@ namespace mycoin.ViewModels
     {
         public RegisterPageViewModel()
         {
-            SerialNumber = System.Guid.NewGuid().ToString();
+            SerialNumber = System.Guid.NewGuid().ToString().Substring(0, 28);
             Language = CultureInfo.CurrentUICulture.EnglishName;
         }
 

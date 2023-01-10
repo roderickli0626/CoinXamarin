@@ -13,7 +13,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Path Stroke="#ffff"  Data="m0.30001,0l550,0l0,128.48327c-250.5,64.30167 -370.5,64.89076 -550,7.2429c0,-45.25313 0,-90.47304 0,-135.72617z" Fill="#018BD3"/>
+        <Path Stroke="#ffff"  Data="m0.30001,0l550,0l0,128.48327c-120.5,-0.30167 -300.5,100.89076 -550,25.2429c0,-45.25313 0,-90.47304 0,-135.72617z" Fill="#018BD3"/>
 
         <StackLayout>
             <!--<Frame BackgroundColor="#018BD3" HeightRequest="60" WidthRequest="60" CornerRadius="30" Padding="0" Margin="0,100,0,0" HorizontalOptions="Center">-->
@@ -31,8 +31,8 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="1" Text="Welcome!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
-            <Label Grid.Row="2" Text="Sign in to continue" HorizontalOptions="Center" FontSize="Subtitle"/>
+            <Label Grid.Row="1" Text="{Binding Title}" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+            <Label Grid.Row="2" Text="{Binding SubTitle}" HorizontalOptions="Center" FontSize="Subtitle"/>
 
             <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
                 <Frame BackgroundColor="Transparent" BorderColor="#018BD3" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
@@ -40,7 +40,7 @@
                         <Frame BackgroundColor="Gray" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-256.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <local:CustomEntry Text="{Binding Email}" Placeholder="Email Address" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <local:CustomEntry Text="{Binding Email}" Placeholder="{Binding EmailPlaceholder}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                         <!--<Entry Text="{Binding Email}" Placeholder="Email Address" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>-->
                     </StackLayout>
                 </Frame>
@@ -50,26 +50,26 @@
                         <Frame BackgroundColor="Gray" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="https://cdn0.iconfinder.com/data/icons/basic-ui-elements-round/700/09_lock-256.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <local:CustomEntry Text="{Binding Password}" IsPassword="true" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <local:CustomEntry Text="{Binding Password}" IsPassword="true" Placeholder="{Binding PasswordPlaceholder}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                         <!--<Entry Text="{Binding Password}" IsPassword="true" Placeholder="Password" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>-->
                     </StackLayout>
                 </Frame>
                 <Label Text="{Binding PasswordError}" HeightRequest="20" TextColor="Red" Margin="60,0,0,0"></Label>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,0" Padding="0">
                     <CheckBox IsChecked="{Binding isChecked}"/>
-                    <Label Text="Remember Me" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <Label Text="Forgot Password" TextColor="#018BD3" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                    <Label Text="{Binding RememberMe}" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding ForgotPassword}" TextColor="#018BD3" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
 
-                <Button Text="SIGN IN" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,0" Command="{Binding LoginCommand}"/>
+                <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,0" Command="{Binding LoginCommand}"/>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0" >
-                    <Label Text="New User?" TextColor="DarkGray" FontSize="Small"/>
-                    <Label Text=" Sign Up" TextColor="#018BD3" FontAttributes="Bold" FontSize="Small">
+                    <Label Text="{Binding NewUser}" TextColor="DarkGray" FontSize="Small"/>
+                    <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" FontSize="Small">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                         </Label.GestureRecognizers>

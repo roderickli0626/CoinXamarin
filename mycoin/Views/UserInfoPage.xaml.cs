@@ -38,7 +38,12 @@ namespace mycoin.Views
 
         void OnImageButtonClicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+            var flyoutPage = new MainDashboardPage();
+            flyoutPage.Detail = new NavigationPage(new UserInfoPage());
+            App.Current.MainPage = flyoutPage;
+            flyoutPage.IsPresented = true;
+
+            //App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 
         async void BtnDeleteAccountClicked(object sender, EventArgs e)
