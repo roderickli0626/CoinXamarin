@@ -137,7 +137,7 @@ namespace mycoin.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                        await App.Current.MainPage.DisplayAlert("Error1", ex.ToString(), "OK");
                     }
                 }
                 await adapter.StartScanningForDevicesAsync();
@@ -146,7 +146,7 @@ namespace mycoin.ViewModels
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await App.Current.MainPage.DisplayAlert("Error2", ex.ToString(), "OK");
             }
         }
 
