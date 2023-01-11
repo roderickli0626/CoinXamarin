@@ -6,6 +6,7 @@ using mycoin.Extensions;
 using mycoin.Helpers;
 using mycoin.Models;
 using mycoin.Views;
+using Plugin.Connectivity;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 
@@ -236,11 +237,19 @@ namespace mycoin.ViewModels
         });
 
         public ICommand RegisterCommand => new Command(async() => {
-            await NavigateToPage(new RegisterPage());
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
+            }
+            else await NavigateToPage(new RegisterPage());
         });
 
         public ICommand ForgotPasswordCommand => new Command(async() => {
-            await NavigateToPage(new ForgotPasswordPage());
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
+            }
+            else await NavigateToPage(new ForgotPasswordPage());
         });
 
         #endregion

@@ -126,22 +126,28 @@ namespace mycoin.ViewModels
             //DeviceList.Add(new CustomDevice() { Name = "Device1" });
             //DeviceList.Add(new CustomDevice() { Name = "Device2" });
             //
-
-            foreach (var connectedDevice in adapter.ConnectedDevices)
+            try 
             {
-                try
+                foreach (var connectedDevice in adapter.ConnectedDevices)
                 {
-                    await connectedDevice.UpdateRssiAsync();
-                    _connectedDeviceList.Add(connectedDevice);
+                    try
+                    {
+                        //await connectedDevice.UpdateRssiAsync();
+                        _connectedDeviceList.Add(connectedDevice);
+                    }
+                    catch (Exception ex)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    return;
-                }
+                await adapter.StartScanningForDevicesAsync();
+                DeviceList = new ObservableCollection<IDevice>(_deviceList);
+                ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
             }
-            await adapter.StartScanningForDevicesAsync();
-            DeviceList = new ObservableCollection<IDevice>(_deviceList);
-            ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private async Task<bool> PermissionsGrantedAsync()

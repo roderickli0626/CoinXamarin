@@ -19,7 +19,8 @@ namespace mycoin.ViewModels
             nextTherapy = GlobalConstants.LangGUI.GetValueOrDefault("Your Next Therapy", "Your Next Therapy");
             firstProgram = note == null ? "No Program" : GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No Program");
             currentDate = note == null ? "No DefaultTime" : note.DefaultDateTime.ToString();
-            titleFromUserInfo = GlobalConstants.LangGUI.GetValueOrDefault("Hello", "Hello") + " " + App.Userdata.userName;
+            titleFromUserInfo = GlobalConstants.LangGUI.GetValueOrDefault("Hello", "Hello") + " " 
+                + App.Userdata.userName.Substring(0, (App.Userdata.userName.Length > 12 ? 12 : App.Userdata.userName.Length));
             source = new List<MySubstance>();
             CreateGroupCollection();
         }

@@ -68,8 +68,8 @@
                 <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,60" Command="{Binding LoginCommand}"/>
             </StackLayout>
             <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
-                <Label Text="{Binding NewUser}" TextColor="DarkGray" FontSize="Small"/>
-                <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" FontSize="Small">
+                <Label Text="{Binding NewUser}" TextColor="DarkGray" VerticalTextAlignment="Center" />
+                <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                     </Label.GestureRecognizers>
