@@ -65,17 +65,15 @@
                     </Label>
                 </StackLayout>
 
-                <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,0" Command="{Binding LoginCommand}"/>
-
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0" >
-                    <Label Text="{Binding NewUser}" TextColor="DarkGray" FontSize="Small"/>
-                    <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" FontSize="Small">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding RegisterCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
-
+                <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,60" Command="{Binding LoginCommand}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                <Label Text="{Binding NewUser}" TextColor="DarkGray" FontSize="Small"/>
+                <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" FontSize="Small">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
         </Grid>
 

@@ -25,6 +25,8 @@ namespace mycoin.Views
             InitializeComponent();
             this.BindingContext = vm = new SettingPageViewModel();
 
+            BrightnessValue.Text = "30%";
+
             if (Device.RuntimePlatform == Device.Android) Padding = new Thickness(0, 10, 0, 0);
             BackgroundColor = Color.White;
             // Remove the Navigation bar form the top of the page 

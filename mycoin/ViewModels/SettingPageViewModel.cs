@@ -48,8 +48,10 @@ namespace mycoin.ViewModels
         readonly IList<Language> languages;
         public ObservableCollection<Language> Languages { get; private set; }
 
-        public ObservableCollection<IDevice> DeviceList { get; private set; } = new ObservableCollection<IDevice>();
-        public ObservableCollection<IDevice> ConnectedDeviceList { get; private set; } = new ObservableCollection<IDevice>();
+        public ObservableCollection<IDevice> DeviceList { get; private set; }
+        public ObservableCollection<IDevice> ConnectedDeviceList { get; private set; }
+        private List<IDevice> _deviceList = new List<IDevice>();
+        private List<IDevice> _connectedDeviceList = new List<IDevice>();
         IBluetoothLE ble;
         IAdapter adapter;
         List<byte> buffer = new List<byte>();
@@ -93,7 +95,7 @@ namespace mycoin.ViewModels
             adapter.DeviceDiscovered += (s, e) =>
             {
                 if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
-                    DeviceList.Add(e.Device);
+                    _deviceList.Add(e.Device);
             };
         }
         void CreateLanguageCollection()
@@ -112,13 +114,13 @@ namespace mycoin.ViewModels
             DeviceListVisible = true;
             ConDeviceVisible = true;
 
-            if (!await PermissionsGrantedAsync())
-            {
-                return;
-            }
+            //if (!await PermissionsGrantedAsync())
+            //{
+            //    return;
+            //}
 
-            DeviceList.Clear();
-            ConnectedDeviceList.Clear();
+            //DeviceList.Clear();
+            //ConnectedDeviceList.Clear();
 
             //Test Devices
             //DeviceList.Add(new CustomDevice() { Name = "Device1" });
@@ -130,7 +132,7 @@ namespace mycoin.ViewModels
                 try
                 {
                     await connectedDevice.UpdateRssiAsync();
-                    ConnectedDeviceList.Add(connectedDevice);
+                    _connectedDeviceList.Add(connectedDevice);
                 }
                 catch (Exception ex)
                 {
@@ -138,6 +140,8 @@ namespace mycoin.ViewModels
                 }
             }
             await adapter.StartScanningForDevicesAsync();
+            DeviceList = new ObservableCollection<IDevice>(_deviceList);
+            ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
         }
 
         private async Task<bool> PermissionsGrantedAsync()
