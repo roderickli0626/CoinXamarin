@@ -20,6 +20,7 @@ namespace mycoin.Droid
         {
             Manifest.Permission.Bluetooth,
             Manifest.Permission.BluetoothAdmin,
+            
             //Manifest.Permission.AccessCoarseLocation,
             //Manifest.Permission.AccessFineLocation
         };

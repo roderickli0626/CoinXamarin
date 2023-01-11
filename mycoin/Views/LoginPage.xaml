@@ -27,14 +27,14 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="1" Text="{Binding Title}" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
             <Label Grid.Row="2" Text="{Binding SubTitle}" HorizontalOptions="Center" FontSize="Subtitle"/>
 
-            <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+            <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand" >
                 <Frame BackgroundColor="Transparent" BorderColor="#018BD3" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                     <StackLayout Orientation="Horizontal">
                         <Frame BackgroundColor="Gray" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
@@ -65,15 +65,16 @@
                     </Label>
                 </StackLayout>
 
-                <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,60" Command="{Binding LoginCommand}"/>
+                <Button Text="{Binding SignIn}" BackgroundColor="#018BD3" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="70,15,70,30" Command="{Binding LoginCommand}"/>
             </StackLayout>
             <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                 <Label Text="{Binding NewUser}" TextColor="DarkGray" VerticalTextAlignment="Center" />
-                <Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <!--<Label Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                     </Label.GestureRecognizers>
-                </Label>
+                </Label>-->
+                <Button Text="{Binding SignUp}" TextColor="#018BD3" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding RegisterCommand}"></Button>
             </StackLayout>
         </Grid>
 
