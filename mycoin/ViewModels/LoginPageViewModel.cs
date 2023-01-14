@@ -98,7 +98,16 @@ namespace mycoin.ViewModels
                     //App.Userdata.isActive = true;
                     //await App.Database.SaveUserdataAsync(App.Userdata);
 
-                    App.Current.MainPage = new NavigationPage(new DashboardPage());
+                    if (response.Category == "Privatpersonen")
+                    {
+                        //TODO move to QuestionPage if user is private
+                        App.Current.MainPage = new NavigationPage(new QuestionPage());
+                    }
+                    else
+                    {
+                        // move to DashboarPage if user is not private
+                        App.Current.MainPage = new NavigationPage(new DashboardPage());
+                    }
                 }
                 else
                 {
@@ -217,7 +226,16 @@ namespace mycoin.ViewModels
                             await App.Database.DeleteAllUserdataAsync();
                         }
 
-                        App.Current.MainPage = new NavigationPage(new DashboardPage());
+                        if (response.Category == "Privatpersonen")
+                        {
+                            //TODO move to QuestionPage if user is private
+                            App.Current.MainPage = new NavigationPage(new QuestionPage());
+                        }
+                        else
+                        {
+                            // move to DashboarPage if user is not private
+                            App.Current.MainPage = new NavigationPage(new DashboardPage());
+                        }
                     }
                     else
                     {

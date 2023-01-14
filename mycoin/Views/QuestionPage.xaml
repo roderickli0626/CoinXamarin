@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage 
+    xmlns:base="clr-namespace:mycoin.Views"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="mycoin.Views.QuestionPage">
+    <ContentPage.Content>
+        <StackLayout Margin="-10">
+            <!--<Label Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="15" TextColor="White" BackgroundColor="SlateGray"/>-->
+            <Label x:Name="QuestionTitle" Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="15" TextColor="White" BackgroundColor="#018BD3"/>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="White">
+                <!--<AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
+                        <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
+                    </AbsoluteLayout>
+                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-18,0,0">
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
+                        <Image Source="ic_header_coin_big_center.xml"/>
+                        <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
+                    </FlexLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
+                        <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
+                        <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
+                        --><!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>--><!--
+                    </AbsoluteLayout>
+                </AbsoluteLayout>-->
+                <ListView x:Name="QuestionList"
+                  HasUnevenRows="true">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image VerticalOptions="Center" Grid.Column="0"
+                                   Source="icons8_Question.png" 
+                                   HeightRequest="50"
+                                   WidthRequest="50"/>
+                                    <Label FontSize="18" Grid.Column="1"
+                                   Text="{Binding QuestionContent}" VerticalTextAlignment="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Image Grid.Column="2"
+                                   Source="iconCheck.png" 
+                                   HeightRequest="50"
+                                   WidthRequest="50" VerticalOptions="CenterAndExpand" IsVisible="False" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout>
+                    <Button Text="NEXT" x:Name="NextButton" BackgroundColor="#018BD3" FontSize="20" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="110,20,110,60" Clicked="NextButton_Clicked" IsVisible="false"/>
+                    <Button Text="FINISH" x:Name="FinishButton" BackgroundColor="#018BD3" FontSize="20" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="250" Margin="110,20,110,60" Clicked="FinishButton_Clicked" IsVisible="false"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</base:BasePage>

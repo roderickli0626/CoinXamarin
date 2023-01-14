@@ -22,6 +22,24 @@ namespace mycoin.Data
             database.CreateTableAsync<LanguageGUI>().Wait();
             database.CreateTableAsync<SubstanceText>().Wait();
             database.CreateTableAsync<GroupText>().Wait();
+            database.CreateTableAsync<Question>().Wait();
+        }
+
+        //Questions
+        public Task<int> DeleteAllQuestionsAsync()
+        {
+            // Delete all Questions.
+            return database.DeleteAllAsync<Question>();
+        }
+        public Task<List<Question>> GetQuestionsByLangAsync(int languageNumber)
+        {
+            //Get Questions By Language.
+            return database.Table<Question>().Where(s => s.LanguageNumber == languageNumber).ToListAsync();
+        }
+        public Task<int> SaveQuestionAsync(Question data)
+        {
+            //Save a new Question
+            return database.InsertAsync(data);
         }
 
         //GroupText

@@ -11,5 +11,6 @@ namespace mycoin.Models
         public string refreshToken { get; set; }
         public bool result { get; set; }
         public Settings settings { get; set; }
+        public string? Category { get; set; }
     }
 }

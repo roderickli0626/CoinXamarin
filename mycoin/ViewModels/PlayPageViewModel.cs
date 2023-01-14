@@ -109,84 +109,90 @@ namespace mycoin.ViewModels
 
             if (audio == null || note.WavFile == null) return;
 
-            if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start"))
-            {
-                buttonFromPlayState = "icons8_square_green_48.png";
-                playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
-                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
-                markImageUrl = "animation_green_02.gif";
-                showClose = false;
-                closeFlag = false;
-
-                int hh = int.Parse(hours);
-                int mm = int.Parse(minutes);
-                int duration = hh * 60 + mm;
-                note.Duration = duration;
-                note.PlayDateTime = DateTime.Now;
-                await App.Database.UpdateNoteAsync(note);
-
-                audio.Play();
-
-                timerCount = 0;
-
-                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+            try {
+                if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start"))
                 {
-                    if (closeFlag) return false;
+                    buttonFromPlayState = "icons8_square_green_48.png";
+                    playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                    titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
+                    markImageUrl = "animation_green_02.gif";
+                    showClose = false;
+                    closeFlag = false;
 
-                    if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
+                    int hh = int.Parse(hours);
+                    int mm = int.Parse(minutes);
+                    int duration = hh * 60 + mm;
+                    note.Duration = duration;
+                    note.PlayDateTime = DateTime.Now;
+                    await App.Database.UpdateNoteAsync(note);
+
+                    audio.Play();
+
+                    timerCount = 0;
+
+                    Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
                     {
-                        return true;
-                    }
-                    else
-                    {
-                        timerCount++;
-                    }
-                    double total = timerCount * 0.1;
-                    if (note.Duration * 60 > total)
-                    {
-                        if (endFlag)
+                        if (closeFlag) return false;
+
+                        if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
                         {
-                            buttonFromPlayState = "icons8_square_green_48.png";
-                            playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
-                            titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
-                            showClose = false;
+                            return true;
+                        }
+                        else
+                        {
+                            timerCount++;
+                        }
+                        double total = timerCount * 0.1;
+                        if (note.Duration * 60 > total)
+                        {
+                            if (endFlag)
+                            {
+                                buttonFromPlayState = "icons8_square_green_48.png";
+                                playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
+                                showClose = false;
 
-                            audio.Play();
-                            endFlag = false;
+                                audio.Play();
+                                endFlag = false;
+                            }
+
+                            return true;
+                        }
+                        else
+                        {
+                            audio.Stop();
+                            buttonFromPlayState = "icons8_play_48.png";
+                            playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
+                            titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
+                            markImageUrl = "animation_blue_02.gif";
+                            return false;
                         }
 
-                        return true;
-                    }
-                    else
-                    {
-                        audio.Stop();
-                        buttonFromPlayState = "icons8_play_48.png";
-                        playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
-                        titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
-                        markImageUrl = "animation_blue_02.gif";
-                        return false;
-                    }
+                    });
+                }
+                else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop"))
+                {
+                    showClose = true;
+                    playState = GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue");
+                    titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
+                    buttonFromPlayState = "icons8_play_48.png";
+                    markImageUrl = "animation_blue_02.gif";
 
-                });
+                    audio.Pause();
+                }
+                else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
+                {
+                    buttonFromPlayState = "icons8_square_green_48.png";
+                    playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
+                    titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
+                    markImageUrl = "animation_green_02.gif";
+                    showClose = false;
+                    audio.Play();
+                }
             }
-            else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop"))
+            catch (Exception e)
             {
-                showClose = true;
-                playState = GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue");
-                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
-                buttonFromPlayState = "icons8_play_48.png";
-                markImageUrl = "animation_blue_02.gif";
-
-                audio.Pause();
-            }
-            else if (playState == GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue"))
-            {
-                buttonFromPlayState = "icons8_square_green_48.png";
-                playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
-                titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
-                markImageUrl = "animation_green_02.gif";
-                showClose = false;
-                audio.Play();
+                Console.WriteLine(e.ToString());
             }
             
         });

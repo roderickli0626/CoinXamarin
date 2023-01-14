@@ -10,5 +10,6 @@ namespace mycoin.Helpers
         public static readonly string LoadLanguageGUI = "LanguageGUI/loadDB";
         public static readonly string LoadSubstanceText = "SubstanceText/loadDB";
         public static readonly string LoadSubstanceGroupText = "SubstanceGroupText/loadDB";
+        public static readonly string LoadQuestions = "Question/loadDB";
     }
 }

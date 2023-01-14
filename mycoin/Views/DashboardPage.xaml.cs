@@ -1,4 +1,5 @@
-﻿using mycoin.Helpers;
+﻿using mycoin.Extensions;
+using mycoin.Helpers;
 using mycoin.Models;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,12 @@ namespace mycoin.Views
                 List<LanguageGUI> langGUIRes = await HttpHelper.Instance.PostContentAsync<List<LanguageGUI>>(ApiURLs.LoadLanguageGUI, App.Userdata);
                 List<SubstanceText> subText = await HttpHelper.Instance.PostContentAsync<List<SubstanceText>>(ApiURLs.LoadSubstanceText, App.Userdata);
                 List<GroupText> groupText = await HttpHelper.Instance.PostContentAsync<List<GroupText>>(ApiURLs.LoadSubstanceGroupText, App.Userdata);
+
+                //Selected Groups from Private User Questions
+                if (GlobalConstants.GroupIds.Count > 0)
+                {
+                    response = response.FindAll(n => GlobalConstants.GroupIds.Contains(n.GroupNumber));
+                }
 
                 foreach(Note item in response)
                 {

@@ -107,67 +107,82 @@ namespace mycoin.ViewModels
         }
 
         public ICommand playCommand => new Command<object>(async (arg) => {
-            MySubstance substance = arg as MySubstance;
-            if (substance == null) return;
-            var favoriteId = substance.ID;
-            if (favoriteId == 0) selectedIndex = 2;
-            else
+            try
             {
-                //int id = int.Parse(arg);
-                Note note = App.Database.GetNoteAsync(favoriteId).Result;
-                markImageUrl = "animation_green_02.png";
-                markImageUrl = "animation_green_02.gif";
-                StopContainer = true;
-                ContinueContainer = false;
-                timelabel = "00:00:00";
-
-                startTime = DateTime.Now;
-                if (audio == null || note.WavFile == null) return;
-                audio.Load(new MemoryStream(note.WavFile));
-                audio.Play();
-                timer.Start();
-                timerCount = 0;
-                closeFlag = false;
-                stopFlag = false;
-                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                MySubstance substance = arg as MySubstance;
+                if (substance == null) return;
+                var favoriteId = substance.ID;
+                if (favoriteId == 0) selectedIndex = 2;
+                else
                 {
-                    if (closeFlag) return false;
-                    if (stopFlag) return true;
-                    else timerCount++;
-                    double total = timerCount * 0.1;
-                    if (note.Duration * 60 > total)
-                    {
-                        if (endFlag)
-                        {
-                            audio.Play();
-                            endFlag = false;
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        audio.Stop();
-                        timer.Stop();
-                        markImageUrl = "ic_coin_large_background_silver.png";
-                        timelabel = "";
-                        StopContainer = false;
-                        ContinueContainer = false;
-                        return false;
-                    }
-                });
+                    //int id = int.Parse(arg);
+                    Note note = App.Database.GetNoteAsync(favoriteId).Result;
+                    markImageUrl = "animation_green_02.png";
+                    markImageUrl = "animation_green_02.gif";
+                    StopContainer = true;
+                    ContinueContainer = false;
+                    timelabel = "00:00:00";
 
+                    startTime = DateTime.Now;
+                    if (audio == null || note.WavFile == null) return;
+                    audio.Load(new MemoryStream(note.WavFile));
+                    audio.Play();
+                    timer.Start();
+                    timerCount = 0;
+                    closeFlag = false;
+                    stopFlag = false;
+                    Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                    {
+                        if (closeFlag) return false;
+                        if (stopFlag) return true;
+                        else timerCount++;
+                        double total = timerCount * 0.1;
+                        if (note.Duration * 60 > total)
+                        {
+                            if (endFlag)
+                            {
+                                audio.Play();
+                                endFlag = false;
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            audio.Stop();
+                            timer.Stop();
+                            markImageUrl = "ic_coin_large_background_silver.png";
+                            timelabel = "";
+                            StopContainer = false;
+                            ContinueContainer = false;
+                            return false;
+                        }
+                    });
+
+                }
             }
+            catch(Exception e)
+            {
+                Console.Write(e.ToString());
+            }
+            
         });
 
         public ICommand stopCommand => new Command(async () => {
-            audio.Pause();
-            stopFlag = true;
-            closeFlag = false;
-            markImageUrl = "animation_blue_02.gif";
-            //markImageUrl = "animation_green_02.gif";
-            StopContainer = false;
-            ContinueContainer = true;
-            timer.Stop();
+            try
+            {
+                audio.Pause();
+                stopFlag = true;
+                closeFlag = false;
+                markImageUrl = "animation_blue_02.gif";
+                //markImageUrl = "animation_green_02.gif";
+                StopContainer = false;
+                ContinueContainer = true;
+                timer.Stop();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         });
 
         public ICommand closeCommand => new Command(async () => {
