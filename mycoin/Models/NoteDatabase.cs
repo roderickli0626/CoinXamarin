@@ -23,6 +23,29 @@ namespace mycoin.Data
             database.CreateTableAsync<SubstanceText>().Wait();
             database.CreateTableAsync<GroupText>().Wait();
             database.CreateTableAsync<Question>().Wait();
+            database.CreateTableAsync<QuestionOption>().Wait();
+        }
+
+        //QuestionOption
+        public Task<int> DeleteAllSelectedQuestionsAsync()
+        {
+            // Delete all SelectedQuestions.
+            return database.DeleteAllAsync<QuestionOption>();
+        }
+        public Task<int> DeleteSelectedQuestionsByUserAsync(QuestionOption option)
+        {
+            // Delete a SelectedQuestion.
+            return database.DeleteAsync(option);
+        }
+        public Task<QuestionOption> GetSelectedQuestionsByUserAsync(int userID)
+        {
+            //Get SelectedQuestions By UserID.
+            return database.Table<QuestionOption>().Where(s => s.UserID == userID).FirstOrDefaultAsync();
+        }
+        public Task<int> SaveSelectedQuestionAsync(QuestionOption data)
+        {
+            //Save a new SelectedQuestions
+            return database.InsertAsync(data);
         }
 
         //Questions

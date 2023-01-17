@@ -12,5 +12,9 @@ namespace mycoin.Models
         public bool result { get; set; }
         public Settings settings { get; set; }
         public string? Category { get; set; }
+
+        //ForgotPassword
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
     }
 }

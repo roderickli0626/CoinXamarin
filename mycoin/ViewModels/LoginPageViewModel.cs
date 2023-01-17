@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using mycoin.Extensions;
@@ -101,7 +102,17 @@ namespace mycoin.ViewModels
                     if (response.Category == "Privatpersonen")
                     {
                         //TODO move to QuestionPage if user is private
-                        App.Current.MainPage = new NavigationPage(new QuestionPage());
+                        if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                        {
+                            GlobalConstants.GroupIds.Clear();
+                            App.Current.MainPage = new NavigationPage(new QuestionPage());
+                        }
+                        else
+                        {
+                            List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
+                            GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                            App.Current.MainPage = new NavigationPage(new DashboardPage());
+                        }
                     }
                     else
                     {
@@ -229,7 +240,17 @@ namespace mycoin.ViewModels
                         if (response.Category == "Privatpersonen")
                         {
                             //TODO move to QuestionPage if user is private
-                            App.Current.MainPage = new NavigationPage(new QuestionPage());
+                            if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                            {
+                                GlobalConstants.GroupIds.Clear();
+                                App.Current.MainPage = new NavigationPage(new QuestionPage());
+                            }
+                            else
+                            {
+                                List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
+                                GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                                App.Current.MainPage = new NavigationPage(new DashboardPage());
+                            }
                         }
                         else
                         {

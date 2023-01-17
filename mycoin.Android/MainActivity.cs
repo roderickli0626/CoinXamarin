@@ -20,10 +20,11 @@ namespace mycoin.Droid
         {
             Manifest.Permission.Bluetooth,
             Manifest.Permission.BluetoothAdmin,
-            Manifest.Permission.BluetoothPrivileged,
-            "android.permission.BLUETOOTH_SCAN"
+            //Manifest.Permission.BluetoothPrivileged,
+            "android.permission.BLUETOOTH_SCAN",
             //Manifest.Permission.AccessCoarseLocation,
-            //Manifest.Permission.AccessFineLocation
+            //Manifest.Permission.AccessFineLocation,
+            //Manifest.Permission.LocationHardware,
         };
         protected override void OnCreate(Bundle savedInstanceState)
         {

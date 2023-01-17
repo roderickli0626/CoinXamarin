@@ -1,4 +1,6 @@
 ﻿using mycoin.Extensions;
+using mycoin.Helpers;
+using mycoin.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -62,19 +64,18 @@ namespace mycoin.ViewModels
             }
             
             RunIndicator();
+            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.ForgotPassword, EmailAddress);
             try
             {
-                List<string> toAddress = new List<string>();
-                toAddress.Add(EmailAddress);
-                var message = new EmailMessage
+                if (response.IsSuccess)
                 {
-                    Subject = "Forgot Password",
-                    Body = "Please Reset Password",
-                    To = toAddress,
-                };
-                await Email.ComposeAsync(message);
+                    await App.Current.MainPage.Navigation.PopAsync();
+                }
+                else
+                {
+                    ShowErrorSnackbar(response.Message);
+                }
 
-                await App.Current.MainPage.Navigation.PopAsync();
             }
             catch (Exception ex)
             {

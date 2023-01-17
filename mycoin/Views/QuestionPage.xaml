@@ -6,31 +6,25 @@
     x:Class="mycoin.Views.QuestionPage">
     <ContentPage.Content>
         <StackLayout Margin="-10">
-            <!--<Label Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="15" TextColor="White" BackgroundColor="SlateGray"/>-->
-            <Label x:Name="QuestionTitle" Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="15" TextColor="White" BackgroundColor="#018BD3"/>
+            <StackLayout BackgroundColor="#018BD3">
+                <Button Text="Skip" FontSize="12" BackgroundColor="Transparent" HorizontalOptions="End" TextColor="White" FontAttributes="Bold" Margin="0,0,0,-25" Clicked="Button_Clicked"/>
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <ImageButton x:Name="PreviousButton" Source="ic_left_arrow_blue.png" WidthRequest="30" Margin="20,0,10,0" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                    <Label x:Name="QuestionTitle" Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="0" TextColor="White" BackgroundColor="#018BD3"/>
+                    <ImageButton WidthRequest="30" Margin="0,0,20,0" BackgroundColor="Transparent" />
+                </FlexLayout>
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <Label Text="0/0" FontSize="13" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="20,0,0,10" Padding="0" TextColor="#018BD3" BackgroundColor="#018BD3"/>
+                    <Label x:Name="QuestionSubTitle" Text="Please answer some questions below" FontSize="13" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0,0,0,10" FontAttributes="Bold" Padding="0" TextColor="White" BackgroundColor="#018BD3"/>
+                    <Label x:Name="PageCounts" Text="0/0" FontSize="13" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0,0,20,10" Padding="0" TextColor="White" BackgroundColor="#018BD3"/>
+                </FlexLayout>
+            </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="White">
-                <!--<AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
-                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="ic_coin_large_background_silver.png" HeightRequest="280" WidthRequest="280"/>
-                        <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
-                        <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
-                    </AbsoluteLayout>
-                    <FlexLayout Direction="Row" AlignItems="Start" Margin="0,-18,0,0">
-                        <Image Aspect="AspectFit" Source="ic_header_coin_big_left.xml"/>
-                        <Image Source="ic_header_coin_big_center.xml"/>
-                        <Image Aspect="AspectFit" Source="ic_header_coin_big_right.xml"/>
-                    </FlexLayout>
-                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
-                        <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
-                        --><!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>--><!--
-                    </AbsoluteLayout>
-                </AbsoluteLayout>-->
                 <ListView x:Name="QuestionList"
                   HasUnevenRows="true">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell Tapped="ViewCell_Tapped">
                                 <Grid Padding="10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />

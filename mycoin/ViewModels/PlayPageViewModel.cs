@@ -47,6 +47,7 @@ namespace mycoin.ViewModels
             playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
             buttonFromPlayState = "icons8_play_48.png";
             //markImageUrl = "animation_blue_02.png";
+            markImageUrl = "animation_blue_02.png";
             markImageUrl = "animation_blue_02.gif";
             //markImageUrl = "animation_green_02.png";
             //markImageUrl = "animation_green_02.gif";
@@ -98,6 +99,7 @@ namespace mycoin.ViewModels
             buttonFromPlayState = "icons8_play_48.png";
             playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
             titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
+            markImageUrl = "animation_blue_02.png";
             markImageUrl = "animation_blue_02.gif";
         });
 
@@ -115,6 +117,7 @@ namespace mycoin.ViewModels
                     buttonFromPlayState = "icons8_square_green_48.png";
                     playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
                     titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
+                    markImageUrl = "animation_green_02.png";
                     markImageUrl = "animation_green_02.gif";
                     showClose = false;
                     closeFlag = false;
@@ -164,6 +167,7 @@ namespace mycoin.ViewModels
                             buttonFromPlayState = "icons8_play_48.png";
                             playState = GlobalConstants.LangGUI.GetValueOrDefault("Start", "Start");
                             titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
+                            markImageUrl = "animation_blue_02.png";
                             markImageUrl = "animation_blue_02.gif";
                             return false;
                         }
@@ -176,6 +180,7 @@ namespace mycoin.ViewModels
                     playState = GlobalConstants.LangGUI.GetValueOrDefault("Continue", "Continue");
                     titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
                     buttonFromPlayState = "icons8_play_48.png";
+                    markImageUrl = "animation_blue_02.png";
                     markImageUrl = "animation_blue_02.gif";
 
                     audio.Pause();
@@ -185,6 +190,7 @@ namespace mycoin.ViewModels
                     buttonFromPlayState = "icons8_square_green_48.png";
                     playState = GlobalConstants.LangGUI.GetValueOrDefault("Stop", "Stop");
                     titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Run", "Application Run");
+                    markImageUrl = "animation_green_02.png";
                     markImageUrl = "animation_green_02.gif";
                     showClose = false;
                     audio.Play();

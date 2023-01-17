@@ -52,6 +52,12 @@ namespace mycoin.Views
                 GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to delete account?", "Do you really want to delete account?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
             if (result)
             {
+                QuestionOption option = App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result;
+                if (option != null)
+                {
+                    await App.Database.DeleteSelectedQuestionsByUserAsync(option);
+                }
+
                 Userdata savedUserdata = App.Database.GetUserdataAsync().Result;
                 if (savedUserdata == null) return;
                 savedUserdata.isActive = false;

@@ -15,6 +15,10 @@ namespace mycoin.Views
     public partial class QuestionPage : BasePage
     {
         public IList<Question> Monkeys { get; private set; } = new List<Question>();
+        public ViewCell lastCell;
+        public List<Question> remainQuestions = new List<Question>();
+        int pageNumber = 0;
+        int totalPages = 0;
         public QuestionPage()
         {
             InitializeComponent();
@@ -24,35 +28,35 @@ namespace mycoin.Views
             FinishButton.Text = GlobalConstants.LangGUI.GetValueOrDefault("FINISH", "FINISH");
         }
 
-        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Grid gridCell = (Grid)sender;
-            ((Image)gridCell.Children.Last()).IsVisible = !(((Image)gridCell.Children.Last()).IsVisible);
-            Question selectedItem = e.SelectedItem as Question;
+        //void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    Grid gridCell = (Grid)sender;
+        //    ((Image)gridCell.Children.Last()).IsVisible = !(((Image)gridCell.Children.Last()).IsVisible);
+        //    Question selectedItem = e.SelectedItem as Question;
 
-            if (gridCell.Children.Last().IsVisible)
-            {
-                GlobalConstants.GroupIds.Add(selectedItem.GroupNumber ?? 0);
-            }
-            else
-            {
-                GlobalConstants.GroupIds.Remove(selectedItem.GroupNumber ?? 0);
-            }
+        //    if (gridCell.Children.Last().IsVisible)
+        //    {
+        //        GlobalConstants.GroupIds.Add(selectedItem.GroupNumber ?? 0);
+        //    }
+        //    else
+        //    {
+        //        GlobalConstants.GroupIds.Remove(selectedItem.GroupNumber ?? 0);
+        //    }
 
-            if (GlobalConstants.GroupIds.Count() > 0 && GlobalConstants.Questions.Count() > 0)
-            {
-                NextButton.IsVisible = true;
-            }
-            else
-            {
-                NextButton.IsVisible = false;
-            }
-        }
+        //    if (GlobalConstants.GroupIds.Count() > 0 && GlobalConstants.Questions.Count() > 0)
+        //    {
+        //        NextButton.IsVisible = true;
+        //    }
+        //    else
+        //    {
+        //        NextButton.IsVisible = false;
+        //    }
+        //}
 
-        void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Question tappedItem = e.Item as Question;
-        }
+        //void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
+        //{
+        //    Question tappedItem = e.Item as Question;
+        //}
 
 
 
@@ -76,9 +80,11 @@ namespace mycoin.Views
                 foreach (Question question in questionList)
                 {
                     GlobalConstants.Questions.Add(question);
+                    remainQuestions.Add(question);
                 }
-                GlobalConstants.QuestionPageNumber = 0;
-
+                totalPages = questionList.Count / 10 + 1;
+                pageNumber = 1;
+                
                 loadItemSource();
             }
             catch (Exception ex)
@@ -90,29 +96,39 @@ namespace mycoin.Views
 
         void loadItemSource()
         {
-            if (GlobalConstants.Questions.Count() > 10)
+            if (remainQuestions.Count() > 10)
             {
-                QuestionList.ItemsSource = GlobalConstants.Questions.GetRange(0, 10).ToArray();
-                GlobalConstants.Questions = GlobalConstants.Questions.GetRange(10, GlobalConstants.Questions.Count() - 10);
+                QuestionList.ItemsSource = remainQuestions.GetRange(0, 10).ToArray();
+                remainQuestions = remainQuestions.GetRange(10, remainQuestions.Count() - 10);
                 FinishButton.IsVisible = false;
                 //NextButton.IsVisible = false;
+                QuestionSubTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Please answer some questions below", "Please answer some questions below");
             }
             else
             {
-                QuestionList.ItemsSource = GlobalConstants.Questions.ToArray();
-                GlobalConstants.Questions.RemoveRange(0, GlobalConstants.Questions.Count());
+                QuestionList.ItemsSource = remainQuestions.ToArray();
+                remainQuestions.RemoveRange(0, remainQuestions.Count());
                 FinishButton.IsVisible = true;
                 NextButton.IsVisible = false;
+                QuestionSubTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Finish your process", "Finish your process");
             }
+            PageCounts.Text = "" + pageNumber + "/" + totalPages;
         }
 
         private void NextButton_Clicked(object sender, EventArgs e)
         {
+            pageNumber++;
+            PreviousButton.Source = "ic_left_arrow_white.png";
             loadItemSource();
         }
 
         private void FinishButton_Clicked(object sender, EventArgs e)
         {
+            QuestionOption questionOption = new QuestionOption();
+            questionOption.UserID = App.Userdata.userid;
+            questionOption.SelectedQuestionList = string.Join(",", GlobalConstants.GroupIds);
+
+            App.Database.SaveSelectedQuestionAsync(questionOption);
             App.Current.MainPage = new NavigationPage(new DashboardPage());
         }
 
@@ -126,13 +142,15 @@ namespace mycoin.Views
             if (grid.Children.Last().IsVisible)
             {
                 GlobalConstants.GroupIds.Add(selectedItem.GroupNumber ?? 0);
+                ((ViewCell)grid.Parent).View.BackgroundColor = Color.LightGray;
             }
             else
             {
                 GlobalConstants.GroupIds.Remove(selectedItem.GroupNumber ?? 0);
+                ((ViewCell)grid.Parent).View.BackgroundColor = Color.White;
             }
 
-            if (GlobalConstants.GroupIds.Count() > 0 && GlobalConstants.Questions.Count() > 0)
+            if (GlobalConstants.GroupIds.Count() > 0 && remainQuestions.Count() > 0)
             {
                 NextButton.IsVisible = true;
             }
@@ -140,6 +158,37 @@ namespace mycoin.Views
             {
                 NextButton.IsVisible = false;
             }
+        }
+
+        private void ViewCell_Tapped(object sender, EventArgs e)
+        {
+            if (lastCell != null)
+                lastCell.View.BackgroundColor = Color.Transparent;
+            var viewCell = (ViewCell)sender;
+            if (viewCell.View != null)
+            {
+                viewCell.View.BackgroundColor = Color.White;
+                lastCell = viewCell;
+            }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            GlobalConstants.GroupIds.Clear();
+            App.Current.MainPage = new NavigationPage(new DashboardPage());
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            pageNumber--;
+            if (pageNumber < 2)
+            {
+                PreviousButton.Source = "ic_left_arrow_blue.png";
+            }
+            if (pageNumber < 1) return;
+            PageCounts.Text = "" + pageNumber + "/" + totalPages;
+            remainQuestions = GlobalConstants.Questions.GetRange((pageNumber - 1) * 10, GlobalConstants.Questions.Count() - (pageNumber - 1) * 10);
+            loadItemSource();
         }
     }
 }

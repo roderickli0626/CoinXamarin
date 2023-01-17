@@ -173,6 +173,7 @@ namespace mycoin.ViewModels
                 audio.Pause();
                 stopFlag = true;
                 closeFlag = false;
+                markImageUrl = "animation_blue_02.png";
                 markImageUrl = "animation_blue_02.gif";
                 //markImageUrl = "animation_green_02.gif";
                 StopContainer = false;
@@ -202,6 +203,7 @@ namespace mycoin.ViewModels
             timer.Start();
             stopFlag = false;
             closeFlag = false;
+            markImageUrl = "animation_green_02.png";
             markImageUrl = "animation_green_02.gif";
             StopContainer = true;
             ContinueContainer = false;
