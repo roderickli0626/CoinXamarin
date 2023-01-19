@@ -10,6 +10,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using mycoin.Models;
 using mycoin.Extensions;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -41,17 +44,50 @@ namespace mycoin.Views
             else App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
         }
 
-        public void FavoriteButtonClicked(object sender, EventArgs e)
+        public async void FavoriteButtonClicked(object sender, EventArgs e)
         {
-            note.Isfavorite = true;
-            App.Database.UpdateNoteAsync(note);
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Do you want to add the substance to favorites?", "Do you want to add the substance to favorites?"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Add to Favorite", "Add to Favorite"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"), alertDialogConfiguration);
+
+            if (result ?? false)
+            {
+                note.Isfavorite = true;
+                await App.Database.UpdateNoteAsync(note);
+            }
+            else return;
         }
 
         public async void InfoButtonClicked(object sender, EventArgs e)
         {
-            await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "") + " " + GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"),
-                GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + ":" + GlobalConstants.GroupTexts.GetValueOrDefault(note.GroupNumber, note.GroupName ?? "") + "\n" + GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") +
-                ":" + note.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + ":" + GlobalConstants.GroupTexts.GetValueOrDefault(note.GroupNumber, note.GroupName ?? "") + "\n" + GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") +
+                ":" + note.Duration + "min", GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "") + " " + GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"),"", alertDialogConfiguration);
+
+            //await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "") + " " + GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"),
+            //    GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + ":" + GlobalConstants.GroupTexts.GetValueOrDefault(note.GroupNumber, note.GroupName ?? "") + "\n" + GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") +
+            //    ":" + note.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)

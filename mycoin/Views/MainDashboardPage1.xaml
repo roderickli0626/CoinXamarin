@@ -54,7 +54,7 @@
                         </StackLayout>
 
                         <StackLayout>
-                            <Grid>  
+                            <Grid>
                                 <xct:TabView x:Name="MyTabs" SelectedIndex="{Binding selectedIndex}" TabStripPlacement="Top" TabContentHeight="400" TabStripBackgroundColor="Transparent" TabIndicatorColor="LightBlue" 
                                              TabContentBackgroundColor="Transparent" >
                                     <xct:TabViewItem Text="{Binding FavouriteTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
@@ -66,15 +66,25 @@
                                                 <DataTemplate>
                                                     <AbsoluteLayout Margin="0">
                                                         <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                                            <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="30" WidthRequest="30" Margin="30,15,0,15" 
+                                                            <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="30,15,0,15" 
                                                                          Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.playCommand}" CommandParameter="{Binding .}" />
                                                             <Label Text="{Binding SubstanceName}" Margin="15,15,0,15" HorizontalTextAlignment="Center" FontSize="18" TextColor="Black"/>
                                                             <Label Text="{Binding DurationTimeFormat}" TextColor="DeepSkyBlue" Margin="0,15,15,15" HorizontalTextAlignment="Center" FontSize="18"/>
                                                         </StackLayout>
-                                                        <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,100,50" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding favoriteExtraIconVisible}"  Margin="5">
-                                                            <ImageButton Source="icons8_trash_can_26.png" HeightRequest="20" WidthRequest="20" Margin="0,15,15,15" Clicked="DeletFromFavorite"/>
-                                                            <ImageButton Source="icons8_info_48.png" HeightRequest="20" WidthRequest="20" Margin="30,15,15,15" Clicked="ShowInfo"/>
+                                                        <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,90,50" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding favoriteExtraIconVisible}"  Margin="5">
+                                                            <ImageButton Source="icons8_trash_can_26.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Margin="0,15,10,15" Clicked="DeletFromFavorite"/>
+                                                            <ImageButton Source="icons8_info_48.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Margin="30,15,10,15" Clicked="ShowInfo"/>
                                                         </AbsoluteLayout>
+                                                        <VisualStateManager.VisualStateGroups>
+                                                            <VisualStateGroup Name="CommonStates">
+                                                                <VisualState Name="Normal" />
+                                                                <VisualState Name="Selected">
+                                                                    <VisualState.Setters>
+                                                                        <Setter Property="BackgroundColor" Value="#B16BBF" />
+                                                                    </VisualState.Setters>
+                                                                </VisualState>
+                                                            </VisualStateGroup>
+                                                        </VisualStateManager.VisualStateGroups>
                                                     </AbsoluteLayout>
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>

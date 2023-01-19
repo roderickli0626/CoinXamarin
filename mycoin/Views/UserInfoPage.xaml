@@ -3,17 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="mycoin.Views.UserInfoPage">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#F0F2F3">
+        <StackLayout BackgroundColor="white">
             <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
                 <ImageButton Source="ic_left_arrow.png" FlexLayout.AlignSelf="Start" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="20,10,0,10" Clicked="OnImageButtonClicked"/>
                 <Label Text="User Information" x:Name="UserInfoTitle" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="28" FontAttributes="Bold" TextColor="Black" Margin="0,10,10,10"/>
                 <Label Text=""/>
             </FlexLayout>
-            <StackLayout Margin="10,50,10,10">
-                <Image Source="ic_biapp_icon_avatar.xml" HorizontalOptions="Center" HeightRequest="80" WidthRequest="80" Margin="0"/>
-                <Label x:Name="userName"  Text="User" FontSize="28" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black"/>
+            <!--<RelativeLayout HorizontalOptions="Center">
+                <Button BorderColor="LightGray" CornerRadius="20" BorderWidth="2" IsEnabled="False" BackgroundColor="LightGray" Margin="10,50,10,50" WidthRequest="300" HeightRequest="40" ></Button>
+                <StackLayout Margin="10,50,10,50" Orientation="Horizontal" HorizontalOptions="Center" RelativeLayout.XConstraint="0.5">
+                    <Image Source="ic_biapp_icon_avatar.xml" BackgroundColor="Transparent" HorizontalOptions="Center" HeightRequest="40" WidthRequest="40" Margin="0"/>
+                    <Label x:Name="userName"  Text="User" BackgroundColor="Transparent" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black"/>
+                </StackLayout>
+            </RelativeLayout>-->
+            <StackLayout Margin="10,50,10,50" Orientation="Horizontal" HorizontalOptions="Center" >
+                <Frame BackgroundColor="LightGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame BackgroundColor="LightGray" HeightRequest="40" WidthRequest="40" CornerRadius="20" Padding="0" Margin="5">
+                            <Image Source="ic_biapp_icon_avatar.xml" BackgroundColor="Transparent" HorizontalOptions="Center" HeightRequest="40" WidthRequest="40" Margin="0"/>
+                        </Frame>
+                        <Label x:Name="userName"  Text="User" BackgroundColor="LightGray" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Padding="10,0,20,0" Margin="0" />
+                    </StackLayout>
+                </Frame>
+                <!--<Image Source="ic_biapp_icon_avatar.xml" BackgroundColor="Transparent" HorizontalOptions="Center" HeightRequest="40" WidthRequest="40" Margin="0"/>-->
+                <!--<Label x:Name="userName"  Text="User" BackgroundColor="LightGray" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Padding="10,0,20,0" Margin="0" />-->
             </StackLayout>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="White">
                 <Grid>
                     <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05" Margin="0,-30,0,0"/>
                     <StackLayout Background="ic_background.xml">
@@ -27,9 +42,9 @@
                         </StackLayout>
                         
                         <StackLayout Margin="60,10,60,50">
-                            <Button Text="Update" x:Name="UpdateButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
-                            <Button Text="Delete Account" x:Name="DeleteButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
-                            <Button Text="Password Change" x:Name="PasswordButton" Margin="10,0" BackgroundColor="White" BorderColor="Blue" BorderWidth="2" CornerRadius="25" HeightRequest="40"/>
+                            <Button Text="Update" x:Name="UpdateButton" Margin="10,0" BackgroundColor="#018BD3" TextColor="White" CornerRadius="25" HeightRequest="40"/>
+                            <Button Text="Delete Account" x:Name="DeleteButton" Margin="10,0" BackgroundColor="#018BD3" TextColor="White" CornerRadius="25" HeightRequest="40" Clicked="BtnDeleteAccountClicked"/>
+                            <Button Text="Password Change" x:Name="PasswordButton" Margin="10,0" BackgroundColor="#018BD3" TextColor="White" CornerRadius="25" HeightRequest="40"/>
                         </StackLayout>
 
                         <!--<AbsoluteLayout HorizontalOptions="Center" HeightRequest="80" WidthRequest="500" VerticalOptions="Center" BackgroundColor="White">

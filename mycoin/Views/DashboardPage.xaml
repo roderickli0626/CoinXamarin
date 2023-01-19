@@ -6,7 +6,7 @@
     x:Class="mycoin.Views.DashboardPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Synchronisation" FontSize="26" VerticalOptions="Center" Margin="15,0,0,0" TextColor="Black"/>
+            <Label Text="Synchronisation" x:Name="title" FontSize="26" VerticalOptions="Center" Margin="15,0,0,0" TextColor="Black"/>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
                 <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
@@ -32,8 +32,8 @@
                 </FlexLayout>
                 <StackLayout>
                     <Image x:Name="LoadingImage" Source="ic_biapp_icon_popup_sprachwechsel.xml" HeightRequest="50" WidthRequest="50" Margin="0,50,0,30"/>
-                    <Label Text="Synchronisation" HorizontalOptions="Center" TextColor="#028BD4" FontSize="32" Margin="0,0,0,50"></Label>
-                    <Label Text="Synchronisation from web server tables and Groups and program substances" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="20" Margin="20"></Label>
+                    <Label Text="Synchronisation" x:Name="subTitle" HorizontalOptions="Center" TextColor="#028BD4" FontSize="32" Margin="0,0,0,50"></Label>
+                    <Label Text="Synchronisation from web server tables and Groups and program substances" x:Name="subText" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="20" Margin="20"></Label>
                 </StackLayout>
             </StackLayout>
             

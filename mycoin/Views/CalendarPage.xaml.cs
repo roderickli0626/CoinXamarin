@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -40,9 +43,23 @@ namespace mycoin.Views
             EventModel eventModel = btn.BindingContext as EventModel;
             if (eventModel == null) return;
 
-            var result = await DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), GlobalConstants.LangGUI.GetValueOrDefault("Really Delete", "Really Delete") + 
-                " " + eventModel.Name + "?", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
-            if (result)
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Really Delete", "Really Delete") + " " + eventModel.Name + "?",
+                GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"), alertDialogConfiguration);
+
+            //var result = await DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), GlobalConstants.LangGUI.GetValueOrDefault("Really Delete", "Really Delete") + 
+            //    " " + eventModel.Name + "?", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
+            if (result ?? false)
             {
                 await App.Database.DeleteCalendarAsync(App.Database.GetCalendarAsync(eventModel.ID).Result);
                 //Remove from notifications

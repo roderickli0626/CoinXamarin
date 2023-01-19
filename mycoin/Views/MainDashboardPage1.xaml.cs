@@ -11,6 +11,9 @@ using System.Timers;
 using Xam.Plugin;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -20,6 +23,7 @@ namespace mycoin.Views
         MainDashboardPage1ViewModel vm;
         public PopupMenu Popup;
         private int id;
+        public ViewCell lastCell;
 
         //public System.Timers.Timer timer;
         //public DateTime startTime;
@@ -214,10 +218,28 @@ namespace mycoin.Views
             var InfoId = substance.ID;
             if (InfoId == 0) return;
             Note infoSubstance = App.Database.GetNoteAsync(InfoId).Result;
-            await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(infoSubstance.SubstanceID, infoSubstance.Substance ?? "") + " " + 
-                GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"), GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + 
-                ":" + GlobalConstants.GroupTexts.GetValueOrDefault(infoSubstance.GroupNumber, infoSubstance.GroupName ?? "") + "\n" + 
-                GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") + ":" + infoSubstance.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
+
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") +
+                ":" + GlobalConstants.GroupTexts.GetValueOrDefault(infoSubstance.GroupNumber, infoSubstance.GroupName ?? "") + "\n" +
+                GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") + ":" + infoSubstance.Duration + "min",
+                GlobalConstants.SubTexts.GetValueOrDefault(infoSubstance.SubstanceID, infoSubstance.Substance ?? "") + " " +
+                GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+
+            //await DisplayAlert(GlobalConstants.SubTexts.GetValueOrDefault(infoSubstance.SubstanceID, infoSubstance.Substance ?? "") + " " + 
+            //    GlobalConstants.LangGUI.GetValueOrDefault("Information", "Information"), GlobalConstants.LangGUI.GetValueOrDefault("Group", "Group") + 
+            //    ":" + GlobalConstants.GroupTexts.GetValueOrDefault(infoSubstance.GroupNumber, infoSubstance.GroupName ?? "") + "\n" + 
+            //    GlobalConstants.LangGUI.GetValueOrDefault("Duration", "Duration") + ":" + infoSubstance.Duration + "min", GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"));
         }
 
         //Close, Stop, Continue Music

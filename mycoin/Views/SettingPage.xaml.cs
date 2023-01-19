@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -65,9 +68,25 @@ namespace mycoin.Views
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var result = await App.Current.MainPage.DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Language Change", "Language Change"),
-                GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to change the language?", "Do you really want to change the language?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
-            if (result)
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to change the language?", "Do you really want to change the language?"), 
+                GlobalConstants.LangGUI.GetValueOrDefault("Language Change", "Language Change"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), 
+                GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"), alertDialogConfiguration);
+
+
+            //var result = await App.Current.MainPage.DisplayAlert(GlobalConstants.LangGUI.GetValueOrDefault("Language Change", "Language Change"),
+            //    GlobalConstants.LangGUI.GetValueOrDefault("Do you really want to change the language?", "Do you really want to change the language?"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"));
+            if (result ?? false)
             {
                 languageNumber = ((Language)e.SelectedItem).languageNumber;
                 language = ((Language)e.SelectedItem).description;

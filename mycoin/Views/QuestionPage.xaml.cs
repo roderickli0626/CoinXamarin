@@ -174,8 +174,11 @@ namespace mycoin.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            GlobalConstants.GroupIds.Clear();
-            App.Current.MainPage = new NavigationPage(new DashboardPage());
+            pageNumber++;
+            PreviousButton.Source = "ic_left_arrow_white.png";
+            loadItemSource();
+            //GlobalConstants.GroupIds.Clear();
+            //App.Current.MainPage = new NavigationPage(new DashboardPage());
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)

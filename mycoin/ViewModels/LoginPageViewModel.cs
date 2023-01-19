@@ -10,11 +10,15 @@ using mycoin.Views;
 using Plugin.Connectivity;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.ViewModels
 {
     public class LoginPageViewModel: BaseViewModel
     {
+        public bool? IsOffLineMode = false;
         public LoginPageViewModel()
         {
             checkConnection();
@@ -62,7 +66,24 @@ namespace mycoin.ViewModels
             LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
             if (response == null)
             {
-                await App.Current.MainPage.DisplayAlert("Warning", "Connection Error!. Please try again later", "OK");
+
+                var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                {
+                    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                    TintColor = Color.FromHex("#018BD3"),
+                    CornerRadius = 30,
+                    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                    ButtonAllCaps = false
+                };
+                IsOffLineMode = await MaterialDialog.Instance.ConfirmAsync("Your phone is currently offline. Would you like to continue working with your APP in offline mode?",
+                    "Warning", "YES", "NO", alertDialogConfiguration);
+
+                
+
+                //await App.Current.MainPage.DisplayAlert("Warning", "Connection Error!. Please try again later", "OK");
                 //Close Application
                 //System.Threading.Thread.CurrentThread.Abort();
             }
@@ -76,56 +97,70 @@ namespace mycoin.ViewModels
                 password = savedUserInfo.password,
             };
 
-            RunIndicator();
-            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
-
-            if (response != null)
+            if (IsOffLineMode ?? false)
             {
-                if (response.result == true)
+                App.Userdata = new Userdata()
                 {
-                    App.Userdata = new Userdata()
+                    userid = savedUserInfo.userid,
+                    languageid = savedUserInfo.languageid,
+                    devicenum = savedUserInfo.devicenum,
+                    userName = savedUserInfo.userName,
+                };
+                App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+            }
+            else
+            {
+                RunIndicator();
+                LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
+
+                if (response != null)
+                {
+                    if (response.result == true)
                     {
-                        userid = response.userId,
-                        languageid = response.languageNumber,
-                        devicenum = response.deviceNumber,
-                        userName = response.userName,
-                    };
-
-                    ////Save login User into DB
-                    //await App.Database.DeleteAllUserdataAsync();
-
-                    //App.Userdata.email = Email;
-                    //App.Userdata.password = Password;
-                    //App.Userdata.isActive = true;
-                    //await App.Database.SaveUserdataAsync(App.Userdata);
-
-                    if (response.Category == "Privatpersonen")
-                    {
-                        //TODO move to QuestionPage if user is private
-                        if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                        App.Userdata = new Userdata()
                         {
-                            GlobalConstants.GroupIds.Clear();
-                            App.Current.MainPage = new NavigationPage(new QuestionPage());
+                            userid = response.userId,
+                            languageid = response.languageNumber,
+                            devicenum = response.deviceNumber,
+                            userName = response.userName,
+                        };
+
+                        ////Save login User into DB
+                        //await App.Database.DeleteAllUserdataAsync();
+
+                        //App.Userdata.email = Email;
+                        //App.Userdata.password = Password;
+                        //App.Userdata.isActive = true;
+                        //await App.Database.SaveUserdataAsync(App.Userdata);
+
+                        if (response.Category == "Privatpersonen")
+                        {
+                            //TODO move to QuestionPage if user is private
+                            if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                            {
+                                GlobalConstants.GroupIds.Clear();
+                                App.Current.MainPage = new NavigationPage(new QuestionPage());
+                            }
+                            else
+                            {
+                                List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
+                                GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                                App.Current.MainPage = new NavigationPage(new DashboardPage());
+                            }
                         }
                         else
                         {
-                            List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
-                            GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                            // move to DashboarPage if user is not private
                             App.Current.MainPage = new NavigationPage(new DashboardPage());
                         }
                     }
                     else
                     {
-                        // move to DashboarPage if user is not private
-                        App.Current.MainPage = new NavigationPage(new DashboardPage());
+                        ShowSomethingWrongMsg();
                     }
                 }
-                else
-                {
-                    ShowSomethingWrongMsg();
-                }
+                StopIndicator();
             }
-            StopIndicator();
         }
 
         #region Properties
@@ -206,79 +241,114 @@ namespace mycoin.ViewModels
                 password = Password
             };
 
-            RunIndicator();
-            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
-            try
+            if (IsOffLineMode ?? false)
             {
-                if (response != null)
+                Userdata userdata = App.Database.GetUserdataAsync().Result;
+                if (userdata == null || userdata.email != Email)
                 {
-                    if (response.result == true)
+                    ShowSomethingWrongMsg();
+                    return;
+                }
+                
+                App.Userdata = new Userdata()
+                {
+                    userid = userdata.userid,
+                    languageid = userdata.languageid,
+                    devicenum = userdata.devicenum,
+                    userName = userdata.userName,
+                };
+                App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+            }
+            else
+            {
+                RunIndicator();
+                LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
+                try
+                {
+                    if (response != null)
                     {
-                        App.Userdata = new Userdata()
+                        if (response.result == true)
                         {
-                            userid = response.userId,
-                            languageid = response.languageNumber,
-                            devicenum = response.deviceNumber,
-                            userName = response.userName,
-                        };
+                            App.Userdata = new Userdata()
+                            {
+                                userid = response.userId,
+                                languageid = response.languageNumber,
+                                devicenum = response.deviceNumber,
+                                userName = response.userName,
+                            };
 
-                        //Save User into DB if 'Remember User' checked
-                        if (isChecked)
-                        {
                             await App.Database.DeleteAllUserdataAsync();
 
                             App.Userdata.email = Email;
                             App.Userdata.password = Password;
-                            App.Userdata.isActive = true;
-                            await App.Database.SaveUserdataAsync(App.Userdata);
-                        }
-                        else
-                        {
-                            await App.Database.DeleteAllUserdataAsync();
-                        }
-
-                        if (response.Category == "Privatpersonen")
-                        {
-                            //TODO move to QuestionPage if user is private
-                            if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                            //Save User into DB if 'Remember User' checked
+                            if (isChecked)
                             {
-                                GlobalConstants.GroupIds.Clear();
-                                App.Current.MainPage = new NavigationPage(new QuestionPage());
+                                App.Userdata.isActive = true;
+                                await App.Database.SaveUserdataAsync(App.Userdata);
                             }
                             else
                             {
-                                List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
-                                GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                                App.Userdata.isActive = false;
+                                await App.Database.SaveUserdataAsync(App.Userdata);
+                            }
+
+                            if (response.Category == "Privatpersonen")
+                            {
+                                //TODO move to QuestionPage if user is private
+                                if (App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result == null)
+                                {
+                                    GlobalConstants.GroupIds.Clear();
+                                    App.Current.MainPage = new NavigationPage(new QuestionPage());
+                                }
+                                else
+                                {
+                                    List<string> Ids = new List<string>(App.Database.GetSelectedQuestionsByUserAsync(App.Userdata.userid).Result.SelectedQuestionList.Split(","));
+                                    if (Ids.Contains("")) GlobalConstants.GroupIds = new List<int> { 0 };
+                                    else GlobalConstants.GroupIds = Ids.Select(int.Parse).ToList();
+                                    App.Current.MainPage = new NavigationPage(new DashboardPage());
+                                }
+                            }
+                            else
+                            {
+                                // move to DashboarPage if user is not private
                                 App.Current.MainPage = new NavigationPage(new DashboardPage());
                             }
                         }
                         else
                         {
-                            // move to DashboarPage if user is not private
-                            App.Current.MainPage = new NavigationPage(new DashboardPage());
+                            ShowSomethingWrongMsg();
                         }
                     }
-                    else
-                    {
-                        ShowSomethingWrongMsg();
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    StopIndicator();
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                StopIndicator();
-            }
-
         });
 
         public ICommand RegisterCommand => new Command(async() => {
             if (!CrossConnectivity.Current.IsConnected)
             {
-                await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
+                var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                {
+                    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                    TintColor = Color.FromHex("#018BD3"),
+                    CornerRadius = 30,
+                    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                    ButtonAllCaps = false
+                };
+                await MaterialDialog.Instance.ConfirmAsync("Please connect to the Internet first",
+                    "Warning", "OK", "", alertDialogConfiguration);
+                //await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
             }
             else await NavigateToPage(new RegisterPage());
         });
@@ -286,7 +356,20 @@ namespace mycoin.ViewModels
         public ICommand ForgotPasswordCommand => new Command(async() => {
             if (!CrossConnectivity.Current.IsConnected)
             {
-                await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
+                var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                {
+                    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                    TintColor = Color.FromHex("#018BD3"),
+                    CornerRadius = 30,
+                    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                    ButtonAllCaps = false
+                };
+                await MaterialDialog.Instance.ConfirmAsync("Please connect to the Internet first",
+                    "Warning", "OK", "", alertDialogConfiguration);
+                //await App.Current.MainPage.DisplayAlert("Warning", "Please connect to the Internet first", "OK");
             }
             else await NavigateToPage(new ForgotPasswordPage());
         });

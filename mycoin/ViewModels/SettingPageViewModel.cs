@@ -96,6 +96,7 @@ namespace mycoin.ViewModels
             {
                 if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
                     _deviceList.Add(e.Device);
+                App.Current.MainPage.DisplayAlert("Scan Device Success", e.Device.Name, "OK");
             };
         }
         void CreateLanguageCollection()
@@ -128,10 +129,12 @@ namespace mycoin.ViewModels
             //
             try 
             {
+                RunIndicator();
                 foreach (var connectedDevice in adapter.ConnectedDevices)
                 {
                     try
                     {
+                        await App.Current.MainPage.DisplayAlert("Scan Connected Device Success", "Scan Connected Device Success", "OK");
                         //await connectedDevice.UpdateRssiAsync();
                         _connectedDeviceList.Add(connectedDevice);
                     }
@@ -140,9 +143,19 @@ namespace mycoin.ViewModels
                         await App.Current.MainPage.DisplayAlert("Error1", ex.ToString(), "OK");
                     }
                 }
+                //
+                adapter.DeviceDiscovered += (s, e) =>
+                {
+                    if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
+                        _deviceList.Add(e.Device);
+                    App.Current.MainPage.DisplayAlert("Scan Device Success", "Scan Device Success", "OK");
+                };
+                //
+
                 await adapter.StartScanningForDevicesAsync();
                 DeviceList = new ObservableCollection<IDevice>(_deviceList);
                 ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
+                StopIndicator();
             }
             catch (Exception ex)
             {

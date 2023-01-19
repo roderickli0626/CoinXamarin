@@ -20,6 +20,10 @@ namespace mycoin.Views
             rotate = RotateImageContinously();
             endRotate = false;
 
+            title.Text = GlobalConstants.LangGUI.GetValueOrDefault("Synchronisation", "Synchronisation");
+            subTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Synchronisation", "Synchronisation");
+            subText.Text = GlobalConstants.LangGUI.GetValueOrDefault("Synchronisation from web server tables and Groups and program substances",
+                "Synchronisation from web server tables and Groups and program substances");
         }
 
         async private void loadDB()
