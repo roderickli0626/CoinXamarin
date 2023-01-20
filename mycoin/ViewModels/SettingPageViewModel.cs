@@ -6,6 +6,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,12 +93,16 @@ namespace mycoin.ViewModels
             ble.StateChanged += (s, e) =>
             {
             };
-            adapter.DeviceDiscovered += (s, e) =>
-            {
-                if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
-                    _deviceList.Add(e.Device);
-                App.Current.MainPage.DisplayAlert("Scan Device Success", e.Device.Name, "OK");
-            };
+            //adapter.DeviceDiscovered += (s, e) =>
+            //{
+            //    if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
+            //        _deviceList.Add(e.Device);
+            //    App.Current.MainPage.DisplayAlert("Scan Device Success", e.Device.Name, "OK");
+            //};
+            //adapter.DeviceAdvertised += (s, a) =>
+            //{
+            //    Debug.WriteLine("Device advertised: " + a.Device);
+            //};
         }
         void CreateLanguageCollection()
         {
@@ -149,6 +154,10 @@ namespace mycoin.ViewModels
                     if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
                         _deviceList.Add(e.Device);
                     App.Current.MainPage.DisplayAlert("Scan Device Success", "Scan Device Success", "OK");
+                };
+                adapter.DeviceAdvertised += (s, a) =>
+                {
+                    App.Current.MainPage.DisplayAlert("Device advertised", "Device advertised: " + a.Device, "OK");
                 };
                 //
 

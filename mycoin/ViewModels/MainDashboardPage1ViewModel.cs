@@ -13,6 +13,9 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.BehaviorsPack;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.ViewModels
 {
@@ -117,6 +120,24 @@ namespace mycoin.ViewModels
                 {
                     //int id = int.Parse(arg);
                     Note note = App.Database.GetNoteAsync(favoriteId).Result;
+                    if (audio == null || note.WavFile == null)
+                    {
+                        var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                        {
+                            BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                            TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                            MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                            //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                            TintColor = Color.FromHex("#018BD3"),
+                            CornerRadius = 30,
+                            ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                            ButtonAllCaps = false
+                        };
+                        var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("There is no content in the Substance", "There is no content in the Substance"),
+                        GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+
+                        return;
+                    }
                     markImageUrl = "animation_green_02.png";
                     markImageUrl = "animation_green_02.gif";
                     StopContainer = true;
@@ -124,7 +145,7 @@ namespace mycoin.ViewModels
                     timelabel = "00:00:00";
 
                     startTime = DateTime.Now;
-                    if (audio == null || note.WavFile == null) return;
+                    
                     audio.Load(new MemoryStream(note.WavFile));
                     audio.Play();
                     timer.Start();

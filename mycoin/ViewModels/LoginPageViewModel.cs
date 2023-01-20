@@ -81,7 +81,12 @@ namespace mycoin.ViewModels
                 IsOffLineMode = await MaterialDialog.Instance.ConfirmAsync("Your phone is currently offline. Would you like to continue working with your APP in offline mode?",
                     "Warning", "YES", "NO", alertDialogConfiguration);
 
-                
+                Userdata savedUserInfo = App.Database.GetUserdataAsync().Result;
+                if (savedUserInfo == null || !savedUserInfo.isActive) return;
+                else
+                {
+                    autoLogin(savedUserInfo);
+                }
 
                 //await App.Current.MainPage.DisplayAlert("Warning", "Connection Error!. Please try again later", "OK");
                 //Close Application

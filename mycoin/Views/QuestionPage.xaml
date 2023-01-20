@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout Margin="-10">
             <StackLayout BackgroundColor="#018BD3">
-                <Button Text="Skip" FontSize="12" BackgroundColor="Transparent" HorizontalOptions="End" TextColor="White" FontAttributes="Bold" Margin="0,0,0,-25" Clicked="Button_Clicked"/>
+                <Button Text="Skip" FontSize="16" BackgroundColor="Transparent" HorizontalOptions="End" TextColor="White" FontAttributes="Bold" Margin="0,0,0,-25" Clicked="Button_Clicked"/>
                 <FlexLayout JustifyContent="SpaceBetween">
                     <ImageButton x:Name="PreviousButton" Source="ic_left_arrow_blue.png" WidthRequest="30" Margin="20,0,10,0" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                     <Label x:Name="QuestionTitle" Text="Questions and Answers" FontSize="22" HorizontalTextAlignment="Center" VerticalOptions="Center" Margin="0" FontAttributes="Bold" Padding="0" TextColor="White" BackgroundColor="#018BD3"/>

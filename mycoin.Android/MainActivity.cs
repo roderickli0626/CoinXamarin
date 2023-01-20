@@ -39,6 +39,8 @@ namespace mycoin.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             XF.Material.Droid.Material.Init(this, savedInstanceState);
 
+            //Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
             //
             var myApp = new App();
             var mBundle = Intent.Extras;
