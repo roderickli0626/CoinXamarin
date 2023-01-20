@@ -160,8 +160,12 @@ namespace mycoin.ViewModels
                     App.Current.MainPage.DisplayAlert("Device advertised", "Device advertised: " + a.Device, "OK");
                 };
                 //
+                if (!ble.Adapter.IsScanning)
+                {
+                    await adapter.StartScanningForDevicesAsync();
+                }
 
-                await adapter.StartScanningForDevicesAsync();
+                //await adapter.StartScanningForDevicesAsync();
                 DeviceList = new ObservableCollection<IDevice>(_deviceList);
                 ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
                 StopIndicator();
