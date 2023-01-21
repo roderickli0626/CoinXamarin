@@ -6,14 +6,13 @@ using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
-using XamarinEssentials = Xamarin.Essentials;
 
 namespace mycoin.ViewModels
 {
@@ -32,7 +31,7 @@ namespace mycoin.ViewModels
         public string SaveButton { get => _saveButton; set => SetProperty(ref _saveButton, value); }
         public string SpaceContent { get => _spaceContent; set => SetProperty(ref _spaceContent, value); }
         public string Brightness { get => _brightness; set => SetProperty(ref _brightness, value); }
-        public string AddedDevices { get => _addedDevices; set=> SetProperty(ref _addedDevices, value); }
+        public string AddedDevices { get => _addedDevices; set => SetProperty(ref _addedDevices, value); }
         public string ConnectedDevices { get => _connectedDevices; set => SetProperty(ref _connectedDevices, value); }
         public string SearchButtonTitle { get => _searchButtonTitle; set => SetProperty(ref _searchButtonTitle, value); }
         public string Pair { get => _pair; set => SetProperty(ref _pair, value); }
@@ -49,13 +48,12 @@ namespace mycoin.ViewModels
         readonly IList<Language> languages;
         public ObservableCollection<Language> Languages { get; private set; }
 
-        public ObservableCollection<IDevice> DeviceList { get; private set; }
-        public ObservableCollection<IDevice> ConnectedDeviceList { get; private set; }
-        private List<IDevice> _deviceList = new List<IDevice>();
-        private List<IDevice> _connectedDeviceList = new List<IDevice>();
+        public ObservableCollection<IDevice> DeviceList { get; private set; } = new ObservableCollection<IDevice>();
+        public ObservableCollection<IDevice> ConnectedDeviceList { get; private set; } = new ObservableCollection<IDevice>();
         IBluetoothLE ble;
         IAdapter adapter;
         List<byte> buffer = new List<byte>();
+
         public SettingPageViewModel()
         {
             CreateLanguageCollection();
@@ -82,8 +80,14 @@ namespace mycoin.ViewModels
 
             InitBLE();
         }
-        void InitBLE()
+        async void InitBLE()
         {
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            if (status == PermissionStatus.Denied)
+            {
+                await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            }
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanTimeout = 10000;
@@ -93,17 +97,14 @@ namespace mycoin.ViewModels
             ble.StateChanged += (s, e) =>
             {
             };
-            //adapter.DeviceDiscovered += (s, e) =>
-            //{
-            //    if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
-            //        _deviceList.Add(e.Device);
-            //    App.Current.MainPage.DisplayAlert("Scan Device Success", e.Device.Name, "OK");
-            //};
-            //adapter.DeviceAdvertised += (s, a) =>
-            //{
-            //    Debug.WriteLine("Device advertised: " + a.Device);
-            //};
+            adapter.DeviceDiscovered += Adapter_DeviceDiscovered;
         }
+
+        private void Adapter_DeviceDiscovered(object sender, DeviceEventArgs e)
+        {
+            DeviceList.Add(e.Device);
+        }
+
         void CreateLanguageCollection()
         {
             List<Language> languages = App.Database.GetAllLanguagesAsync().Result;
@@ -120,72 +121,34 @@ namespace mycoin.ViewModels
             DeviceListVisible = true;
             ConDeviceVisible = true;
 
-            //if (!await PermissionsGrantedAsync())
-            //{
-            //    return;
-            //}
-
-            //DeviceList.Clear();
-            //ConnectedDeviceList.Clear();
+            DeviceList.Clear();
+            ConnectedDeviceList.Clear();
 
             //Test Devices
             //DeviceList.Add(new CustomDevice() { Name = "Device1" });
             //DeviceList.Add(new CustomDevice() { Name = "Device2" });
             //
-            try 
+            try
             {
                 RunIndicator();
                 foreach (var connectedDevice in adapter.ConnectedDevices)
                 {
                     try
                     {
-                        await App.Current.MainPage.DisplayAlert("Scan Connected Device Success", "Scan Connected Device Success", "OK");
-                        //await connectedDevice.UpdateRssiAsync();
-                        _connectedDeviceList.Add(connectedDevice);
+                        await connectedDevice.UpdateRssiAsync();
                     }
                     catch (Exception ex)
                     {
-                        await App.Current.MainPage.DisplayAlert("Error1", ex.ToString(), "OK");
+                        return;
                     }
                 }
-                //
-                adapter.DeviceDiscovered += (s, e) =>
-                {
-                    if (e.Device != null && !string.IsNullOrEmpty(e.Device.Name))
-                        _deviceList.Add(e.Device);
-                    App.Current.MainPage.DisplayAlert("Scan Device Success", "Scan Device Success", "OK");
-                };
-                adapter.DeviceAdvertised += (s, a) =>
-                {
-                    App.Current.MainPage.DisplayAlert("Device advertised", "Device advertised: " + a.Device, "OK");
-                };
-                //
-                if (!ble.Adapter.IsScanning)
-                {
-                    await adapter.StartScanningForDevicesAsync();
-                }
-
-                //await adapter.StartScanningForDevicesAsync();
-                DeviceList = new ObservableCollection<IDevice>(_deviceList);
-                ConnectedDeviceList = new ObservableCollection<IDevice>(_connectedDeviceList);
+                await adapter.StartScanningForDevicesAsync();
                 StopIndicator();
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error2", ex.ToString(), "OK");
-            }
-        }
 
-        private async Task<bool> PermissionsGrantedAsync()
-        {
-            var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationAlways>();
-
-            if (locationPermissionStatus != XamarinEssentials.PermissionStatus.Granted)
-            {
-                var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
-                return status == XamarinEssentials.PermissionStatus.Granted;
             }
-            return true;
         }
 
         private async Task ConnectDevice(object sender)
@@ -245,8 +208,6 @@ namespace mycoin.ViewModels
             //read value here
             buffer.AddRange(e.Characteristic.Value);
         }
-
-        
 
     }
 }

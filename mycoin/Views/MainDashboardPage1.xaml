@@ -92,7 +92,7 @@
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="{Binding HistoryTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
                                         <Grid>
-                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TabContent2" />
+                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="No History" />
                                         </Grid>
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="{Binding AllTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">

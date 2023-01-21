@@ -102,6 +102,8 @@ namespace mycoin.Views
                 remainQuestions = remainQuestions.GetRange(10, remainQuestions.Count() - 10);
                 FinishButton.IsVisible = false;
                 //NextButton.IsVisible = false;
+                SkipButton.Text = "Skip";
+                SkipButton.IsEnabled = true;
                 QuestionSubTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Please answer some questions below", "Please answer some questions below");
             }
             else
@@ -110,6 +112,8 @@ namespace mycoin.Views
                 remainQuestions.RemoveRange(0, remainQuestions.Count());
                 FinishButton.IsVisible = true;
                 NextButton.IsVisible = false;
+                SkipButton.Text = "";
+                SkipButton.IsEnabled = false;
                 QuestionSubTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Finish your process", "Finish your process");
             }
             PageCounts.Text = "" + pageNumber + "/" + totalPages;
@@ -119,6 +123,7 @@ namespace mycoin.Views
         {
             pageNumber++;
             PreviousButton.Source = "ic_left_arrow_white.png";
+            PreviousButton.IsEnabled = true;
             loadItemSource();
         }
 
@@ -176,6 +181,7 @@ namespace mycoin.Views
         {
             pageNumber++;
             PreviousButton.Source = "ic_left_arrow_white.png";
+            PreviousButton.IsEnabled = true;
             loadItemSource();
             //GlobalConstants.GroupIds.Clear();
             //App.Current.MainPage = new NavigationPage(new DashboardPage());
@@ -187,6 +193,7 @@ namespace mycoin.Views
             if (pageNumber < 2)
             {
                 PreviousButton.Source = "ic_left_arrow_blue.png";
+                PreviousButton.IsEnabled = false;
             }
             if (pageNumber < 1) return;
             PageCounts.Text = "" + pageNumber + "/" + totalPages;

@@ -167,8 +167,8 @@ namespace mycoin.ViewModels
                     }
                     else
                     {
-                        //ShowErrorSnackbar(response.result);
-                        ShowErrorSnackbar("Register Error");
+                        //ShowErrorSnackbar("Register Error");
+                        ShowErrorSnackbar("The User is already registered");
                     }
                 }
             }
