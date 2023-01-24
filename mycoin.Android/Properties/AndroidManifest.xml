@@ -1,21 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="mycoinapp.mycoin">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
-	--><!--<uses-sdk android:minSdkVersion="21" />--><!--
-	<application android:label="mycoin.Android" android:theme="@style/MainTheme"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	--><!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />--><!--
-	--><!--<uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />--><!--
-	<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-	<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
-</manifest>-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="mycoinapp.mycoin" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31"/>
+	<!--<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31"/>
 	<application android:label="mycoin.Android" android:theme="@style/MainTheme"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<uses-permission android:name="android.permission.BLUETOOTH"/>
@@ -25,5 +10,13 @@
 	<uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
 	<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="31" />
+	<application android:label="Jenx.Bluetooth.UartOverGatt.Client.Android"></application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 </manifest>

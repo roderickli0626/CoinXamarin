@@ -21,9 +21,9 @@ namespace mycoin.Droid
             Manifest.Permission.Bluetooth,
             Manifest.Permission.BluetoothAdmin,
             //Manifest.Permission.BluetoothPrivileged,
-            "android.permission.BLUETOOTH_SCAN",
-            //Manifest.Permission.AccessCoarseLocation,
-            //Manifest.Permission.AccessFineLocation,
+            //"android.permission.BLUETOOTH_SCAN",
+            Manifest.Permission.AccessCoarseLocation,
+            Manifest.Permission.AccessFineLocation,
             //Manifest.Permission.LocationHardware,
         };
         protected override void OnCreate(Bundle savedInstanceState)
@@ -66,7 +66,8 @@ namespace mycoin.Droid
             else myApp.MainPage = new NavigationPage(new LoginPage());
             //
 
-            CheckPermissions();
+            //CheckPermissions();
+
             //LoadApplication(new App()); 
             LoadApplication(myApp);
 
