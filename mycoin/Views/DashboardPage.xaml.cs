@@ -3,6 +3,7 @@ using mycoin.Helpers;
 using mycoin.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -37,6 +38,7 @@ namespace mycoin.Views
                 await App.Database.DeleteAllGroupTextAsync();
                 await App.Database.DeleteAllAppSettingAsync();
                 //pull the data from api
+                List<Note> allNotes = await HttpHelper.Instance.PostContentAsync<List<Note>>(ApiURLs.LoadAllDB, App.Userdata);
                 List<Note> response = await HttpHelper.Instance.PostContentAsync<List<Note>>(ApiURLs.LoadDB, App.Userdata);
                 List<Language> langRes = await HttpHelper.Instance.PostContentAsync<List<Language>>(ApiURLs.LoadLanguages, App.Userdata);
                 List<LanguageGUI> langGUIRes = await HttpHelper.Instance.PostContentAsync<List<LanguageGUI>>(ApiURLs.LoadLanguageGUI, App.Userdata);
@@ -46,7 +48,9 @@ namespace mycoin.Views
                 //Selected Groups from Private User Questions
                 if (GlobalConstants.GroupIds.Count > 0)
                 {
-                    response = response.FindAll(n => GlobalConstants.GroupIds.Contains(n.GroupNumber));
+                    //response = response.FindAll(n => GlobalConstants.GroupIds.Contains(n.GroupNumber));
+                    response.AddRange(allNotes.FindAll(n => GlobalConstants.GroupIds.Contains(n.GroupNumber)));
+                    response = response.GroupBy(s => s.SubstanceID).Select(g => g.First()).ToList();
                 }
 
                 foreach(Note item in response)

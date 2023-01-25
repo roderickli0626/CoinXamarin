@@ -35,9 +35,6 @@ namespace mycoin.Views
             InitializeComponent();
             this.BindingContext = vm = new SettingPageViewModel();
 
-            BrightnessValue.Text = "30%";
-
-
             //---------For BLE---------//
             _bluetoothAdapter = CrossBluetoothLE.Current.Adapter;
             _bluetoothAdapter.DeviceDiscovered += (sender, foundBleDevice) =>
@@ -68,13 +65,13 @@ namespace mycoin.Views
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
         {
-            //IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
+            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
             foundBleDevicesListView.ItemsSource = null;
 
             if (!await PermissionsGrantedAsync())
             {
                 await DisplayAlert("Permission required", "Application needs location permission", "OK");
-                //IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+                IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
                 return;
             }
 
@@ -86,12 +83,12 @@ namespace mycoin.Views
             await _bluetoothAdapter.StartScanningForDevicesAsync();
 
             foundBleDevicesListView.ItemsSource = _gattDevices.ToArray();
-            //IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
         }
 
         private async void FoundBluetoothDevicesListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            //IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
+            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
             IDevice selectedItem = e.Item as IDevice;
 
             if (selectedItem.State == DeviceState.Connected)
@@ -112,7 +109,7 @@ namespace mycoin.Views
                 }
             }
 
-            //IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
         }
         //------------------For BLE-------------------//
 

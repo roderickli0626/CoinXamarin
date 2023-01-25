@@ -68,10 +68,13 @@
                                                         </ListView.ItemTemplate>
                                                     </ListView>
                                                 </StackLayout>-->
-                                                <StackLayout Orientation="Vertical" HeightRequest="200">
-                                                    <Button x:Name="ScanButton" Margin="10" Clicked="ScanButton_Clicked" Text="Scan Devices" />
-                                                    <ListView x:Name="foundBleDevicesListView" Footer="" ItemTapped="FoundBluetoothDevicesListView_ItemTapped" />
-                                                </StackLayout>
+                                                <Grid>
+                                                    <StackLayout Orientation="Vertical" HeightRequest="200">
+                                                        <Button x:Name="ScanButton" Margin="10" Clicked="ScanButton_Clicked" Text="Scan Devices" />
+                                                        <ListView x:Name="foundBleDevicesListView" Footer="" ItemTapped="FoundBluetoothDevicesListView_ItemTapped" />
+                                                    </StackLayout>
+                                                    <ActivityIndicator x:Name="IsBusyIndicator" Scale="0.3" />
+                                                </Grid>
                                             </local:AccordionItemView.ItemContent>
                                         </local:AccordionItemView>
                                         <BoxView HeightRequest="3" HorizontalOptions="Center" WidthRequest="390" BackgroundColor="LightGray"></BoxView>
@@ -88,7 +91,7 @@
                                                     </RelativeLayout>
 
                                                     <FlexLayout JustifyContent="SpaceAround" Margin="0,0,0,30">
-                                                        <Label x:Name="BrightnessValue" Text="0%"/>
+                                                        <Label x:Name="BrightnessValue" Text="30%"/>
                                                         <Label Text="{Binding Brightness}"/>
                                                         <Label Text="100%"/>
                                                     </FlexLayout>
