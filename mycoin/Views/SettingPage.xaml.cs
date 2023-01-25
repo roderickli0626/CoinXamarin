@@ -39,6 +39,7 @@ namespace mycoin.Views
             _bluetoothAdapter = CrossBluetoothLE.Current.Adapter;
             _bluetoothAdapter.DeviceDiscovered += (sender, foundBleDevice) =>
             {
+                App.Current.MainPage.DisplayAlert("Error 3", "Device found", "Cancel");
                 if (foundBleDevice.Device != null && !string.IsNullOrEmpty(foundBleDevice.Device.Name))
                     _gattDevices.Add(foundBleDevice.Device);
             };
@@ -53,37 +54,53 @@ namespace mycoin.Views
         //----------------- For BLE ----------------//
         private async Task<bool> PermissionsGrantedAsync()
         {
-            var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationAlways>();
-
-            if (locationPermissionStatus != XamarinEssentials.PermissionStatus.Granted)
+            try 
             {
-                var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
-                return status == XamarinEssentials.PermissionStatus.Granted;
+                var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationAlways>();
+
+                if (locationPermissionStatus != XamarinEssentials.PermissionStatus.Granted)
+                {
+                    var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
+                    return status == XamarinEssentials.PermissionStatus.Granted;
+                }
             }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error 2", ex.ToString(), "Cancel");
+            }
+            
             return true;
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
         {
-            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
-            foundBleDevicesListView.ItemsSource = null;
-
-            if (!await PermissionsGrantedAsync())
+            try
             {
-                await DisplayAlert("Permission required", "Application needs location permission", "OK");
+                IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
+                foundBleDevicesListView.ItemsSource = null;
+
+                if (!await PermissionsGrantedAsync())
+                {
+                    await DisplayAlert("Permission required", "Application needs location permission", "OK");
+                    IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+                    return;
+                }
+
+                _gattDevices.Clear();
+
+                foreach (var device in _bluetoothAdapter.ConnectedDevices)
+                    _gattDevices.Add(device);
+
+                await _bluetoothAdapter.StartScanningForDevicesAsync();
+
+                foundBleDevicesListView.ItemsSource = _gattDevices.ToArray();
                 IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
-                return;
             }
-
-            _gattDevices.Clear();
-
-            foreach (var device in _bluetoothAdapter.ConnectedDevices)
-                _gattDevices.Add(device);
-
-            await _bluetoothAdapter.StartScanningForDevicesAsync();
-
-            foundBleDevicesListView.ItemsSource = _gattDevices.ToArray();
-            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error 1", ex.ToString(), "Cancel");
+            }
+            
         }
 
         private async void FoundBluetoothDevicesListView_ItemTapped(object sender, ItemTappedEventArgs e)
