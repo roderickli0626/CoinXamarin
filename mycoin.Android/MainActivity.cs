@@ -13,7 +13,7 @@ using Android;
 
 namespace mycoin.Droid
 {
-    [Activity(Label = "BIYOND", Icon = "@mipmap/biyond_coin_top_grey", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    [Activity(Label = "BIYOND", Icon = "@mipmap/biyond_coin_top_grey", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private readonly string[] Permissions =
@@ -21,7 +21,7 @@ namespace mycoin.Droid
             Manifest.Permission.Bluetooth,
             Manifest.Permission.BluetoothAdmin,
             Manifest.Permission.AccessBackgroundLocation,
-            //Manifest.Permission.BluetoothPrivileged,
+            Manifest.Permission.BluetoothPrivileged,
             "android.permission.BLUETOOTH_SCAN",
             "android.permission.BLUETOOTH_CONNECT",
             Manifest.Permission.AccessCoarseLocation,
