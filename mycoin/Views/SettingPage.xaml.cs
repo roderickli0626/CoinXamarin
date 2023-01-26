@@ -39,7 +39,7 @@ namespace mycoin.Views
             _bluetoothAdapter = CrossBluetoothLE.Current.Adapter;
             _bluetoothAdapter.DeviceDiscovered += (sender, foundBleDevice) =>
             {
-                App.Current.MainPage.DisplayAlert("Error 3", "Device found", "Cancel");
+                //App.Current.MainPage.DisplayAlert("Error 3", "Device found", "Cancel");
                 if (foundBleDevice.Device != null && !string.IsNullOrEmpty(foundBleDevice.Device.Name))
                     _gattDevices.Add(foundBleDevice.Device);
             };
