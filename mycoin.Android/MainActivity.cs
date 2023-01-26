@@ -20,8 +20,10 @@ namespace mycoin.Droid
         {
             Manifest.Permission.Bluetooth,
             Manifest.Permission.BluetoothAdmin,
+            Manifest.Permission.AccessBackgroundLocation,
             //Manifest.Permission.BluetoothPrivileged,
-            //"android.permission.BLUETOOTH_SCAN",
+            "android.permission.BLUETOOTH_SCAN",
+            "android.permission.BLUETOOTH_CONNECT",
             Manifest.Permission.AccessCoarseLocation,
             Manifest.Permission.AccessFineLocation,
             //Manifest.Permission.LocationHardware,
@@ -66,7 +68,7 @@ namespace mycoin.Droid
             else myApp.MainPage = new NavigationPage(new LoginPage());
             //
 
-            //CheckPermissions();
+            CheckPermissions();
 
             //LoadApplication(new App()); 
             LoadApplication(myApp);
@@ -80,7 +82,7 @@ namespace mycoin.Droid
         private void CheckPermissions()
         {
             bool minimumPermissionsGranted = true;
-
+            
             foreach (string permission in Permissions)
             {
                 if (CheckSelfPermission(permission) != Permission.Granted)

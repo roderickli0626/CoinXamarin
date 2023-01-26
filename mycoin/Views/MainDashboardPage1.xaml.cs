@@ -207,6 +207,27 @@ namespace mycoin.Views
             }
             else if (item == GlobalConstants.LangGUI.GetValueOrDefault("Test PLAY", "Test PLAY"))
             {
+                if (id == 0) return;
+                Note note = App.Database.GetNoteAsync(id).Result;
+                if (note.WavFile == null)
+                {
+                    var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                    {
+                        BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                        TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                        TintColor = Color.FromHex("#018BD3"),
+                        CornerRadius = 30,
+                        ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                        ButtonAllCaps = false
+                    };
+                    await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Can't test play because there is no content in the Substance", "Can't test play because there is no content in the Substance"),
+                    GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+
+                    App.Current.MainPage = new NavigationPage(new MainDashboardPage1("default"));
+                    return;
+                }
                 App.Current.MainPage = new NavigationPage(new PlayPage(id));
             }
         }

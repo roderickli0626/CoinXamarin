@@ -92,15 +92,16 @@ namespace mycoin.Views
                     _gattDevices.Add(device);
 
                 await _bluetoothAdapter.StartScanningForDevicesAsync();
-
-                foundBleDevicesListView.ItemsSource = _gattDevices.ToArray();
-                IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+                
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error 1", ex.ToString(), "Cancel");
             }
-            
+
+            foundBleDevicesListView.ItemsSource = _gattDevices.ToArray();
+            IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+
         }
 
         private async void FoundBluetoothDevicesListView_ItemTapped(object sender, ItemTappedEventArgs e)
