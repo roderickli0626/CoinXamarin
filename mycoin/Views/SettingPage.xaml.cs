@@ -67,6 +67,7 @@ namespace mycoin.Views
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error 2", ex.ToString(), "Cancel");
+                return false;
             }
             
             return true;
