@@ -79,12 +79,12 @@ namespace mycoin.Views
                 IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = false);
                 foundBleDevicesListView.ItemsSource = null;
 
-                //if (!await PermissionsGrantedAsync())
-                //{
-                //    await DisplayAlert("Permission required", "Application needs location permission", "OK");
-                //    IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
-                //    return;
-                //}
+                if (!await PermissionsGrantedAsync())
+                {
+                    //await DisplayAlert("Permission required", "Application needs location permission", "OK");
+                    IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
+                    return;
+                }
 
                 _gattDevices.Clear();
 
