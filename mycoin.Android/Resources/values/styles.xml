@@ -49,4 +49,18 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 	</style>
+
+	<style name="Theme.Splash"
+         parent="android:Theme">
+		<!--<item name="android:windowBackground">@drawable/animation_green_02</item>-->
+		<item name="android:colorBackground">@android:color/white</item>
+		<!--<item name="android:windowNoTitle">true</item>-->
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+	</style>
+	<style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+		
+	</style>
 </resources>

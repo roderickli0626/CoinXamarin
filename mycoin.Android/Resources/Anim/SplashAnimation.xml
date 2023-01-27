@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+	
+	<item android:drawable="@drawable/Splash_Animation41" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation40" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation39" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation38" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation37" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation36" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation35" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation34" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation33" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation32" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation31" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation30" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation29" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation28" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation27" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation26" android:duration="80"/>-->
+	<item android:drawable="@drawable/Splash_Animation25" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation24" android:duration="80"/>-->
+	<item android:drawable="@drawable/Splash_Animation23" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation22" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation21" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation20" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation19" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation18" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation17" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation16" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation15" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation14" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation13" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation12" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation11" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation10" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation09" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation08" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation07" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation06" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation05" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation04" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation03" android:duration="80"/>
+	<!--<item android:drawable="@drawable/Splash_Animation02" android:duration="112"/>-->
+	<item android:drawable="@drawable/Splash_Animation01" android:duration="80"/>
+	<item android:drawable="@drawable/Splash_Animation00" android:duration="80"/>
+	
+</animation-list>
