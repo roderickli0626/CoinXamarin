@@ -81,7 +81,7 @@ namespace mycoin.Views
 
                 if (!await PermissionsGrantedAsync())
                 {
-                    //await DisplayAlert("Permission required", "Application needs location permission", "OK");
+                    await DisplayAlert("Permission required", "Application needs location permission", "OK");
                     IsBusyIndicator.IsVisible = IsBusyIndicator.IsRunning = !(ScanButton.IsEnabled = true);
                     return;
                 }
