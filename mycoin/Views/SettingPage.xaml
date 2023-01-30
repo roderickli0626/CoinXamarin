@@ -71,7 +71,8 @@
                                                 <Grid>
                                                     <StackLayout Orientation="Vertical" HeightRequest="200">
                                                         <Button x:Name="ScanButton" Margin="10" Clicked="ScanButton_Clicked" Text="Scan Devices" />
-                                                        <ListView x:Name="foundBleDevicesListView" Footer="" ItemTapped="FoundBluetoothDevicesListView_ItemTapped" />
+                                                        <!--<ListView x:Name="foundBleDevicesListView" Footer="" ItemTapped="FoundBluetoothDevicesListView_ItemTapped" />-->
+                                                        <ListView x:Name="foundBleDevicesListView" Footer="" />
                                                     </StackLayout>
                                                     <ActivityIndicator x:Name="IsBusyIndicator" Scale="0.3" />
                                                 </Grid>
