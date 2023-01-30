@@ -82,12 +82,12 @@ namespace mycoin.ViewModels
         }
         async void InitBLE()
         {
-            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-            if (status == PermissionStatus.Denied)
-            {
-                await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            //var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            //if (status == PermissionStatus.Denied)
+            //{
+            //    await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
-            }
+            //}
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanTimeout = 10000;
