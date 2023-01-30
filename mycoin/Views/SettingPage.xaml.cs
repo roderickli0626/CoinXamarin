@@ -63,6 +63,13 @@ namespace mycoin.Views
                     var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
                     return status == XamarinEssentials.PermissionStatus.Granted;
                 }
+                //var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
+
+                //if (locationPermissionStatus == XamarinEssentials.PermissionStatus.Denied)
+                //{
+                //    var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
+                //    return status != XamarinEssentials.PermissionStatus.Denied;
+                //}
             }
             catch (Exception ex)
             {
