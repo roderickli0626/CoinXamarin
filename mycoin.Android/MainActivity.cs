@@ -68,7 +68,7 @@ namespace mycoin.Droid
             else myApp.MainPage = new NavigationPage(new LoginPage());
             //
 
-            //CheckPermissions();
+            CheckPermissions();
 
             //LoadApplication(new App()); 
             LoadApplication(myApp);

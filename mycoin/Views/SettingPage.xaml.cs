@@ -56,6 +56,14 @@ namespace mycoin.Views
         {
             try 
             {
+                var locationPermissionStatus0 = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
+                if (locationPermissionStatus0 == XamarinEssentials.PermissionStatus.Denied)
+                {
+                    var status0 = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
+                    var permission1 = status0 == XamarinEssentials.PermissionStatus.Granted;
+                    if (!permission1) return false;
+                }
+
                 var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationAlways>();
 
                 if (locationPermissionStatus != XamarinEssentials.PermissionStatus.Granted)
@@ -63,13 +71,6 @@ namespace mycoin.Views
                     var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationAlways>();
                     return status == XamarinEssentials.PermissionStatus.Granted;
                 }
-                //var locationPermissionStatus = await XamarinEssentials.Permissions.CheckStatusAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
-
-                //if (locationPermissionStatus == XamarinEssentials.PermissionStatus.Denied)
-                //{
-                //    var status = await XamarinEssentials.Permissions.RequestAsync<XamarinEssentials.Permissions.LocationWhenInUse>();
-                //    return status != XamarinEssentials.PermissionStatus.Denied;
-                //}
             }
             catch (Exception ex)
             {
