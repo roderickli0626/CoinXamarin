@@ -48,12 +48,12 @@
                                                         <ListView ItemsSource="{Binding MyGroups}" IsGroupingEnabled="True">
                                                             <ListView.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <ViewCell>
+                                                                    <ViewCell Tapped="ViewCell_Tapped">
                                                                         <StackLayout Orientation="Horizontal">
                                                                             <RelativeLayout HorizontalOptions="FillAndExpand">
                                                                                 <Label Text="{Binding SubstanceName}" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="5" 
                                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"/>
-                                                                                <ImageButton BackgroundColor="#F0F2F3" Source="{Binding SubstanceImageUrl}" HorizontalOptions="End" HeightRequest="30" WidthRequest="30"
+                                                                                <ImageButton BackgroundColor="Transparent" Source="{Binding SubstanceImageUrl}" HorizontalOptions="End" HeightRequest="30" WidthRequest="30"
                                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}" x:Name="popupButton"
                                                                                              Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.ShowPopUpClickCommand}" CommandParameter="{x:Reference popupButton}"/>
                                                                                 <!--<Label Text="{Binding Code}" FontSize="Micro" TextColor="#005569" VerticalOptions="Center" />-->

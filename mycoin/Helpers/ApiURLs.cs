@@ -3,6 +3,7 @@ namespace mycoin.Helpers
 {
     public static class ApiURLs
     {
+        public static readonly string TestConnection = "Auth/TestConnection";
         public static readonly string Login = "Auth/Login";
         public static readonly string Register = "Auth/Register";
         public static readonly string ForgotPassword = "Auth/ForgotPasswordRequest";

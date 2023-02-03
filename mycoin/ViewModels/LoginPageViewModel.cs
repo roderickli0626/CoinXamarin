@@ -58,12 +58,7 @@ namespace mycoin.ViewModels
 
         public async void checkConnection()
         {
-            LoginRequest req = new LoginRequest()
-            {
-                email = "test@testconnection.com",
-                password = "testconnection",
-            };
-            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.Login, req);
+            LoginResponse response = await HttpHelper.Instance.PostContentAsync<LoginResponse>(ApiURLs.TestConnection, null);
             if (response == null)
             {
 

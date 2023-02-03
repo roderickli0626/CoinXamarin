@@ -19,6 +19,10 @@ namespace mycoin.Droid
     [Activity(Label = "BIYOND", Icon = "@mipmap/biyond_coin_top_grey", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
+        System.Timers.Timer timer;
+        TextView percentView;
+        ProgressBar progressBar;
+        int count = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -26,18 +30,21 @@ namespace mycoin.Droid
             SetContentView(Resource.Layout.SplashLayout);
             System.Threading.ThreadPool.QueueUserWorkItem(o => LoadActivity());
             // Create your application here
-            PercentValue();
+            InitPercentValue();
         }
-        async private void PercentValue()
+        async private void InitPercentValue()
         {
             //progressbar Percent
-            TextView percentView = FindViewById<TextView>(Resource.Id.percent);
-            for (int i = 0; i < 101; i++)
-            {
-                await Task.Delay(10);
-                percentView.Text = i.ToString() + "%";
-            }
+            percentView = FindViewById<TextView>(Resource.Id.percent);
+            timer = new System.Timers.Timer(50);
+            timer.AutoReset= true;
+            timer.Elapsed += Timer_Elapsed;
             //
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            percentView.Text = progressBar.Progress + "%";
         }
 
         private void LoadActivity()
@@ -48,11 +55,15 @@ namespace mycoin.Droid
 
         public override void OnWindowFocusChanged(bool hasFocus)
         {
-            ProgressBar progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
+            progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
             ObjectAnimator progressAnimator = ObjectAnimator.OfInt(progressBar, "progress", 0, 100);
             progressAnimator.SetDuration(3000);
             progressAnimator.SetInterpolator(new LinearInterpolator());
             progressAnimator.Start();
+            //
+            if (timer.Enabled) timer.Stop();
+            else timer.Start();
+            //
             //Version
             var context = Android.App.Application.Context;
             var info = context.PackageManager.GetPackageInfo(context.PackageName, 0);

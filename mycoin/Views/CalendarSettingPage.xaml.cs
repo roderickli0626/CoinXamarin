@@ -20,6 +20,8 @@ namespace mycoin.Views
         public PopupMenu Popup;
         private int id;
         public string repeatDates = "";
+        public ViewCell lastCell;
+
 
 
         public CalendarSettingPage(int id, DateTime? selectedDate)
@@ -182,6 +184,18 @@ namespace mycoin.Views
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
+        }
+
+        private void ViewCell_Tapped(object sender, EventArgs e)
+        {
+            if (lastCell != null)
+                lastCell.View.BackgroundColor = Color.Transparent;
+            var viewCell = (ViewCell)sender;
+            if (viewCell.View != null)
+            {
+                viewCell.View.BackgroundColor = Color.FromHex("#B16BBF");
+                lastCell = viewCell;
+            }
         }
     }
 }
