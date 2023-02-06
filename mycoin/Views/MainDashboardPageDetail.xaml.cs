@@ -52,6 +52,12 @@ namespace mycoin.Views
             App.Current.MainPage = new NavigationPage(new CalendarPage());
         }
 
+        private void ShopButton_Click(object sender, EventArgs e)
+        {
+            //Move to module page
+            App.Current.MainPage = new NavigationPage(new ModulePage());
+        }
+
         private void FavoriteImageButton_Clicked(object sender, EventArgs e)
         {
             ImageButton btn = sender as ImageButton;

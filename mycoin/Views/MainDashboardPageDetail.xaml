@@ -80,7 +80,7 @@
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                             <ImageButton Source="ic_menu_btn_applications.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 40, 10" BackgroundColor="#F0F2F3" Clicked="ImageButton_Clicked"/>
                             <ImageButton Source="ic_menu_btn_planning.xml" HeightRequest="40" WidthRequest="40" Margin="40, 0, 40, 10" BackgroundColor="#F0F2F3" Clicked="CalendarButton_Clicked"/>
-                            <ImageButton Source="ic_menu_btn_shop.xml" HeightRequest="40" WidthRequest="40" Margin="40, 0, 30, 10" BackgroundColor="#F0F2F3"/>
+                            <ImageButton Source="ic_menu_btn_shop.xml" HeightRequest="40" WidthRequest="40" Margin="40, 0, 30, 10" BackgroundColor="#F0F2F3" Clicked="ShopButton_Click"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                             <ImageButton Source="ic_card_icon_scan.xml" HeightRequest="40" WidthRequest="40" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3"/>

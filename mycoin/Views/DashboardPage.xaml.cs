@@ -37,6 +37,7 @@ namespace mycoin.Views
                 await App.Database.DeleteAllSubstanceTextAsync();
                 await App.Database.DeleteAllGroupTextAsync();
                 await App.Database.DeleteAllAppSettingAsync();
+                await App.Database.DeleteAllModulesAsync();
                 //pull the data from api
                 List<Note> allNotes = await HttpHelper.Instance.PostContentAsync<List<Note>>(ApiURLs.LoadAllDB, App.Userdata);
                 List<Note> response = await HttpHelper.Instance.PostContentAsync<List<Note>>(ApiURLs.LoadDB, App.Userdata);
@@ -44,6 +45,7 @@ namespace mycoin.Views
                 List<LanguageGUI> langGUIRes = await HttpHelper.Instance.PostContentAsync<List<LanguageGUI>>(ApiURLs.LoadLanguageGUI, App.Userdata);
                 List<SubstanceText> subText = await HttpHelper.Instance.PostContentAsync<List<SubstanceText>>(ApiURLs.LoadSubstanceText, App.Userdata);
                 List<GroupText> groupText = await HttpHelper.Instance.PostContentAsync<List<GroupText>>(ApiURLs.LoadSubstanceGroupText, App.Userdata);
+                List<Module> allModules = await HttpHelper.Instance.PostContentAsync<List<Module>>(ApiURLs.LoadModules, App.Userdata);
 
                 //Selected Groups from Private User Questions
                 if (GlobalConstants.GroupIds.Count > 0)
@@ -73,6 +75,10 @@ namespace mycoin.Views
                 foreach(GroupText gText in groupText)
                 {
                     await App.Database.SaveGroupTextAsync(gText);
+                }
+                foreach(Module module in allModules)
+                {
+                    await App.Database.SaveModuleAsync(module);
                 }
 
                 await Task.Delay(1000);

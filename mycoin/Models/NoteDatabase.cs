@@ -24,6 +24,29 @@ namespace mycoin.Data
             database.CreateTableAsync<GroupText>().Wait();
             database.CreateTableAsync<Question>().Wait();
             database.CreateTableAsync<QuestionOption>().Wait();
+            database.CreateTableAsync<Module>().Wait();
+        }
+
+        //Modules
+        public Task<int> DeleteAllModulesAsync()
+        {
+            // Delete all Modules.
+            return database.DeleteAllAsync<Module>();
+        }
+        public Task<List<Module>> GetModulesByID(int ID)
+        {
+            //Get Module By ModuleID.
+            return database.Table<Module>().Where(s => s.ModuleID == ID).ToListAsync();
+        }
+        public Task<int> SaveModuleAsync(Module data)
+        {
+            //Save a new Module
+            return database.InsertAsync(data);
+        }
+        public Task<List<Module>> GetAllModulesAsync()
+        {
+            //Get all Modules.
+            return database.Table<Module>().ToListAsync();
         }
 
         //QuestionOption
