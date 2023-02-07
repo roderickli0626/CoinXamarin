@@ -43,6 +43,7 @@ namespace mycoin.Views
 					moduleRes.NameModule = module.NameModule;
 					moduleRes.ProductNumber= module.ProductNumber;
 					moduleRes.Price = module.Price;
+					moduleRes.Location= module.Location;
 
 					byte[] Base64Stream = Convert.FromBase64String(module.File);
                     moduleRes.imageSource = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
@@ -90,8 +91,8 @@ namespace mycoin.Views
 			ImageButton imgBtn = sender as ImageButton;
 			ModuleRes module = imgBtn.BindingContext as ModuleRes;
 			if (module == null) return;
-			//await Launcher.OpenAsync(new Uri(module.location));
-			await Launcher.OpenAsync(new Uri("http://www.google.com"));
+			await Launcher.OpenAsync(new Uri(module.Location));
+			//await Launcher.OpenAsync(new Uri("http://www.google.com"));
         }
     }
 }

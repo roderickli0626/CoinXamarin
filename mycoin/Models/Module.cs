@@ -22,5 +22,7 @@ namespace mycoin.Models
         public string Color { get; set; }
         public Nullable<System.DateTime> CreatedDatetime { get; set; }
         public Nullable<System.DateTime> UpdatedDatetime { get; set; }
+        public string Location { get; set; }
+
     }
 }
