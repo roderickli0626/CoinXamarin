@@ -84,11 +84,15 @@
 
                         <FlexLayout JustifyContent="SpaceAround" HorizontalOptions="Center" HeightRequest="80" WidthRequest="600" VerticalOptions="Center" BackgroundColor="White">
                             <!--<Image Source="ic_left_arrow.png" HeightRequest="30" WidthRequest="30" Margin="30, 10, 30, 10"/>-->
-                            <ImageButton Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" Margin="50, 20, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
-                            <Image Source="ic_notification.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10"/>
                             <AbsoluteLayout>
-                                <Label x:Name="NewModuleCount" FontAttributes="Bold" TextColor="DeepSkyBlue" Margin="41, 24, 30, 10"/>
-                                <ImageButton Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" Margin="30, 20, 30, 10" BackgroundColor="Transparent" Clicked="ImageButton2_Clicked"/>
+                                <ImageButton AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="XProportional, YProportional" Source="ic_menu_btn_home.xml" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                            </AbsoluteLayout>
+                            <AbsoluteLayout>
+                                <Image AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="XProportional, YProportional" Source="ic_notification.png" HeightRequest="30" WidthRequest="30"/>
+                            </AbsoluteLayout>
+                            <AbsoluteLayout>
+                                <Label AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="XProportional, YProportional" x:Name="NewModuleCount" FontAttributes="Bold" TextColor="DeepSkyBlue" />
+                                <ImageButton AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="XProportional, YProportional" Source="ic_speech_bubble.png" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent" Clicked="ImageButton2_Clicked"/>
                             </AbsoluteLayout>
                         </FlexLayout>
                     </StackLayout>

@@ -57,8 +57,15 @@ namespace mycoin.Views
                     moduleRes.Price = module.Price;
                     moduleRes.Location = module.Location;
 
-                    byte[] Base64Stream = Convert.FromBase64String(module.File);
-                    moduleRes.imageSource = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+                    try
+                    {
+                        byte[] Base64Stream = Convert.FromBase64String(module.File);
+                        moduleRes.imageSource = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+                    }
+                    catch (Exception ex)
+                    {
+                        moduleRes.imageSource = null;
+                    }
 
                     AllResModules.Add(moduleRes);
                 }
