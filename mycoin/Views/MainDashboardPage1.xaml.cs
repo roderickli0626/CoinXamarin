@@ -337,5 +337,15 @@ namespace mycoin.Views
                 lastCell = viewCell;
             }
         }
+
+        private void ImageButton2_Clicked(object sender, EventArgs e)
+        {
+            if (GlobalConstants.NewModuleCount > 0)
+            {
+                NewModuleCount.Text = "";
+                Navigation.PushAsync(new ModuleViewAllPage(true));
+            }
+            else return;
+        }
     }
 }

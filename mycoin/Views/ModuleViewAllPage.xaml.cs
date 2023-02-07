@@ -15,21 +15,34 @@ namespace mycoin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ModuleViewAllPage : BasePage
     {
-        public ModuleViewAllPage()
+        public ModuleViewAllPage(bool isForNewModules = false)
         {
             InitializeComponent();
-            LoadModuleDB();
+            LoadModuleDB(isForNewModules);
+
+            if (isForNewModules)
+            {
+                subTitle.Text = "These are new Modules.";
+            }
+            else
+            {
+                subTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.",
+                "Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.");
+            }
 
             Title.Text = GlobalConstants.LangGUI.GetValueOrDefault("NADA", "NADA");
-            subTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.",
-                "Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.");
         }
 
-        async private void LoadModuleDB()
+        async private void LoadModuleDB(bool isForNew)
         {
             try
             {
                 List<Module> AllModules = await App.Database.GetAllModulesAsync();
+                if (isForNew)
+                {
+                    AllModules = AllModules.GetRange(AllModules.Count() - GlobalConstants.NewModuleCount, GlobalConstants.NewModuleCount);
+                    GlobalConstants.NewModuleCount = 0;
+                }
                 List<ModuleRes> AllResModules = new List<ModuleRes>();
                 foreach (var module in AllModules)
                 {
@@ -71,7 +84,8 @@ namespace mycoin.Views
             ImageButton imgBtn = sender as ImageButton;
             ModuleRes module = imgBtn.BindingContext as ModuleRes;
             if (module == null) return;
-            await Launcher.OpenAsync(new Uri(module.Location));
+            //await Launcher.OpenAsync(new Uri(module.Location));
+            await Browser.OpenAsync(new Uri(module.Location));
             //await Launcher.OpenAsync(new Uri("http://www.google.com"));
         }
     }

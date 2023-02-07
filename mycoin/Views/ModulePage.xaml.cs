@@ -91,7 +91,8 @@ namespace mycoin.Views
 			ImageButton imgBtn = sender as ImageButton;
 			ModuleRes module = imgBtn.BindingContext as ModuleRes;
 			if (module == null) return;
-			await Launcher.OpenAsync(new Uri(module.Location));
+			//await Launcher.OpenAsync(new Uri(module.Location));
+			await Browser.OpenAsync(new Uri(module.Location));
 			//await Launcher.OpenAsync(new Uri("http://www.google.com"));
         }
     }
