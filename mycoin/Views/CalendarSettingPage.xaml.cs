@@ -1,4 +1,5 @@
 ﻿using mycoin.DependencyServices;
+using mycoin.Extensions;
 using mycoin.Models;
 using mycoin.ViewModels;
 using System;
@@ -72,6 +73,9 @@ namespace mycoin.Views
             BackgroundColor = Color.White;
             // Remove the Navigation bar form the top of the page 
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
+            //New Module Count
+            NewModuleCount.Text = GlobalConstants.NewModuleCount > 0 ? GlobalConstants.NewModuleCount.ToString() : "";
         }
 
         void OnImageButtonClicked(object sender, EventArgs e)

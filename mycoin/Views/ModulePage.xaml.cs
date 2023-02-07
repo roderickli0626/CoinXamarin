@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,10 @@ namespace mycoin.Views
 		{
 			InitializeComponent ();
 			LoadModuleDB();
+
+			Title.Text = GlobalConstants.LangGUI.GetValueOrDefault("NADA", "NADA");
+			subTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("30 Day Sound Healing Journey", "30 Day Sound Healing Journey");
+			ViewAllBtn.Text = GlobalConstants.LangGUI.GetValueOrDefault("VIEW ALL", "VIEW ALL");
 		}
 
 		async private void LoadModuleDB()

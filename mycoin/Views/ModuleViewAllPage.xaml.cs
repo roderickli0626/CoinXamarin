@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,10 @@ namespace mycoin.Views
         {
             InitializeComponent();
             LoadModuleDB();
+
+            Title.Text = GlobalConstants.LangGUI.GetValueOrDefault("NADA", "NADA");
+            subTitle.Text = GlobalConstants.LangGUI.GetValueOrDefault("Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.",
+                "Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul.");
         }
 
         async private void LoadModuleDB()

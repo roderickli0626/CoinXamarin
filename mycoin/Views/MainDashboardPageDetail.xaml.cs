@@ -1,4 +1,5 @@
-﻿using mycoin.Models;
+﻿using mycoin.Extensions;
+using mycoin.Models;
 using mycoin.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,9 @@ namespace mycoin.Views
             BackgroundColor = Color.White;
             // Remove the Navigation bar form the top of the page 
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
+            //New Module Count
+            NewModuleCount.Text = GlobalConstants.NewModuleCount > 0 ? GlobalConstants.NewModuleCount.ToString() : "";
         }
 
         void OnImageButtonClicked(object sender, EventArgs e)
@@ -55,6 +59,7 @@ namespace mycoin.Views
         private void ShopButton_Click(object sender, EventArgs e)
         {
             //Move to module page
+            GlobalConstants.NewModuleCount = 0;
             App.Current.MainPage = new NavigationPage(new ModulePage());
         }
 

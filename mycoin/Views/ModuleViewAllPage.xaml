@@ -5,37 +5,50 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="mycoin.Views.ModuleViewAllPage">
     <ContentPage.Content>
-        <StackLayout Margin="-10" BackgroundColor="#2C2E39">
-            <StackLayout Margin="30, 20, 30, 0">
-                <ImageButton x:Name="PreviousButton" Source="icons8_back_white.png" WidthRequest="30" Margin="0,0,20,25" HorizontalOptions="Start" BackgroundColor="Transparent" Clicked="PreviousButton_Clicked" />
-                <StackLayout>
-                    <StackLayout BackgroundColor="white" Margin="-30, -20, -30, 10">
+        <StackLayout Margin="-10" BackgroundColor="#F0F2F3">
+            <StackLayout Margin="30, 20, 30, 0" Orientation="Vertical">
+                <ImageButton x:Name="PreviousButton" Source="ic_left_arrow.png" WidthRequest="30" Margin="0,0,20,0" HorizontalOptions="Start" BackgroundColor="Transparent" Clicked="PreviousButton_Clicked" />
+                <!--<StackLayout>
+                    <StackLayout BackgroundColor="Transparent" Margin="-30, -20, -30, 10">
                         <Image Source="log.png" HorizontalOptions="FillAndExpand" HeightRequest="200" VerticalOptions="FillAndExpand"/>
                     </StackLayout>
                     <StackLayout>
-                        <Label Text="NADA" FontAttributes="Bold" TextColor="white" FontSize="24"/>
+                        <Label Text="NADA" FontAttributes="Bold" TextColor="Black" FontSize="24"/>
                         <Label Text="Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul." 
-                               FontAttributes="Bold" TextColor="white" FontSize="15" />
+                               FontAttributes="Bold" TextColor="Gray" FontSize="15" />
                     </StackLayout>
                     <BoxView HeightRequest="3" BackgroundColor="#615BBE" Margin="0,20,0,20"/>
-                </StackLayout>
+                </StackLayout>-->
             </StackLayout>
-            <StackLayout Orientation="Vertical">
+            <StackLayout Margin="30, 0, 30, 0">
                 <CollectionView x:Name="ModuleList">
+                    <CollectionView.Header>
+                        <StackLayout>
+                            <StackLayout BackgroundColor="Transparent" Margin="-30, 0, -30, 10">
+                                <Image Source="log.png" HorizontalOptions="FillAndExpand" HeightRequest="200" VerticalOptions="FillAndExpand"/>
+                            </StackLayout>
+                            <StackLayout>
+                                <Label Text="NADA" x:Name="Title" FontAttributes="Bold" TextColor="Black" FontSize="24"/>
+                                <Label x:Name="subTitle" Text="Join us in 30 Day Sound Healing Journey, and immerse yourself in music based on mystical frequencies to heal mind, body and soul." 
+                               FontAttributes="Bold" TextColor="Gray" FontSize="15" />
+                            </StackLayout>
+                            <BoxView HeightRequest="2" BackgroundColor="#615BBE" Margin="0,20,0,20"/>
+                        </StackLayout>
+                    </CollectionView.Header>
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
-                                <Frame BackgroundColor="#3A3859" CornerRadius="15" HeightRequest="120" Margin="20,0,20,30" Padding="12" BorderColor="Orange" >
+                                <Frame BackgroundColor="DeepSkyBlue" CornerRadius="15" HeightRequest="120" Margin="0,0,0,30" Padding="12" BorderColor="Orange" >
                                     <StackLayout Orientation="Horizontal">
                                         <AbsoluteLayout Margin="0" Padding="0">
                                             <Frame CornerRadius="12" Padding="0" Margin="0,0,10,0" IsClippedToBounds="True">
                                                 <Image Source="{Binding imageSource}" Aspect="AspectFit" HeightRequest="120" WidthRequest="120" 
                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
                                             </Frame>
-                                            <Label Text="{Binding ModuleID}" TextColor="White" FontSize="30" FontAttributes="Bold" Margin="10,70,0,0"/>
+                                            <Label Text="{Binding ModuleID}" TextColor="Black" FontSize="30" FontAttributes="Bold" Margin="10,70,0,0"/>
                                         </AbsoluteLayout>
                                         <StackLayout Orientation="Vertical">
                                             <Frame BackgroundColor="{Binding Color}" VerticalOptions="StartAndExpand" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,50,0">
@@ -52,7 +65,7 @@
                                                         <Label Text="{Binding Price}" TextColor="white" FontSize="12" />
                                                     </StackLayout>
                                                 </Frame>
-                                                <ImageButton HorizontalOptions="EndAndExpand" Source="dot_link.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                                                <ImageButton HorizontalOptions="EndAndExpand" Source="dot.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </StackLayout>

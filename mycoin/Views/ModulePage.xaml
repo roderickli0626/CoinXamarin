@@ -5,70 +5,74 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="mycoin.Views.ModulePage">
     <ContentPage.Content>
-        <StackLayout Margin="-10" BackgroundColor="#2C2E39">
+        <StackLayout Margin="-10" BackgroundColor="#F0F2F3">
             <StackLayout Margin="30, 20, 30, 0">
-                <ImageButton x:Name="PreviousButton" Source="icons8_back_white.png" WidthRequest="30" Margin="0,0,10,10" HorizontalOptions="Start" BackgroundColor="Transparent" Clicked="PreviousButton_Clicked" />
+                <ImageButton x:Name="PreviousButton" Source="ic_left_arrow.png" WidthRequest="30" Margin="0,0,10,10" HorizontalOptions="Start" BackgroundColor="Transparent" Clicked="PreviousButton_Clicked" />
                 <FlexLayout JustifyContent="SpaceBetween">
                     <StackLayout>
-                        <Label Text="NADA" FontAttributes="Bold" TextColor="white" FontSize="22"/>
-                        <Label Text="30 Day Sound Healing Journey" FontAttributes="Bold" TextColor="white" FontSize="14"/>
+                        <Label Text="NADA" x:Name="Title" FontAttributes="Bold" TextColor="Black" FontSize="22"/>
+                        <Label Text="30 Day Sound Healing Journey" x:Name="subTitle" FontAttributes="Bold" TextColor="Gray" FontSize="14"/>
                     </StackLayout>
-                    <Button Text="VIEW ALL" FontSize="12" TextColor="White" FontAttributes="Bold" CornerRadius="20" BackgroundColor="#615BBE" HeightRequest="30" Padding="-10" Clicked="ViewAllButton_Clicked"/>
+                    <Button Text="VIEW ALL" x:Name="ViewAllBtn" FontSize="12" TextColor="White" FontAttributes="Bold" CornerRadius="20" BackgroundColor="#615BBE" HeightRequest="30" Padding="10,-10,10,-10" Clicked="ViewAllButton_Clicked"/>
                 </FlexLayout>
             </StackLayout>
-            <StackLayout Orientation="Vertical" Margin="30">
-                <CollectionView x:Name="ModuleList">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal" HeightRequest="170">
-                                <CollectionView ItemsSource="{Binding VerticalModules}" HorizontalOptions="Center">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Horizontal"/>
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackLayout>
-                                                <Frame BackgroundColor="#3A3859" CornerRadius="15" HeightRequest="120" WidthRequest="300" Margin="0,0,10,10" Padding="12">
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <AbsoluteLayout Margin="0" Padding="0">
-                                                            <Frame CornerRadius="12" Padding="0" Margin="0,0,10,0" IsClippedToBounds="True">
-                                                                <Image Source="{Binding imageSource}" Aspect="AspectFit" HeightRequest="120" WidthRequest="120" 
+            <Grid>
+                <Image Source="ic_background.xml" Aspect="AspectFill" Opacity="0.05"/>
+                <StackLayout Orientation="Vertical" Margin="30">
+                    <CollectionView x:Name="ModuleList">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal" HeightRequest="170">
+                                    <CollectionView ItemsSource="{Binding VerticalModules}" HorizontalOptions="Center">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal"/>
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout>
+                                                    <Frame BackgroundColor="DeepSkyBlue" CornerRadius="15" HeightRequest="120" WidthRequest="300" Margin="0,0,10,10" Padding="12">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <AbsoluteLayout Margin="0" Padding="0">
+                                                                <Frame CornerRadius="12" Padding="0" Margin="0,0,10,0" IsClippedToBounds="True">
+                                                                    <Image Source="{Binding imageSource}" Aspect="AspectFit" HeightRequest="120" WidthRequest="120" 
                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                                                            </Frame>
-                                                            <Label Text="{Binding ModuleID}" TextColor="White" FontSize="30" FontAttributes="Bold" Margin="10,70,0,0"/>
-                                                        </AbsoluteLayout>
-                                                        <StackLayout Orientation="Vertical">
-                                                            <Frame BackgroundColor="{Binding Color}" VerticalOptions="StartAndExpand" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,50,0">
-                                                                <Label Text="{Binding ProductNumber}" HorizontalTextAlignment="Center" TextColor="white" BackgroundColor="Transparent" FontSize="12" />
-                                                            </Frame>
-                                                            <StackLayout VerticalOptions="CenterAndExpand">
-                                                                <Label Text="{Binding NameModule}" TextColor="white" FontAttributes="Bold"/>
-                                                                <Label Text="{Binding Description}" TextColor="white" FontSize="12" />
-                                                            </StackLayout>
-                                                            <StackLayout VerticalOptions="EndAndExpand" Orientation="Horizontal">
-                                                                <Frame BackgroundColor="#2C2E39" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,20,0">
-                                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                                                        <Label Text="Price: " TextColor="White" FontSize="12"/>
-                                                                        <Label Text="{Binding Price}" TextColor="white" FontSize="12" />
-                                                                    </StackLayout>
                                                                 </Frame>
-                                                                <ImageButton HorizontalOptions="EndAndExpand" Source="dot_link.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                                                                <Label Text="{Binding ModuleID}" TextColor="Black" FontSize="30" FontAttributes="Bold" Margin="10,70,0,0"/>
+                                                            </AbsoluteLayout>
+                                                            <StackLayout Orientation="Vertical">
+                                                                <Frame BackgroundColor="{Binding Color}" VerticalOptions="StartAndExpand" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,50,0">
+                                                                    <Label Text="{Binding ProductNumber}" HorizontalTextAlignment="Center" TextColor="white" BackgroundColor="Transparent" FontSize="12" />
+                                                                </Frame>
+                                                                <StackLayout VerticalOptions="CenterAndExpand">
+                                                                    <Label Text="{Binding NameModule}" TextColor="white" FontAttributes="Bold"/>
+                                                                    <Label Text="{Binding Description}" TextColor="white" FontSize="12" />
+                                                                </StackLayout>
+                                                                <StackLayout VerticalOptions="EndAndExpand" Orientation="Horizontal">
+                                                                    <Frame BackgroundColor="#2C2E39" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,20,0">
+                                                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                                                            <Label Text="Price: " x:Name="Price" TextColor="White" FontSize="12"/>
+                                                                            <Label Text="{Binding Price}" TextColor="white" FontSize="12" />
+                                                                        </StackLayout>
+                                                                    </Frame>
+                                                                    <ImageButton HorizontalOptions="EndAndExpand" Source="dot.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                                                                </StackLayout>
                                                             </StackLayout>
                                                         </StackLayout>
-                                                    </StackLayout>
-                                                </Frame>
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </base:BasePage>

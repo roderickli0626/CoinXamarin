@@ -31,6 +31,9 @@ namespace mycoin.Views
         {
             try
             {
+                //Old Module Count
+                int moduleCount = App.Database.GetAllModulesAsync().Result.Count();
+
                 await App.Database.DeleteAllNotesAsync();
                 await App.Database.DeleteAllLanguagesAsync();
                 await App.Database.DeleteAllLanguageGUIAsync();
@@ -46,6 +49,8 @@ namespace mycoin.Views
                 List<SubstanceText> subText = await HttpHelper.Instance.PostContentAsync<List<SubstanceText>>(ApiURLs.LoadSubstanceText, App.Userdata);
                 List<GroupText> groupText = await HttpHelper.Instance.PostContentAsync<List<GroupText>>(ApiURLs.LoadSubstanceGroupText, App.Userdata);
                 List<Module> allModules = await HttpHelper.Instance.PostContentAsync<List<Module>>(ApiURLs.LoadModules, App.Userdata);
+                //new Module Count
+                GlobalConstants.NewModuleCount = allModules.Count() - moduleCount;
 
                 //Selected Groups from Private User Questions
                 if (GlobalConstants.GroupIds.Count > 0)

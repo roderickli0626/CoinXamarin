@@ -22,5 +22,8 @@ namespace mycoin.Extensions
         public static int QuestionPageNumber { get; set; }
         public static List<int> GroupIds { get; set; } = new List<int>();
 
+        //Constant For New Module Counnt
+        public static int NewModuleCount { get; set; }
+
     }
 }
