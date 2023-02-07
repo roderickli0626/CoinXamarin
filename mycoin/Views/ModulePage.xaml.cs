@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -101,8 +104,28 @@ namespace mycoin.Views
 			ModuleRes module = imgBtn.BindingContext as ModuleRes;
 			if (module == null) return;
 			//await Launcher.OpenAsync(new Uri(module.Location));
-			await Browser.OpenAsync(new Uri(module.Location));
-			//await Launcher.OpenAsync(new Uri("http://www.google.com"));
+			if (Uri.IsWellFormedUriString(module.Location, UriKind.Absolute))
+			{
+                await Browser.OpenAsync(new Uri(module.Location));
+            }
+			else
+			{
+                var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                {
+                    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                    //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                    TintColor = Color.FromHex("#018BD3"),
+                    CornerRadius = 30,
+                    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                    ButtonAllCaps = false
+                };
+                var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("The link is not correct.", "The link is not correct."),
+                GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+
+            }
+            //await Launcher.OpenAsync(new Uri("http://www.google.com"));
         }
     }
 }
