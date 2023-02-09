@@ -25,7 +25,31 @@ namespace mycoin.Data
             database.CreateTableAsync<Question>().Wait();
             database.CreateTableAsync<QuestionOption>().Wait();
             database.CreateTableAsync<Module>().Wait();
+            database.CreateTableAsync<Constants>().Wait();
         }
+
+        //Constants
+        public Task<Constants> GetConstantsAsync()
+        {
+            //Get Saved Constants
+            return database.Table<Constants>().FirstOrDefaultAsync();
+        }
+        public Task<int> SaveConstantsAsync(Constants data)
+        {
+            //Save a new Constants
+            return database.InsertAsync(data);
+        }
+        public Task<int> DeleteAllConstantsAsync()
+        {
+            // Delete all Constants.
+            return database.DeleteAllAsync<Constants>();
+        }
+        public Task<int> UpdateConstantsAsync(Constants data)
+        {
+            // Update a Constants.
+            return database.UpdateAsync(data);
+        }
+
 
         //Modules
         public Task<int> DeleteAllModulesAsync()

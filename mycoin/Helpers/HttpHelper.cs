@@ -251,10 +251,15 @@ namespace mycoin.Helpers
             }
             if (string.IsNullOrEmpty(res))
                 return null;
-
-            T result = JsonConvert.DeserializeObject<T>(res);
-
-            return result;
+            try
+            {
+                T result = JsonConvert.DeserializeObject<T>(res);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
 

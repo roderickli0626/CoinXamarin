@@ -60,6 +60,7 @@ namespace mycoin.Views
         {
             //Move to module page
             GlobalConstants.NewModuleCount = 0;
+            App.Database.DeleteAllConstantsAsync();
             App.Current.MainPage = new NavigationPage(new ModulePage());
         }
 

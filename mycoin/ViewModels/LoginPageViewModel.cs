@@ -159,6 +159,25 @@ namespace mycoin.ViewModels
                         ShowSomethingWrongMsg();
                     }
                 }
+                else
+                {
+                    StopIndicator();
+                    var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                    {
+                        BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                        TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                        TintColor = Color.FromHex("#018BD3"),
+                        CornerRadius = 30,
+                        ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                        ButtonAllCaps = false
+                    };
+                    var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("The connection to the pod database is currently interrupted, please try again later.", "The connection to the pod database is currently interrupted, please try again later."),
+                    GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+                    //Close the App
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                }
                 StopIndicator();
             }
         }
@@ -319,6 +338,25 @@ namespace mycoin.ViewModels
                         {
                             ShowSomethingWrongMsg();
                         }
+                    }
+                    else
+                    {
+                        StopIndicator();
+                        var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                        {
+                            BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                            TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                            MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                            //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                            TintColor = Color.FromHex("#018BD3"),
+                            CornerRadius = 30,
+                            ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                            ButtonAllCaps = false
+                        };
+                        var result = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("The connection to the pod database is currently interrupted, please try again later.", "The connection to the pod database is currently interrupted, please try again later."),
+                        GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+                        //Close the App
+                        System.Diagnostics.Process.GetCurrentProcess().Kill();
                     }
                 }
                 catch (Exception ex)

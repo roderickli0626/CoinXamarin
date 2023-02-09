@@ -45,6 +45,7 @@ namespace mycoin.Views
                 {
                     AllModules = AllModules.GetRange(AllModules.Count() - GlobalConstants.NewModuleCount, GlobalConstants.NewModuleCount);
                     GlobalConstants.NewModuleCount = 0;
+                    await App.Database.DeleteAllConstantsAsync();
                 }
                 List<ModuleRes> AllResModules = new List<ModuleRes>();
                 foreach (var module in AllModules)

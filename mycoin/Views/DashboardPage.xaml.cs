@@ -49,8 +49,22 @@ namespace mycoin.Views
                 List<SubstanceText> subText = await HttpHelper.Instance.PostContentAsync<List<SubstanceText>>(ApiURLs.LoadSubstanceText, App.Userdata);
                 List<GroupText> groupText = await HttpHelper.Instance.PostContentAsync<List<GroupText>>(ApiURLs.LoadSubstanceGroupText, App.Userdata);
                 List<Module> allModules = await HttpHelper.Instance.PostContentAsync<List<Module>>(ApiURLs.LoadModules, App.Userdata);
+
                 //new Module Count
-                GlobalConstants.NewModuleCount = allModules.Count() - moduleCount;
+                Constants appConstants = await App.Database.GetConstantsAsync();
+                if (appConstants == null)
+                {
+                    await App.Database.SaveConstantsAsync(new Constants()
+                    {
+                        NewModuleCounts = allModules.Count() - moduleCount
+                    });
+                }
+                else
+                {
+                    appConstants.NewModuleCounts = appConstants.NewModuleCounts + (allModules.Count() - moduleCount);
+                    await App.Database.UpdateConstantsAsync(appConstants);
+                }
+                GlobalConstants.NewModuleCount = App.Database.GetConstantsAsync().Result.NewModuleCounts;
 
                 //Selected Groups from Private User Questions
                 if (GlobalConstants.GroupIds.Count > 0)
