@@ -200,12 +200,14 @@ namespace mycoin.Views
                     };
                     await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Can't add to favorites because there is no content in the Substance", "Can't add to favorites because there is no content in the Substance"),
                     GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
-                    
+
+                    vm.closeCommand.Execute(closeBtn.Source);
                     App.Current.MainPage = new NavigationPage(new MainDashboardPage1("default"));
                     return;
                 }
                 note.Isfavorite = true;
                 App.Database.UpdateNoteAsync(note);
+                vm.closeCommand.Execute(closeBtn.Source);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage1("allTab"));
             }
             else if (item == GlobalConstants.LangGUI.GetValueOrDefault("Test PLAY", "Test PLAY"))
@@ -228,29 +230,50 @@ namespace mycoin.Views
                     await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Can't test play because there is no content in the Substance", "Can't test play because there is no content in the Substance"),
                     GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
 
+                    vm.closeCommand.Execute(closeBtn.Source);
                     App.Current.MainPage = new NavigationPage(new MainDashboardPage1("default"));
                     return;
                 }
+                vm.closeCommand.Execute(closeBtn.Source);
                 App.Current.MainPage = new NavigationPage(new PlayPage(id));
             }
         }
 
         private void BacktoPrevious(object sender, EventArgs e)
         {
+            vm.closeCommand.Execute(closeBtn.Source);
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 
-        public void DeletFromFavorite(object sender, EventArgs e)
+        public async void DeletFromFavorite(object sender, EventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
-            MySubstance substance = btn.BindingContext as MySubstance;
-            if (substance == null) return;
-            var deletFavorId = substance.ID;
-            if (deletFavorId == 0) return;
-            Note note = App.Database.GetNoteAsync(deletFavorId).Result;
-            note.Isfavorite = false;
-            App.Database.UpdateNoteAsync(note);
-            App.Current.MainPage = new NavigationPage(new MainDashboardPage1("favoriteTab"));
+            var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                TintColor = Color.FromHex("#018BD3"),
+                CornerRadius = 30,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            };
+            var deleteFromFavorite = await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("Do you want to delete selected substance from favorites?", "Do you want to delete selected substance from favorites?"),
+                GlobalConstants.LangGUI.GetValueOrDefault("Delete", "Delete"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), GlobalConstants.LangGUI.GetValueOrDefault("Cancel", "Cancel"), alertDialogConfiguration);
+
+            if (deleteFromFavorite ?? false)
+            {
+                ImageButton btn = sender as ImageButton;
+                MySubstance substance = btn.BindingContext as MySubstance;
+                if (substance == null) return;
+                var deletFavorId = substance.ID;
+                if (deletFavorId == 0) return;
+                Note note = App.Database.GetNoteAsync(deletFavorId).Result;
+                note.Isfavorite = false;
+                await App.Database.UpdateNoteAsync(note);
+                vm.closeCommand.Execute(closeBtn.Source);
+                App.Current.MainPage = new NavigationPage(new MainDashboardPage1("favoriteTab"));
+            }
         }
 
         public async void ShowInfo(object sender, EventArgs e)
@@ -323,6 +346,7 @@ namespace mycoin.Views
 
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
+            vm.closeCommand.Execute(closeBtn.Source);
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 
@@ -346,6 +370,31 @@ namespace mycoin.Views
                 Navigation.PushAsync(new ModuleViewAllPage(true));
             }
             else return;
+        }
+
+        private void ImageButton_Clicked_1(object sender, EventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+            MySubstance substance = btn.BindingContext as MySubstance;
+            if (substance == null) return;
+            if (substance.SubstanceImageUrl == "icons8_play_button_circled_50.png")
+            {
+                var parent = (CollectionView)btn.Parent.Parent.Parent;
+                vm.MyFavoriteSubstances.Where(x => x.ID != 0).ToList().ForEach(x => x.SubstanceImageUrl = "icons8_play_button_circled_50.png");
+                parent.ItemsSource = vm.MyFavoriteSubstances.ToList();
+                btn.Source = ImageSource.FromFile("icons8_stop_circle.png");
+                substance.SubstanceImageUrl = "icons8_stop_circle.png";
+            }
+            else
+            {
+                btn.Source = ImageSource.FromFile("icons8_play_button_circled_50.png");
+                substance.SubstanceImageUrl = "icons8_play_button_circled_50.png";
+                vm.closeCommand.Execute(closeBtn.Source);
+            }
+
+            var InfoId = substance.ID;
+            if (InfoId == 0) return;
+            Note infoSubstance = App.Database.GetNoteAsync(InfoId).Result;
         }
     }
 }

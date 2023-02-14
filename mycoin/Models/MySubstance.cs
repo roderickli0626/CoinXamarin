@@ -12,5 +12,6 @@ namespace mycoin.Models
         public int Duration { get; set; }
         public string DurationTimeFormat { get; set; }
         public bool favoriteExtraIconVisible { get; set; }
+        public DateTime? PlayDateTime { get; set; }
     }
 }

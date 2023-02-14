@@ -22,7 +22,7 @@ namespace mycoin.ViewModels
         public bool closeFlag = false;
 
         string _titleFromPlayState, _playState, _markImageUrl, _therapyTitle, _buttonFromPlayState, _hours, _minutes, _currentTitle, _lengthLbl;
-        bool _animationState, _unFavorite, _showClose;
+        bool _animationState, _unFavorite, _showClose, _durationEdit;
 
         public string titleFromPlayState { get => _titleFromPlayState; set => SetProperty(ref _titleFromPlayState, value); }
         public string playState { get => _playState; set => SetProperty(ref _playState, value); }
@@ -36,6 +36,7 @@ namespace mycoin.ViewModels
         public bool animationState { get => _animationState; set => SetProperty(ref _animationState, value); }
         public bool unFavorite { get => _unFavorite; set => SetProperty(ref _unFavorite, value); }
         public bool showClose { get => _showClose; set => SetProperty(ref _showClose, value); }
+        public bool durationEdit { get => _durationEdit; set => SetProperty(ref _durationEdit, value); }
 
         public List<string> HoursList { get; private set; }
         public List<string> MinutesList { get; private set; }
@@ -60,6 +61,7 @@ namespace mycoin.ViewModels
             animationState = true;
             unFavorite = !note.Isfavorite;
             showClose = false;
+            durationEdit = true;
             HoursList = new List<string>();
             MinutesList = new List<string>();
             for (int i = 0; i < 60; i++)
@@ -104,6 +106,7 @@ namespace mycoin.ViewModels
             titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
             markImageUrl = "animation_blue_02.png";
             markImageUrl = "animation_blue_02.gif";
+            durationEdit = true;
         });
 
         public ICommand playCommand => new Command(async () => {
@@ -140,6 +143,7 @@ namespace mycoin.ViewModels
                     markImageUrl = "animation_green_02.png";
                     markImageUrl = "animation_green_02.gif";
                     showClose = false;
+                    durationEdit = false;
                     closeFlag = false;
 
                     int hh = int.Parse(hours);
@@ -189,6 +193,7 @@ namespace mycoin.ViewModels
                             titleFromPlayState = GlobalConstants.LangGUI.GetValueOrDefault("Application Start", "Application Start");
                             markImageUrl = "animation_blue_02.png";
                             markImageUrl = "animation_blue_02.gif";
+                            durationEdit = true;
                             return false;
                         }
 

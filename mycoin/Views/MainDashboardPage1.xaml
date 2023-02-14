@@ -34,7 +34,7 @@
                         <ImageButton Source="icons8_square_48_white.png" HeightRequest="30" WidthRequest="30" Margin="0" BackgroundColor="transparent" Command="{Binding stopCommand}"/>
                     </AbsoluteLayout>
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4" AbsoluteLayout.LayoutFlags="XProportional,YProportional" x:Name="ContinueContainer" IsVisible="{Binding ContinueContainer}">
-                        <ImageButton Source="icons8_close_48_white.png" HeightRequest="30" WidthRequest="30" Margin="0" BackgroundColor="transparent" Command="{Binding closeCommand}"/>
+                        <ImageButton x:Name="closeBtn" Source="icons8_close_48_white.png" HeightRequest="30" WidthRequest="30" Margin="0" BackgroundColor="transparent" Command="{Binding closeCommand}"/>
                         <ImageButton Source="icons8_play_48_white.png" HeightRequest="30" WidthRequest="30" Margin="40,0,0,0" BackgroundColor="transparent" Command="{Binding continueCommand}"/>
                     </AbsoluteLayout>
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.55" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
@@ -67,7 +67,7 @@
                                                     <AbsoluteLayout Margin="0">
                                                         <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                             <ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" Margin="30,15,0,15" 
-                                                                         Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.playCommand}" CommandParameter="{Binding .}" />
+                                                                         Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.playCommand}" CommandParameter="{Binding .}" Clicked="ImageButton_Clicked_1"/>
                                                             <Label Text="{Binding SubstanceName}" Margin="15,15,0,15" HorizontalTextAlignment="Center" FontSize="18" TextColor="Black"/>
                                                             <Label Text="{Binding DurationTimeFormat}" TextColor="DeepSkyBlue" Margin="0,15,15,15" HorizontalTextAlignment="Center" FontSize="18"/>
                                                         </StackLayout>
@@ -92,7 +92,35 @@
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="{Binding HistoryTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">
                                         <Grid>
-                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="No History" />
+                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="No History" IsVisible="{Binding NoHistory}"/>
+                                            <CollectionView ItemsSource="{Binding MyHistory}" HorizontalOptions="Center" SelectionMode="Single">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Vertical"/>
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <AbsoluteLayout Margin="0">
+                                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                            <Label Text="{Binding SubstanceName}" Margin="30,15,0,15" HorizontalTextAlignment="Center" FontSize="18" TextColor="Black"/>
+                                                            <Label Text="{Binding PlayDateTime}" TextColor="DeepSkyBlue" Margin="10,20,15,15" HorizontalTextAlignment="Center" FontSize="14"/>
+                                                        </StackLayout>
+                                                        <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,0,90,50" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding favoriteExtraIconVisible}"  Margin="5">
+                                                            <ImageButton Source="icons8_info_48.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Margin="30,15,10,15" Clicked="ShowInfo"/>
+                                                        </AbsoluteLayout>
+                                                        <VisualStateManager.VisualStateGroups>
+                                                            <VisualStateGroup Name="CommonStates">
+                                                                <VisualState Name="Normal" />
+                                                                <VisualState Name="Selected">
+                                                                    <VisualState.Setters>
+                                                                        <Setter Property="BackgroundColor" Value="#B16BBF" />
+                                                                    </VisualState.Setters>
+                                                                </VisualState>
+                                                            </VisualStateGroup>
+                                                        </VisualStateManager.VisualStateGroups>
+                                                    </AbsoluteLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
                                         </Grid>
                                     </xct:TabViewItem>
                                     <xct:TabViewItem Text="{Binding AllTab}" TextColor="Black" FontSize="12" FontSizeSelected="12">

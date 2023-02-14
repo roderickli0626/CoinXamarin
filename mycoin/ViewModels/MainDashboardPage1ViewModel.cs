@@ -30,7 +30,7 @@ namespace mycoin.ViewModels
         public bool stopFlag = false;
 
         string _markImageUrl, _timelabel, _title, _favouriteTab, _historyTab, _allTab, _searchHolder;
-        bool _stopContainer, _continueContainer;
+        bool _stopContainer, _continueContainer, _noHistory;
         int _selectedIndex;
 
         public string markImageUrl { get => _markImageUrl; set => SetProperty(ref _markImageUrl, value); }
@@ -43,6 +43,7 @@ namespace mycoin.ViewModels
         public string HistoryTab { get => _historyTab; set => SetProperty(ref _historyTab, value); }
         public string AllTab { get => _allTab; set => SetProperty(ref _allTab, value); }
         public string SearchHolder { get => _searchHolder; set => SetProperty(ref _searchHolder, value); }
+        public bool NoHistory { get => _noHistory; set => SetProperty(ref _noHistory, value); }
 
         public ObservableRangeCollection<MyGroupViewModel> MyGroups { get; private set; }
             = new ObservableRangeCollection<MyGroupViewModel>();
@@ -53,14 +54,18 @@ namespace mycoin.ViewModels
         public List<MySubstance> mySubstances { get; private set; }
 
         readonly IList<MySubstance> favoriteSource;
+        readonly IList<MySubstance> historySource;
         public ObservableCollection<MySubstance> MyFavoriteSubstances { get; private set; }
+        public ObservableCollection<MySubstance> MyHistory { get; private set; }
 
         public MainDashboardPage1ViewModel(string from)
         {
             this.LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
             this.HeaderClickCommand = new Command<MyGroupViewModel>((item) => ExecuteHeaderClickCommand(item));
             favoriteSource = new List<MySubstance>();
+            historySource = new List<MySubstance>();
             CreateFavoriteSubstanceCollection();
+            CreateHistoryCollection();
             InitAudioPlayer();
             InitTimer();
 
@@ -288,6 +293,27 @@ namespace mycoin.ViewModels
             });
 
             MyFavoriteSubstances = new ObservableCollection<MySubstance>(favoriteSource);
+        }
+
+        void CreateHistoryCollection()
+        {
+            List<Note> noteList = App.Database.GetNotesAsync().Result.Where(n => n.PlayDateTime != null).ToList();
+            if (noteList.Count > 0) NoHistory = false;
+            else NoHistory = true;
+            foreach (Note note in noteList)
+            {
+                historySource.Add(new MySubstance
+                {
+                    ID = note.ID,
+                    SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
+                    Duration = note.Duration,
+                    DurationTimeFormat = note.Duration > 59 ? (note.Duration / 60) + "h " + (note.Duration % 60) + "min" : (note.Duration % 60) + "min",
+                    favoriteExtraIconVisible = true,
+                    PlayDateTime = note.PlayDateTime
+                });
+            }
+
+            MyHistory = new ObservableCollection<MySubstance>(historySource);
         }
     }
 }

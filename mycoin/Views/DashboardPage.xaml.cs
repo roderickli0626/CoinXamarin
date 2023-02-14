@@ -100,7 +100,7 @@ namespace mycoin.Views
                     await App.Database.SaveModuleAsync(module);
                 }
 
-                await Task.Delay(1000);
+                //await Task.Delay(500);
                 endRotate = true;
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }

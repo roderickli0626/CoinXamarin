@@ -47,7 +47,7 @@
                         <StackLayout Margin="15">
                             <Label Text="{Binding LengthLbl}" HorizontalTextAlignment="Center" FontSize="14" TextColor="Black"/>
                             <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,10,0,0"/>
-                            <material:MaterialDoublePicker ItemsSource="{Binding HoursList}" SecondaryItemsSource="{Binding MinutesList}" SelectedItem="{Binding hours}" Separator="    " Margin="-20,0,-20,0"
+                            <material:MaterialDoublePicker ItemsSource="{Binding HoursList}" SecondaryItemsSource="{Binding MinutesList}" SelectedItem="{Binding hours}" Separator="    " Margin="-20,0,-20,0" IsEnabled="{Binding durationEdit}"
                                                            HorizontalOptions="Center" BorderColor="#F0F2F3" TextColor="DeepSkyBlue" LabelTextColor="DeepSkyBlue" BackgroundColor="#F0F2F3" HorizontalTextAlignment="Center" FontSize="24" WidthRequest="200" SecondarySelectedItem="{Binding minutes}">
                             </material:MaterialDoublePicker>
                             <BoxView HeightRequest="1" Color="LightGray" HorizontalOptions="Center" WidthRequest="200" Margin="0,0,0,10"/>
