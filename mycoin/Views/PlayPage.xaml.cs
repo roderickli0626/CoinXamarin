@@ -68,6 +68,7 @@ namespace mycoin.Views
             {
                 note.Isfavorite = true;
                 await App.Database.UpdateNoteAsync(note);
+                await App.Database.SaveFavoritesAsync(new Favorite() { SubstanceID = note.SubstanceID });
             }
             else return;
         }

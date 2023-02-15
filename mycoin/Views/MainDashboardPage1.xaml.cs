@@ -206,7 +206,8 @@ namespace mycoin.Views
                     return;
                 }
                 note.Isfavorite = true;
-                App.Database.UpdateNoteAsync(note);
+                await App.Database.UpdateNoteAsync(note);
+                await App.Database.SaveFavoritesAsync(new Favorite() { SubstanceID = note.SubstanceID });
                 vm.closeCommand.Execute(closeBtn.Source);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage1("allTab"));
             }
@@ -271,6 +272,7 @@ namespace mycoin.Views
                 Note note = App.Database.GetNoteAsync(deletFavorId).Result;
                 note.Isfavorite = false;
                 await App.Database.UpdateNoteAsync(note);
+                await App.Database.DeleteFavoritesBySubstanceIDAsync(substance.SubstanceID);
                 vm.closeCommand.Execute(closeBtn.Source);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage1("favoriteTab"));
             }

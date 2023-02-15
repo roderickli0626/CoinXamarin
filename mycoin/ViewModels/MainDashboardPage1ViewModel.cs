@@ -277,6 +277,7 @@ namespace mycoin.ViewModels
                 favoriteSource.Add(new MySubstance
                 {
                     ID = note.ID,
+                    SubstanceID = note.SubstanceID,
                     SubstanceImageUrl = "icons8_play_button_circled_50.png",
                     SubstanceName = GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No SubstanceName"),
                     Duration = note.Duration,

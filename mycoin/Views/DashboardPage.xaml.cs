@@ -74,9 +74,11 @@ namespace mycoin.Views
                     response = response.GroupBy(s => s.SubstanceID).Select(g => g.First()).ToList();
                 }
 
+                List<int> favoriteList = App.Database.GetFavoritesAsync().Result.Select(f => f.SubstanceID).ToList();
                 foreach(Note item in response)
                 {
-                    item.Isfavorite = false;
+                    if (favoriteList.Contains(item.SubstanceID)) item.Isfavorite = true;
+                    else item.Isfavorite = false;
                     await App.Database.SaveNoteAsync(item);
                 }
                 foreach(Language lang in langRes)
