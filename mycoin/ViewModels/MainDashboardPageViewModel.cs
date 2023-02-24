@@ -33,7 +33,7 @@ namespace mycoin.ViewModels
             currentDate = note == null ? "No DefaultTime" : note.DefaultDateTime.ToString();
             titleFromUserInfo = GlobalConstants.LangGUI.GetValueOrDefault("Hello", "Hello") + " " 
                 + App.Userdata.userName.Substring(0, (App.Userdata.userName.Length > 12 ? 12 : App.Userdata.userName.Length));
-            timelabel = "00:00:00";
+            timelabel = note == null ? "00:00:00" : DateTime.Parse("00:00:00").AddMinutes(note.Duration).Subtract(DateTime.Parse("00:00:00")).ToString().Substring(0, 8);
             StopContainer = false;
             ContinueContainer = false;
             source = new List<MySubstance>();
@@ -43,7 +43,7 @@ namespace mycoin.ViewModels
         }
 
         public System.Timers.Timer timer;
-        public DateTime startTime;
+        public DateTime startTime, endTime;
         public Plugin.SimpleAudioPlayer.ISimpleAudioPlayer audio;
         public int timerCount = 0;
         public bool endFlag = false;
@@ -151,7 +151,8 @@ namespace mycoin.ViewModels
         }
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            timelabel = DateTime.Now.Subtract(startTime).ToString().Substring(0, 8);
+            timelabel = endTime.Subtract(DateTime.Now).ToString().Substring(0, 8);
+            //timelabel = DateTime.Now.Subtract(startTime).ToString().Substring(0, 8);
             //timelabel = TimeSpan.Parse(timelabel).Add(DateTime.Now.Subtract(startTime)).ToString().Substring(0, 8);
         }
         void EndAudioPlaying(object sender, EventArgs e)
@@ -196,13 +197,15 @@ namespace mycoin.ViewModels
                     markImageUrl = "animation_green_02.gif";
                     StopContainer = true;
                     ContinueContainer = false;
-                    timelabel = "00:00:00";
+                    //timelabel = "00:00:00";
+                    timelabel = note == null ? "00:00:00" : DateTime.Parse("00:00:00").AddMinutes(note.Duration).Subtract(DateTime.Parse("00:00:00")).ToString().Substring(0, 8);
                     nextTherapy = GlobalConstants.LangGUI.GetValueOrDefault("Your Current Therapy", "Your Current Therapy");
                     firstProgram = note == null ? "No Program" : GlobalConstants.SubTexts.GetValueOrDefault(note.SubstanceID, note.Substance ?? "No Program");
 
                     startTime = DateTime.Now;
                     note.PlayDateTime = startTime;
                     await App.Database.UpdateNoteAsync(note);
+                    endTime = startTime.AddMinutes(note.Duration).AddSeconds(1);
 
                     audio.Load(new MemoryStream(note.WavFile));
                     audio.Play();
@@ -285,15 +288,17 @@ namespace mycoin.ViewModels
             markImageUrl = "ic_coin_large_background_silver.png";
             StopContainer = false;
             ContinueContainer = false;
-            timelabel = "00:00:00";
+            //timelabel = "00:00:00";
             Note note1 = App.Database.GetNotesAsync().Result.Where(n => n.Isfavorite && n.PlayDateTime == null).FirstOrDefault();
             nextTherapy = GlobalConstants.LangGUI.GetValueOrDefault("Your Next Therapy", "Your Next Therapy");
             firstProgram = note1 == null ? "No Program" : GlobalConstants.SubTexts.GetValueOrDefault(note1.SubstanceID, note1.Substance ?? "No Program");
+            timelabel = note1 == null ? "00:00:00" : DateTime.Parse("00:00:00").AddMinutes(note1.Duration).Subtract(DateTime.Parse("00:00:00")).ToString().Substring(0, 8);
         });
 
         public ICommand continueCommand => new Command(async () => {
             audio.Play();
             startTime = DateTime.Now.Subtract(TimeSpan.Parse(timelabel));
+            endTime = DateTime.Now.Add(TimeSpan.Parse(timelabel));
             timer.Start();
             stopFlag = false;
             closeFlag = false;
