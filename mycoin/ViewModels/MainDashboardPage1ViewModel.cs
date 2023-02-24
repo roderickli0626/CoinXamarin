@@ -288,7 +288,7 @@ namespace mycoin.ViewModels
             favoriteSource.Add(new MySubstance
             {
                 ID = 0,
-                SubstanceImageUrl = "icons8_plus_50",
+                SubstanceImageUrl = "icons8_plus_50.png",
                 DurationTimeFormat = "",
                 favoriteExtraIconVisible = false
             });

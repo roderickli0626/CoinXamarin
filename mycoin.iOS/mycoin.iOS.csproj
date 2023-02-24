@@ -146,6 +146,9 @@
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>2.0.5</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.CommunityToolkit.Markup">
+      <Version>2.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CustomControls.AccordionView">
       <Version>1.1.7</Version>
     </PackageReference>

@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="mycoin.Views.MainDashboardPageDetail"
-             Title="{Binding titleFromUserInfo}">
+             Title="{Binding titleFromUserInfo}"
+             x:Name="currentPage">
     <ContentPage.Content>
         <StackLayout>
             <FlexLayout BackgroundColor="White" Direction="Row" JustifyContent="SpaceBetween">
@@ -13,7 +16,8 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="1000" BackgroundColor="#F0F2F3">
                 <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" >
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0,280,280" AbsoluteLayout.LayoutFlags="XProportional,YProportional">
-                        <Image Source="{Binding markImageUrl}" HeightRequest="280" WidthRequest="280"/>
+                        <!--<Image Source="{Binding markImageUrl}" HeightRequest="280" WidthRequest="280"/>-->
+                        <ffimageloading:SvgCachedImage HorizontalOptions="Center" VerticalOptions="CenterAndExpand" x:Name="markImageUrl" Source="{Binding markImageUrl}" HeightRequest="280" WidthRequest="280"/>
                         <Image Source="ic_20211004_biapp_coin_v2_schatten_ausschnitt.png" HeightRequest="280" WidthRequest="280"/>
                         <Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>
                     </AbsoluteLayout>
@@ -26,6 +30,13 @@
                         <Image Source="ic_bluetooth.png" HeightRequest="20" WidthRequest="20" Margin="0,30,0,0"/>
                         <Image Source="ic_biapp_icon_battery_100.xml" HeightRequest="20" WidthRequest="20" Margin="30,30,0,0"/>
                         <!--<Image Source="ic_20211004_biapp_spange_reflektion_mittelgross.xml"/>-->
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.45" AbsoluteLayout.LayoutFlags="XProportional,YProportional" x:Name="StopContainer" IsVisible="{Binding StopContainer}">
+                        <ImageButton Source="icons8_square_48_white.png" HeightRequest="40" WidthRequest="40" Margin="0" BackgroundColor="transparent" Command="{Binding stopCommand}"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.45" AbsoluteLayout.LayoutFlags="XProportional,YProportional" x:Name="ContinueContainer" IsVisible="{Binding ContinueContainer}">
+                        <ImageButton x:Name="closeBtn" Source="icons8_close_48_white.png" HeightRequest="40" WidthRequest="40" Margin="0" BackgroundColor="transparent" Command="{Binding closeCommand}"/>
+                        <ImageButton Source="icons8_play_48_white.png" HeightRequest="40" WidthRequest="40" Margin="40,0,0,0" BackgroundColor="transparent" Command="{Binding continueCommand}"/>
                     </AbsoluteLayout>
                 </AbsoluteLayout>
                 <FlexLayout>
@@ -44,7 +55,8 @@
                                 </Label.GestureRecognizers>
                             </Label>
                             <!--<Button Text="{Binding firstProgram}" TextColor="DeepSkyBlue" FontSize="24" BackgroundColor="Transparent" Margin="-5"/>-->
-                            <Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>
+                            <!--<Label Text="{Binding currentDate}" TextColor="Gray" FontSize="20" Margin="-5"/>-->
+                            <Label Text="{Binding timelabel}" x:Name="timelabel" TextColor="Gray" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
                             <!--<Label Text="2022.11.12 00:00:00 AM" TextColor="Gray" FontSize="20" Margin="-5"/>-->
                         </StackLayout>
 
@@ -63,14 +75,20 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout HorizontalOptions="CenterAndExpand">
-                                            <!--<ImageButton Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0" Clicked="FavoriteImageButton_Clicked" />-->
-                                            <Image Source="{Binding SubstanceImageUrl}" BackgroundColor="#F0F2F3" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0">
+                                            <Image Source="{Binding SubstanceImageUrl}" BackgroundColor="Transparent" HeightRequest="65" WidthRequest="65" Margin="25,25,25,0"
+                                                   xct:TouchEffect.LongPressCommand="{Binding Source={x:Reference currentPage}, Path=BindingContext.LongPressCommand}" xct:TouchEffect.LongPressCommandParameter="{Binding .}" 
+                                                   xct:TouchEffect.LongPressDuration="3000" xct:TouchEffect.NativeAnimation="True">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="FavoriteImageButton_DoubleClicked"/>
-                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="FavoriteImageButton_SingleClicked"/>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="FavoriteImageButton_DoubleClicked" 
+                                                                          Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.playCommand}" CommandParameter="{Binding .}"/>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="FavoriteImageButton_Clicked"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
-                                            <Label Text="{Binding SubstanceName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center"/>
+                                            <Label Text="{Binding SubstanceName}" Margin="25,-10,25,0" HorizontalTextAlignment="Center">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="FavoriteLabel_Clicked"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
                                         </StackLayout>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>

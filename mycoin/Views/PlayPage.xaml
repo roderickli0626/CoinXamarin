@@ -62,7 +62,7 @@
                                 </StackLayout>
                             </AbsoluteLayout>
                             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.3,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding showClose}">
-                                <ImageButton Source="icons8_close_48.png" HeightRequest="30" WidthRequest="30" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3" Command="{Binding closeCommand}"/>
+                                <ImageButton x:Name="closeBtn" Source="icons8_close_48.png" HeightRequest="30" WidthRequest="30" Margin="30, 0, 30, 30" BackgroundColor="#F0F2F3" Command="{Binding closeCommand}"/>
                             </AbsoluteLayout>
                             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.8,0,100,100" AbsoluteLayout.LayoutFlags="XProportional,YProportional" IsVisible="{Binding unFavorite}">
                                 <ImageButton Source="icons8_loading_heart_50.png" HeightRequest="30" WidthRequest="30" Margin="0, 0, 30, 30" BackgroundColor="#F0F2F3" Clicked="FavoriteButtonClicked"/>

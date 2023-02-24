@@ -43,6 +43,7 @@ namespace mycoin.Views
 
         void OnImageButtonClicked(object sender, EventArgs e)
         {
+            vm.closeCommand.Execute(closeBtn.Source);
             if (note.Isfavorite) App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             else App.Current.MainPage = new NavigationPage(new MainDashboardPage1());
         }
@@ -96,6 +97,7 @@ namespace mycoin.Views
 
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
+            vm.closeCommand.Execute(closeBtn.Source);
             App.Current.MainPage = new NavigationPage(new MainDashboardPage());
         }
 

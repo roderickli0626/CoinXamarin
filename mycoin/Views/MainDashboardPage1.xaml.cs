@@ -378,7 +378,7 @@ namespace mycoin.Views
         {
             ImageButton btn = sender as ImageButton;
             MySubstance substance = btn.BindingContext as MySubstance;
-            if (substance == null) return;
+            if (substance == null || substance.SubstanceImageUrl == "icons8_plus_50.png") return;
             if (substance.SubstanceImageUrl == "icons8_play_button_circled_50.png")
             {
                 var parent = (CollectionView)btn.Parent.Parent.Parent;
@@ -394,9 +394,9 @@ namespace mycoin.Views
                 vm.closeCommand.Execute(closeBtn.Source);
             }
 
-            var InfoId = substance.ID;
-            if (InfoId == 0) return;
-            Note infoSubstance = App.Database.GetNoteAsync(InfoId).Result;
+            //var InfoId = substance.ID;
+            //if (InfoId == 0) return;
+            //Note infoSubstance = App.Database.GetNoteAsync(InfoId).Result;
         }
     }
 }
