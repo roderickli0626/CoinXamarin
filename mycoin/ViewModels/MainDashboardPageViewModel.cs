@@ -127,7 +127,7 @@ namespace mycoin.ViewModels
                 Note note = App.Database.GetNoteAsync(deletFavorId).Result;
                 note.Isfavorite = false;
                 await App.Database.UpdateNoteAsync(note);
-                await App.Database.DeleteFavoritesBySubstanceIDAsync(substance.SubstanceID);
+                await App.Database.DeleteFavoritesBySubstanceIDAndUserNameAsync(substance.SubstanceID, App.Userdata.userName);
                 closeCommand.Execute(this);
                 App.Current.MainPage = new NavigationPage(new MainDashboardPage());
             }

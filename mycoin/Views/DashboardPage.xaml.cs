@@ -74,7 +74,7 @@ namespace mycoin.Views
                     response = response.GroupBy(s => s.SubstanceID).Select(g => g.First()).ToList();
                 }
 
-                List<int> favoriteList = App.Database.GetFavoritesAsync().Result.Select(f => f.SubstanceID).ToList();
+                List<int> favoriteList = App.Database.GetFavoritesAsync(App.Userdata.userName).Result.Select(f => f.SubstanceID).ToList();
                 foreach(Note item in response)
                 {
                     if (favoriteList.Contains(item.SubstanceID)) item.Isfavorite = true;

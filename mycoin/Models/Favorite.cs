@@ -10,5 +10,6 @@ namespace mycoin.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public int SubstanceID { get; set; }
+        public string? UserName { get; set; }
     }
 }

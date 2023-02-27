@@ -29,25 +29,25 @@ namespace mycoin.Data
             database.CreateTableAsync<Favorite>().Wait();
         }
         //Favorites
-        public Task<List<Favorite>> GetFavoritesAsync()
+        public Task<List<Favorite>> GetFavoritesAsync(string? userName)
         {
             //Get Saved Favorites
-            return database.Table<Favorite>().ToListAsync();
+            return database.Table<Favorite>().Where(u => u.UserName == userName).ToListAsync();
         }
         public Task<int> SaveFavoritesAsync(Favorite data)
         {
             //Save a new Favorites
             return database.InsertAsync(data);
         }
-        public Task<int> DeleteAllFavoritesAsync()
+        public Task<int> DeleteAllFavoritesByUserNameAsync(string? userName)
         {
             // Delete all Favorites.
-            return database.DeleteAllAsync<Favorite>();
+            return database.Table<Favorite>().Where(f => f.UserName == userName).DeleteAsync();
         }
-        public Task<int> DeleteFavoritesBySubstanceIDAsync(int id)
+        public Task<int> DeleteFavoritesBySubstanceIDAndUserNameAsync(int id, string? userName)
         {
             // Delete a Favorite.
-            return database.Table<Favorite>().Where(f => f.SubstanceID == id).DeleteAsync();
+            return database.Table<Favorite>().Where(f => f.SubstanceID == id && f.UserName == userName).DeleteAsync();
         }
 
 

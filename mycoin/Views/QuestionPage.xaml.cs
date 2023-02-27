@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace mycoin.Views
 {
@@ -67,6 +70,27 @@ namespace mycoin.Views
                 await App.Database.DeleteAllQuestionsAsync();
                 //pull the Questions data from api
                 List<Question> response = await HttpHelper.Instance.PostContentAsync<List<Question>>(ApiURLs.LoadQuestions, App.Userdata);
+
+                //Question is empty
+                if (response.Count == 0)
+                {
+                    var alertDialogConfiguration = new MaterialAlertDialogConfiguration()
+                    {
+                        BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.SURFACE),
+                        TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_SURFACE),
+                        //TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_BACKGROUND),
+                        TintColor = Color.FromHex("#018BD3"),
+                        CornerRadius = 30,
+                        ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                        ButtonAllCaps = false
+                    };
+                    await MaterialDialog.Instance.ConfirmAsync(GlobalConstants.LangGUI.GetValueOrDefault("No questions are currently available. Try again later.", "No questions are currently available. Try again later."),
+                    GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
+
+                    //Close the app
+                    System.Threading.Thread.CurrentThread.Abort();
+                }
 
                 foreach (Question item in response)
                 {
