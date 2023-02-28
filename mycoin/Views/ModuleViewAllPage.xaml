@@ -33,7 +33,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
-                                    <Frame BackgroundColor="#615BBE" CornerRadius="15" HeightRequest="120" Margin="0,0,0,30" Padding="12" BorderColor="Orange" >
+                                    <Frame BackgroundColor="#EBF3FE" CornerRadius="15" HeightRequest="120" Margin="0,0,0,30" Padding="12">
                                         <StackLayout Orientation="Horizontal">
                                             <AbsoluteLayout Margin="0" Padding="0">
                                                 <Frame CornerRadius="12" Padding="0" Margin="0,0,10,0" IsClippedToBounds="True">
@@ -47,8 +47,8 @@
                                                     <Label Text="{Binding ProductNumber}" HorizontalTextAlignment="Center" TextColor="white" BackgroundColor="Transparent" FontSize="12" />
                                                 </Frame>
                                                 <StackLayout VerticalOptions="CenterAndExpand">
-                                                    <Label Text="{Binding NameModule}" TextColor="white" FontAttributes="Bold"/>
-                                                    <Label Text="{Binding Description}" TextColor="white" FontSize="12" />
+                                                    <Label Text="{Binding NameModule}" TextColor="Black" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding Description}" TextColor="Black" FontSize="12" />
                                                 </StackLayout>
                                                 <StackLayout VerticalOptions="EndAndExpand" Orientation="Horizontal">
                                                     <Frame BackgroundColor="#2C2E39" Padding="10,0,10,0" CornerRadius="5" Margin="0,0,20,0">
@@ -57,7 +57,7 @@
                                                             <Label Text="{Binding Price}" TextColor="white" FontSize="12" />
                                                         </StackLayout>
                                                     </Frame>
-                                                    <ImageButton HorizontalOptions="EndAndExpand" Source="dot.png" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+                                                    <ImageButton HorizontalOptions="EndAndExpand" Source="ic_menu_btn_shop.xml" HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                                                 </StackLayout>
                                             </StackLayout>
                                         </StackLayout>
