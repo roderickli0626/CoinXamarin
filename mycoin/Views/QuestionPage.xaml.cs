@@ -89,7 +89,9 @@ namespace mycoin.Views
                     GlobalConstants.LangGUI.GetValueOrDefault("Warning", "Warning"), GlobalConstants.LangGUI.GetValueOrDefault("OK", "OK"), "", alertDialogConfiguration);
 
                     //Close the app
-                    System.Threading.Thread.CurrentThread.Abort();
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                    //Minimize app
+                    //System.Threading.Thread.CurrentThread.Abort();
                 }
 
                 foreach (Question item in response)
